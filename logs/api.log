@@ -1,0 +1,569 @@
+2026/02/18 12:42:05 logger.go:21: === API Started ===
+2026/02/18 12:42:05 db.go:32: Database connected
+2026/02/18 12:42:05 db.go:42: Migration done
+2026/02/18 12:42:05 notification.go:35: ✅ FCM initialized
+2026/02/18 12:42:05 main.go:63: Go API running on :8081
+2026/02/18 12:45:33 notification.go:38: [PUSH] Attempting to send notification for booking #2
+2026/02/18 12:45:33 notification.go:50: [PUSH] Sending to device: evJ2CpAARcqpXFw6hDUP...
+2026/02/18 12:45:33 notification.go:71: [PUSH] ✅ Sent for booking #2, MessageID: projects/seesail-abb48/messages/0:1771418733438086%c6ccaea8c6ccaea8
+2026/02/18 22:25:38 logger.go:21: === API Started ===
+2026/02/18 22:25:38 db.go:32: Database connected
+2026/02/18 22:25:38 db.go:42: Migration done
+2026/02/18 22:25:38 notification.go:35: ✅ FCM initialized
+2026/02/18 22:25:38 main.go:63: Go API running on :8081
+2026/02/19 12:14:54 logger.go:21: === API Started ===
+2026/02/19 12:14:54 db.go:32: Database connected
+2026/02/19 12:14:54 db.go:42: Migration done
+2026/02/19 12:14:54 notification.go:35: ✅ FCM initialized
+2026/02/19 12:14:54 main.go:63: Go API running on :8081
+2026/02/19 12:15:24 logger.go:21: === API Started ===
+2026/02/19 12:15:24 db.go:32: Database connected
+2026/02/19 12:15:24 db.go:42: Migration done
+2026/02/19 12:15:24 notification.go:35: ✅ FCM initialized
+2026/02/19 12:15:24 main.go:63: Go API running on :8081
+2026/02/24 17:11:58 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/02/24 17:11:58 notification.go:50: [PUSH] Sending to device: fJjGLL5nRvybqPagCUGv...
+2026/02/24 17:11:59 notification.go:71: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1771953119094296%c6ccaea8c6ccaea8
+2026/02/25 08:36:15 notification.go:38: [PUSH] Attempting to send notification for booking #2
+2026/02/25 08:36:15 notification.go:50: [PUSH] Sending to device: cJGSaVhjRZebqLu69bcy...
+2026/02/25 08:36:15 notification.go:71: [PUSH] ✅ Sent for booking #2, MessageID: projects/seesail-abb48/messages/0:1772008575884655%c6ccaea8c6ccaea8
+2026/04/21 10:07:49 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/04/21 10:07:49 notification.go:50: [PUSH] Sending to device: fRvSbDi-sEVts29dL-zv...
+2026/04/21 10:07:49 notification.go:69: [PUSH] ❌ Failed for booking #1: Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+2026/05/11 08:29:21 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/05/11 08:29:21 notification.go:50: [PUSH] Sending to device: fRvSbDi-sEVts29dL-zv...
+2026/05/11 08:29:21 notification.go:69: [PUSH] ❌ Failed for booking #1: Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+2026/05/19 06:32:04 notification.go:38: [PUSH] Attempting to send notification for booking #2
+2026/05/19 06:32:04 notification.go:50: [PUSH] Sending to device: cJGSaVhjRZebqLu69bcy...
+2026/05/19 06:32:04 notification.go:71: [PUSH] ✅ Sent for booking #2, MessageID: projects/seesail-abb48/messages/0:1779172324756787%c6ccaea8c6ccaea8
+2026/05/30 14:28:48 logger.go:21: === API Started ===
+2026/05/30 14:28:48 db.go:32: Database connected
+2026/05/30 14:28:49 db.go:42: Migration done
+2026/05/30 14:28:49 notification.go:35: ✅ FCM initialized
+2026/05/30 14:28:49 main.go:63: Go API running on :8081
+2026/05/30 14:48:26 logger.go:21: === API Started ===
+2026/05/30 14:48:26 db.go:32: Database connected
+2026/05/30 14:48:26 db.go:42: Migration done
+2026/05/30 14:48:26 notification.go:35: ✅ FCM initialized
+2026/05/30 14:48:26 main.go:63: Go API running on :8081
+2026/06/15 09:59:50 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 09:59:50 notification.go:50: [PUSH] Sending to device: cJGSaVhjRZebqLu69bcy...
+2026/06/15 09:59:50 notification.go:71: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781517590705728%c6ccaea8c6ccaea8
+2026/06/15 10:02:18 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 10:02:18 notification.go:50: [PUSH] Sending to device: c4N7VDL8THya4-s0_EFK...
+2026/06/15 10:02:18 notification.go:71: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781517738822363%c6ccaea8c6ccaea8
+2026/06/15 10:07:07 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 10:07:07 notification.go:50: [PUSH] Sending to device: c8DfQkU7ykEZptS929Vc...
+2026/06/15 10:07:08 notification.go:69: [PUSH] ❌ Failed for booking #1: Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+2026/06/15 10:09:56 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 10:09:56 notification.go:50: [PUSH] Sending to device: eCmK1IWRmkUErwWI5fpO...
+2026/06/15 10:09:56 notification.go:69: [PUSH] ❌ Failed for booking #1: Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+2026/06/15 10:12:28 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 10:12:28 notification.go:50: [PUSH] Sending to device: c4N7VDL8THya4-s0_EFK...
+2026/06/15 10:12:28 notification.go:71: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781518348658863%c6ccaea8c6ccaea8
+2026/06/15 10:16:27 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 10:16:27 notification.go:50: [PUSH] Sending to device: c4N7VDL8THya4-s0_EFK...
+2026/06/15 10:16:28 notification.go:71: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781518587964757%c6ccaea8c6ccaea8
+2026/06/15 11:05:43 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/15 11:05:43 notification.go:50: [PUSH] Sending to device: eE9IkoSkSquSR6jKJN5S...
+2026/06/15 11:05:43 notification.go:71: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781521543909030%c6ccaea8c6ccaea8
+2026/06/15 11:30:00 notification.go:38: [PUSH] Attempting to send notification for booking #2
+2026/06/15 11:30:00 notification.go:50: [PUSH] Sending to device: cJGSaVhjRZebqLu69bcy...
+2026/06/15 11:30:00 notification.go:71: [PUSH] ✅ Sent for booking #2, MessageID: projects/seesail-abb48/messages/0:1781523000514453%c6ccaea8c6ccaea8
+2026/06/15 15:24:28 logger.go:21: === API Started ===
+2026/06/15 15:24:28 db.go:32: Database connected
+2026/06/15 15:24:28 db.go:42: Migration done
+2026/06/15 15:24:28 notification.go:35: ✅ FCM initialized
+2026/06/15 15:24:28 main.go:63: Go API running on :8081
+2026/06/19 15:40:45 logger.go:21: === API Started ===
+2026/06/19 15:40:45 db.go:32: Database connected
+2026/06/19 15:40:45 db.go:42: Migration done
+2026/06/19 15:40:45 notification.go:35: ✅ FCM initialized
+2026/06/19 15:40:45 main.go:63: Go API running on :8081
+2026/06/19 15:44:28 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/19 15:44:28 notification.go:50: [PUSH] Sending to device: eE9IkoSkSquSR6jKJN5S...
+2026/06/19 15:44:28 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781883868512719%c6ccaea8c6ccaea8
+2026/06/20 10:50:02 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 10:50:02 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 10:50:02 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781952602731313%c6ccaea8c6ccaea8
+2026/06/20 11:31:24 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 11:31:24 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 11:31:24 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781955084723134%c6ccaea8c6ccaea8
+2026/06/20 11:40:52 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 11:40:52 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 11:40:52 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781955652596510%c6ccaea8c6ccaea8
+2026/06/20 11:42:20 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 11:42:20 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 11:42:20 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781955740518850%c6ccaea8c6ccaea8
+2026/06/20 11:52:31 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 11:52:31 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 11:52:31 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781956351789391%c6ccaea8c6ccaea8
+2026/06/20 12:25:30 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 12:25:30 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 12:25:30 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781958330218165%c6ccaea8c6ccaea8
+2026/06/20 12:31:53 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 12:31:53 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 12:31:53 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781958713417922%c6ccaea8c6ccaea8
+2026/06/20 12:35:27 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 12:35:27 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 12:35:27 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781958927809761%c6ccaea8c6ccaea8
+2026/06/20 12:36:42 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 12:36:42 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 12:36:42 notification.go:77: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781959002510962%c6ccaea8c6ccaea8
+2026/06/20 12:59:55 logger.go:21: === API Started ===
+2026/06/20 12:59:55 db.go:32: Database connected
+2026/06/20 12:59:55 db.go:42: Migration done
+2026/06/20 12:59:55 notification.go:35: ✅ FCM initialized
+2026/06/20 12:59:55 main.go:63: Go API running on :8081
+2026/06/20 13:15:21 logger.go:21: === API Started ===
+2026/06/20 13:15:21 db.go:32: Database connected
+2026/06/20 13:15:21 db.go:42: Migration done
+2026/06/20 13:15:21 notification.go:35: ✅ FCM initialized
+2026/06/20 13:15:21 main.go:63: Go API running on :8081
+2026/06/20 13:48:24 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 13:48:24 notification.go:50: [PUSH] Sending to device: cJGSaVhjRZebqLu69bcy...
+2026/06/20 13:48:24 notification.go:78: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781963304455641%c6ccaea8c6ccaea8
+2026/06/20 13:53:00 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 13:53:00 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 13:53:01 notification.go:78: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781963581055577%c6ccaea8c6ccaea8
+2026/06/20 14:00:41 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/06/20 14:00:41 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 14:00:41 notification.go:78: [PUSH] ✅ Sent for booking #1, MessageID: projects/seesail-abb48/messages/0:1781964041958367%c6ccaea8c6ccaea8
+2026/06/20 15:30:25 notification.go:38: [PUSH] Attempting to send notification for booking #3
+2026/06/20 15:30:25 notification.go:50: [PUSH] Sending to device: cruTEplnQPWoiPYBfXVR...
+2026/06/20 15:30:26 notification.go:78: [PUSH] ✅ Sent for booking #3, MessageID: projects/seesail-abb48/messages/0:1781969426020523%c6ccaea8c6ccaea8
+2026/06/22 08:11:01 notification.go:38: [PUSH] Attempting to send notification for booking #4
+2026/06/22 08:11:01 notification.go:50: [PUSH] Sending to device: dMxXSZBNTAuxVtUbn_SZ...
+2026/06/22 08:11:01 notification.go:78: [PUSH] ✅ Sent for booking #4, MessageID: projects/seesail-abb48/messages/0:1782115861745285%c6ccaea8c6ccaea8
+2026/06/30 23:11:25 notification.go:38: [PUSH] Attempting to send notification for booking #5
+2026/06/30 23:11:25 notification.go:50: [PUSH] Sending to device: d-iESKjtBEuyu4S131xi...
+2026/06/30 23:11:26 notification.go:76: [PUSH] ❌ Failed for booking #5: Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+2026/07/28 06:26:17 logger.go:21: === API Started ===
+2026/07/28 06:26:17 db.go:28: Failed to connect to database:dial tcp 127.0.0.1:3306: connect: connection refused
+2026/07/28 06:26:28 logger.go:21: === API Started ===
+2026/07/28 06:26:28 db.go:32: Database connected
+2026/07/28 06:26:28 db.go:42: Migration done
+2026/07/28 06:26:28 notification.go:35: ✅ FCM initialized
+2026/07/28 06:26:28 main.go:63: Go API running on :8081
+2026/07/30 13:39:58 notification.go:38: [PUSH] Attempting to send notification for booking #11
+2026/07/30 13:39:59 notification.go:50: [PUSH] Sending to device: d-iESKjtBEuyu4S131xi...
+2026/07/30 13:39:59 notification.go:76: [PUSH] ❌ Failed for booking #11: Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+2026/08/05 12:29:12 logger.go:21: === API Started ===
+2026/08/05 12:29:12 db.go:32: Database connected
+2026/08/05 12:29:12 db.go:42: Migration done
+2026/08/05 12:29:12 notification.go:35: ✅ FCM initialized
+2026/08/05 12:29:12 main.go:63: Go API running on :8081
+2026/08/05 12:30:07 logger.go:21: === API Started ===
+2026/08/05 12:30:07 db.go:32: Database connected
+2026/08/05 12:30:07 db.go:42: Migration done
+2026/08/05 12:30:07 notification.go:35: ✅ FCM initialized
+2026/08/05 12:30:07 main.go:63: Go API running on :8081
+2026/08/05 12:31:12 logger.go:21: === API Started ===
+2026/08/05 12:31:12 db.go:32: Database connected
+2026/08/05 12:31:12 db.go:42: Migration done
+2026/08/05 12:31:12 notification.go:35: ✅ FCM initialized
+2026/08/05 12:31:12 main.go:63: Go API running on :8081
+2026/08/05 12:31:32 logger.go:21: === API Started ===
+2026/08/05 12:31:32 db.go:32: Database connected
+2026/08/05 12:31:33 db.go:42: Migration done
+2026/08/05 12:31:33 notification.go:35: ✅ FCM initialized
+2026/08/05 12:31:33 main.go:63: Go API running on :8081
+2026/08/05 12:34:09 logger.go:21: === API Started ===
+2026/08/05 12:34:09 db.go:32: Database connected
+2026/08/05 12:34:09 db.go:42: Migration done
+2026/08/05 12:34:09 notification.go:35: ✅ FCM initialized
+2026/08/05 12:34:09 main.go:63: Go API running on :8081
+2026/08/05 12:40:12 logger.go:21: === API Started ===
+2026/08/05 12:40:12 db.go:32: Database connected
+2026/08/05 12:40:12 db.go:42: Migration done
+2026/08/05 12:40:12 notification.go:35: ✅ FCM initialized
+2026/08/05 12:40:12 main.go:63: Go API running on :8081
+2026/08/05 12:40:30 logger.go:21: === API Started ===
+2026/08/05 12:40:30 db.go:32: Database connected
+2026/08/05 12:40:30 db.go:42: Migration done
+2026/08/05 12:40:30 notification.go:35: ✅ FCM initialized
+2026/08/05 12:40:30 main.go:63: Go API running on :8081
+2026/08/05 12:41:09 booking.go:79: Create booking error: Error 1265 (01000): Data truncated for column 'driver_id' at row 1
+2026/08/05 12:43:05 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/08/05 12:43:05 notification.go:50: [PUSH] Sending to device: test...
+2026/08/05 12:43:05 notification.go:76: [PUSH] ❌ Failed for booking #1: The registration token is not a valid FCM registration token
+2026/08/05 13:12:46 logger.go:21: === API Started ===
+2026/08/05 13:12:46 db.go:32: Database connected
+2026/08/05 13:12:46 db.go:42: Migration done
+2026/08/05 13:12:46 notification.go:35: ✅ FCM initialized
+2026/08/05 13:12:46 main.go:63: Go API running on :8081
+2026/08/05 13:13:56 logger.go:21: === API Started ===
+2026/08/05 13:13:56 db.go:32: Database connected
+2026/08/05 13:13:56 db.go:42: Migration done
+2026/08/05 13:13:56 notification.go:35: ✅ FCM initialized
+2026/08/05 13:13:56 main.go:63: Go API running on :8081
+2026/08/05 13:14:10 logger.go:21: === API Started ===
+2026/08/05 13:14:10 db.go:32: Database connected
+2026/08/05 13:14:10 db.go:42: Migration done
+2026/08/05 13:14:10 notification.go:35: ✅ FCM initialized
+2026/08/05 13:14:10 main.go:63: Go API running on :8081
+2026/08/05 13:31:58 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/08/05 13:31:58 notification.go:50: [PUSH] Sending to device: test...
+2026/08/05 13:31:58 notification.go:76: [PUSH] ❌ Failed for booking #1: The registration token is not a valid FCM registration token
+2026/08/05 13:44:12 logger.go:21: === API Started ===
+2026/08/05 13:44:12 db.go:32: Database connected
+2026/08/05 13:44:12 db.go:42: Migration done
+2026/08/05 13:44:12 notification.go:35: ✅ FCM initialized
+2026/08/05 13:44:12 main.go:63: Go API running on :8081
+2026/08/05 13:46:31 logger.go:21: === API Started ===
+2026/08/05 13:46:31 db.go:32: Database connected
+2026/08/05 13:46:31 db.go:42: Migration done
+2026/08/05 13:46:31 notification.go:35: ✅ FCM initialized
+2026/08/05 13:46:31 main.go:63: Go API running on :8081
+2026/08/05 14:37:51 notification.go:38: [PUSH] Attempting to send notification for booking #1
+2026/08/05 14:37:51 notification.go:50: [PUSH] Sending to device: test...
+2026/08/05 14:37:52 notification.go:76: [PUSH] ❌ Failed for booking #1: The registration token is not a valid FCM registration token
+2026/08/06 12:15:26 notification.go:38: [PUSH] Attempting to send notification for booking #2
+2026/08/06 12:15:26 notification.go:50: [PUSH] Sending to device: test...
+2026/08/06 12:15:26 notification.go:76: [PUSH] ❌ Failed for booking #2: The registration token is not a valid FCM registration token
+2026/08/06 14:06:44 notification.go:38: [PUSH] Attempting to send notification for booking #3
+2026/08/06 14:06:44 notification.go:50: [PUSH] Sending to device: test...
+2026/08/06 14:06:44 notification.go:76: [PUSH] ❌ Failed for booking #3: The registration token is not a valid FCM registration token
+2026/08/07 10:28:09 notification.go:38: [PUSH] Attempting to send notification for booking #4
+2026/08/07 10:28:09 notification.go:50: [PUSH] Sending to device: a41d7912-2673-41fa-b...
+2026/08/07 10:28:09 notification.go:76: [PUSH] ❌ Failed for booking #4: The registration token is not a valid FCM registration token
+2026/08/14 08:31:31 notification.go:38: [PUSH] Attempting to send notification for booking #18
+2026/08/14 08:31:31 notification.go:50: [PUSH] Sending to device: eS2cJ6-CRYa8bWM7Vse3...
+2026/08/14 08:31:31 notification.go:78: [PUSH] ✅ Sent for booking #18, MessageID: projects/seesail-abb48/messages/0:1786696291250827%c6ccaea8c6ccaea8
+2026/08/14 08:32:25 notification.go:38: [PUSH] Attempting to send notification for booking #19
+2026/08/14 08:32:25 notification.go:50: [PUSH] Sending to device: eS2cJ6-CRYa8bWM7Vse3...
+2026/08/14 08:32:25 notification.go:78: [PUSH] ✅ Sent for booking #19, MessageID: projects/seesail-abb48/messages/0:1786696345552950%c6ccaea8c6ccaea8
+2026/08/17 07:30:05 notification.go:38: [PUSH] Attempting to send notification for booking #23
+2026/08/17 07:30:05 notification.go:50: [PUSH] Sending to device: 45488fe2-1b28-4056-b...
+2026/08/17 07:30:06 notification.go:76: [PUSH] ❌ Failed for booking #23: The registration token is not a valid FCM registration token
+2026/08/17 07:59:21 notification.go:38: [PUSH] Attempting to send notification for booking #25
+2026/08/17 07:59:21 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 07:59:21 notification.go:76: [PUSH] ❌ Failed for booking #25: Invalid APNs credential.
+2026/08/17 10:25:38 logger.go:21: === API Started ===
+2026/08/17 10:25:38 db.go:32: Database connected
+2026/08/17 10:25:38 db.go:42: Migration done
+2026/08/17 10:25:38 notification.go:35: ✅ FCM initialized
+2026/08/17 10:25:38 main.go:63: Go API running on :8081
+2026/08/17 10:29:12 logger.go:21: === API Started ===
+2026/08/17 10:29:12 db.go:32: Database connected
+2026/08/17 10:29:12 db.go:42: Migration done
+2026/08/17 10:29:12 notification.go:35: ✅ FCM initialized
+2026/08/17 10:29:12 main.go:63: Go API running on :8081
+2026/08/17 10:29:40 logger.go:21: === API Started ===
+2026/08/17 10:29:40 db.go:32: Database connected
+2026/08/17 10:29:40 db.go:42: Migration done
+2026/08/17 10:29:40 notification.go:35: ✅ FCM initialized
+2026/08/17 10:29:40 main.go:63: Go API running on :8081
+2026/08/17 10:37:29 logger.go:21: === API Started ===
+2026/08/17 10:37:29 db.go:32: Database connected
+2026/08/17 10:37:29 db.go:42: Migration done
+2026/08/17 10:37:29 notification.go:35: ✅ FCM initialized
+2026/08/17 10:37:29 main.go:63: Go API running on :8081
+2026/08/17 10:37:43 logger.go:21: === API Started ===
+2026/08/17 10:37:43 db.go:32: Database connected
+2026/08/17 10:37:43 db.go:42: Migration done
+2026/08/17 10:37:43 notification.go:35: ✅ FCM initialized
+2026/08/17 10:37:43 main.go:63: Go API running on :8081
+2026/08/17 10:37:58 logger.go:21: === API Started ===
+2026/08/17 10:37:58 db.go:32: Database connected
+2026/08/17 10:37:58 db.go:42: Migration done
+2026/08/17 10:37:58 notification.go:35: ✅ FCM initialized
+2026/08/17 10:37:58 main.go:63: Go API running on :8081
+2026/08/17 10:39:46 logger.go:21: === API Started ===
+2026/08/17 10:39:46 db.go:32: Database connected
+2026/08/17 10:39:47 db.go:42: Migration done
+2026/08/17 10:39:47 notification.go:35: ✅ FCM initialized
+2026/08/17 10:39:47 main.go:63: Go API running on :8081
+2026/08/17 10:40:41 logger.go:21: === API Started ===
+2026/08/17 10:40:41 db.go:32: Database connected
+2026/08/17 10:40:41 db.go:42: Migration done
+2026/08/17 10:40:41 notification.go:35: ✅ FCM initialized
+2026/08/17 10:40:41 google.go:46: Firebase initialized successfully
+2026/08/17 10:40:41 main.go:79: Go API running on :8081
+2026/08/17 10:43:08 email.go:77: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 10:45:00 logger.go:21: === API Started ===
+2026/08/17 10:45:00 db.go:32: Database connected
+2026/08/17 10:45:01 db.go:42: Migration done
+2026/08/17 10:45:01 notification.go:35: ✅ FCM initialized
+2026/08/17 10:45:01 google.go:46: Firebase initialized successfully
+2026/08/17 10:45:01 main.go:79: Go API running on :8081
+2026/08/17 10:45:10 email.go:77: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 10:45:26 otp.go:121: Failed to create rider: Error 1054 (42S22): Unknown column 'google_id' in 'field list'
+2026/08/17 10:46:08 email.go:77: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 11:36:13 logger.go:21: === API Started ===
+2026/08/17 11:36:13 db.go:32: Database connected
+2026/08/17 11:36:13 db.go:42: Migration done
+2026/08/17 11:36:13 notification.go:35: ✅ FCM initialized
+2026/08/17 11:36:13 google.go:46: Firebase initialized successfully
+2026/08/17 11:36:13 main.go:79: Go API running on :8081
+2026/08/17 11:37:52 logger.go:21: === API Started ===
+2026/08/17 11:37:52 db.go:32: Database connected
+2026/08/17 11:37:52 db.go:42: Migration done
+2026/08/17 11:37:52 notification.go:35: ✅ FCM initialized
+2026/08/17 11:37:52 google.go:46: Firebase initialized successfully
+2026/08/17 11:37:52 main.go:79: Go API running on :8081
+2026/08/17 11:41:58 logger.go:21: === API Started ===
+2026/08/17 11:41:58 db.go:32: Database connected
+2026/08/17 11:41:58 db.go:42: Migration done
+2026/08/17 11:41:58 notification.go:35: ✅ FCM initialized
+2026/08/17 11:41:58 google.go:46: Firebase initialized successfully
+2026/08/17 11:41:58 main.go:79: Go API running on :8081
+2026/08/17 11:49:33 logger.go:21: === API Started ===
+2026/08/17 11:49:33 db.go:32: Database connected
+2026/08/17 11:49:33 db.go:42: Migration done
+2026/08/17 11:49:33 notification.go:35: ✅ FCM initialized
+2026/08/17 11:49:33 google.go:46: Firebase initialized successfully
+2026/08/17 11:49:33 main.go:79: Go API running on :8081
+2026/08/17 11:50:22 logger.go:21: === API Started ===
+2026/08/17 11:50:22 db.go:32: Database connected
+2026/08/17 11:50:22 db.go:42: Migration done
+2026/08/17 11:50:22 notification.go:35: ✅ FCM initialized
+2026/08/17 11:50:22 google.go:46: Firebase initialized successfully
+2026/08/17 11:50:22 main.go:80: Go API running on :8081
+2026/08/17 11:55:18 notification.go:38: [PUSH] Attempting to send notification for booking #31
+2026/08/17 11:55:18 notification.go:50: [PUSH] Sending to device: fXsGfbCkQw6Xxmy_SqJJ...
+2026/08/17 11:55:18 notification.go:80: [PUSH] ✅ Sent for booking #31, MessageID: projects/seesail-abb48/messages/0:1786967718636131%c6ccaea8c6ccaea8
+2026/08/17 12:16:58 notification.go:38: [PUSH] Attempting to send notification for booking #32
+2026/08/17 12:16:58 notification.go:50: [PUSH] Sending to device: fXsGfbCkQw6Xxmy_SqJJ...
+2026/08/17 12:16:58 notification.go:80: [PUSH] ✅ Sent for booking #32, MessageID: projects/seesail-abb48/messages/0:1786969018612101%c6ccaea8c6ccaea8
+2026/08/17 12:34:39 notification.go:38: [PUSH] Attempting to send notification for booking #33
+2026/08/17 12:34:39 notification.go:50: [PUSH] Sending to device: fXsGfbCkQw6Xxmy_SqJJ...
+2026/08/17 12:34:39 notification.go:80: [PUSH] ✅ Sent for booking #33, MessageID: projects/seesail-abb48/messages/0:1786970079923375%c6ccaea8c6ccaea8
+2026/08/17 12:40:37 notification.go:38: [PUSH] Attempting to send notification for booking #34
+2026/08/17 12:40:37 notification.go:50: [PUSH] Sending to device: fXsGfbCkQw6Xxmy_SqJJ...
+2026/08/17 12:40:37 notification.go:80: [PUSH] ✅ Sent for booking #34, MessageID: projects/seesail-abb48/messages/0:1786970437871733%c6ccaea8c6ccaea8
+2026/08/17 14:02:43 logger.go:21: === API Started ===
+2026/08/17 14:02:43 db.go:32: Database connected
+2026/08/17 14:02:43 db.go:42: Migration done
+2026/08/17 14:02:43 notification.go:35: ✅ FCM initialized
+2026/08/17 14:02:43 google.go:46: Firebase initialized successfully
+2026/08/17 14:02:43 main.go:80: Go API running on :8081
+2026/08/17 14:02:54 email.go:77: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 14:07:22 notification.go:38: [PUSH] Attempting to send notification for booking #38
+2026/08/17 14:07:22 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 14:07:22 notification.go:78: [PUSH] ❌ Failed for booking #38: Invalid APNs credential.
+2026/08/17 14:52:02 google.go:64: Firebase token verification failed: ID token has invalid 'aud' (audience) claim; expected "seesail-abb48" but got "14370769137-8pdjhq80vpum1gri5tnlv49scsr6u08u.apps.googleusercontent.com"; make sure the ID token comes from the same Firebase project as the credential used to authenticate this SDK; see https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve a valid ID token
+2026/08/17 14:52:27 email.go:77: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 15:13:53 google.go:64: Firebase token verification failed: ID token has invalid 'aud' (audience) claim; expected "seesail-abb48" but got "216173979675-7ufnqe5h41kgm8risvv9casmu9hhje4p.apps.googleusercontent.com"; make sure the ID token comes from the same Firebase project as the credential used to authenticate this SDK; see https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve a valid ID token
+2026/08/17 15:19:38 logger.go:21: === API Started ===
+2026/08/17 15:19:38 db.go:32: Database connected
+2026/08/17 15:19:38 db.go:42: Migration done
+2026/08/17 15:19:38 notification.go:35: ✅ FCM initialized
+2026/08/17 15:19:38 google.go:46: Firebase initialized successfully
+2026/08/17 15:19:38 main.go:80: Go API running on :8081
+2026/08/17 15:20:07 google.go:64: Firebase token verification failed: ID token has invalid 'aud' (audience) claim; expected "axis-dd584" but got "216173979675-7ufnqe5h41kgm8risvv9casmu9hhje4p.apps.googleusercontent.com"; make sure the ID token comes from the same Firebase project as the credential used to authenticate this SDK; see https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve a valid ID token
+2026/08/17 15:43:11 logger.go:21: === API Started ===
+2026/08/17 15:43:11 db.go:32: Database connected
+2026/08/17 15:43:11 db.go:42: Migration done
+2026/08/17 15:43:11 notification.go:35: ✅ FCM initialized
+2026/08/17 15:43:11 google.go:46: Firebase initialized successfully
+2026/08/17 15:43:11 main.go:80: Go API running on :8081
+2026/08/17 15:45:27 email.go:77: OTP email sent to Moh@getseesail.com
+2026/08/17 15:59:51 email.go:77: OTP email sent to victorblavo@getseesail.com
+2026/08/17 16:01:23 email.go:77: OTP email sent to victorblavo@getseesail.com
+2026/08/17 16:18:15 notification.go:38: [PUSH] Attempting to send notification for booking #39
+2026/08/17 16:18:15 notification.go:50: [PUSH] Sending to device: 20a13764-85be-414a-8...
+2026/08/17 16:18:15 notification.go:78: [PUSH] ❌ Failed for booking #39: The registration token is not a valid FCM registration token
+2026/08/17 16:25:06 logger.go:21: === API Started ===
+2026/08/17 16:25:06 db.go:32: Database connected
+2026/08/17 16:25:06 db.go:42: Migration done
+2026/08/17 16:25:06 notification.go:35: ✅ FCM initialized
+2026/08/17 16:25:06 google.go:46: Firebase initialized successfully
+2026/08/17 16:25:06 main.go:80: Go API running on :8081
+2026/08/17 16:27:27 logger.go:21: === API Started ===
+2026/08/17 16:27:27 db.go:32: Database connected
+2026/08/17 16:27:27 db.go:42: Migration done
+2026/08/17 16:27:27 notification.go:35: ✅ FCM initialized
+2026/08/17 16:27:27 google.go:46: Firebase initialized successfully
+2026/08/17 16:27:27 main.go:80: Go API running on :8081
+2026/08/17 16:27:53 logger.go:21: === API Started ===
+2026/08/17 16:27:53 db.go:32: Database connected
+2026/08/17 16:27:53 db.go:42: Migration done
+2026/08/17 16:27:53 notification.go:35: ✅ FCM initialized
+2026/08/17 16:27:53 google.go:46: Firebase initialized successfully
+2026/08/17 16:27:53 main.go:80: Go API running on :8081
+2026/08/17 16:29:59 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 16:50:53 logger.go:21: === API Started ===
+2026/08/17 16:50:53 db.go:32: Database connected
+2026/08/17 16:50:53 db.go:42: Migration done
+2026/08/17 16:50:53 notification.go:35: ✅ FCM initialized
+2026/08/17 16:50:53 google.go:46: Firebase initialized successfully
+2026/08/17 16:50:53 main.go:80: Go API running on :8081
+2026/08/17 16:51:17 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 16:55:01 logger.go:21: === API Started ===
+2026/08/17 16:55:01 db.go:32: Database connected
+2026/08/17 16:55:01 db.go:42: Migration done
+2026/08/17 16:55:01 notification.go:35: ✅ FCM initialized
+2026/08/17 16:55:01 google.go:46: Firebase initialized successfully
+2026/08/17 16:55:01 main.go:80: Go API running on :8081
+2026/08/17 16:55:18 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 17:02:51 logger.go:21: === API Started ===
+2026/08/17 17:02:51 db.go:32: Database connected
+2026/08/17 17:02:51 db.go:42: Migration done
+2026/08/17 17:02:51 notification.go:35: ✅ FCM initialized
+2026/08/17 17:02:51 google.go:46: Firebase initialized successfully
+2026/08/17 17:02:51 main.go:80: Go API running on :8081
+2026/08/17 17:03:27 logger.go:21: === API Started ===
+2026/08/17 17:03:27 db.go:32: Database connected
+2026/08/17 17:03:27 db.go:42: Migration done
+2026/08/17 17:03:27 notification.go:35: ✅ FCM initialized
+2026/08/17 17:03:27 google.go:46: Firebase initialized successfully
+2026/08/17 17:03:27 main.go:80: Go API running on :8081
+2026/08/17 17:03:55 logger.go:21: === API Started ===
+2026/08/17 17:03:55 db.go:32: Database connected
+2026/08/17 17:03:55 db.go:42: Migration done
+2026/08/17 17:03:55 notification.go:35: ✅ FCM initialized
+2026/08/17 17:03:55 google.go:46: Firebase initialized successfully
+2026/08/17 17:03:55 main.go:80: Go API running on :8081
+2026/08/17 17:04:10 logger.go:21: === API Started ===
+2026/08/17 17:04:10 db.go:32: Database connected
+2026/08/17 17:04:10 db.go:42: Migration done
+2026/08/17 17:04:10 notification.go:35: ✅ FCM initialized
+2026/08/17 17:04:10 google.go:46: Firebase initialized successfully
+2026/08/17 17:04:10 main.go:80: Go API running on :8081
+2026/08/17 17:04:45 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 17:24:17 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 17:25:28 notification.go:38: [PUSH] Attempting to send notification for booking #40
+2026/08/17 17:25:28 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 17:25:28 notification.go:78: [PUSH] ❌ Failed for booking #40: SenderId mismatch
+2026/08/17 17:41:43 notification.go:38: [PUSH] Attempting to send notification for booking #41
+2026/08/17 17:41:43 notification.go:50: [PUSH] Sending to device: fh_uN8ABQoqmWkVxuBHW...
+2026/08/17 17:41:43 notification.go:80: [PUSH] ✅ Sent for booking #41, MessageID: projects/axis-dd584/messages/0:1786988503507208%c6ccaea8c6ccaea8
+2026/08/17 17:42:44 notification.go:38: [PUSH] Attempting to send notification for booking #42
+2026/08/17 17:42:44 notification.go:50: [PUSH] Sending to device: fh_uN8ABQoqmWkVxuBHW...
+2026/08/17 17:42:44 notification.go:80: [PUSH] ✅ Sent for booking #42, MessageID: projects/axis-dd584/messages/0:1786988564362600%c6ccaea8c6ccaea8
+2026/08/17 17:50:00 notification.go:38: [PUSH] Attempting to send notification for booking #43
+2026/08/17 17:50:00 notification.go:50: [PUSH] Sending to device: fh_uN8ABQoqmWkVxuBHW...
+2026/08/17 17:50:00 notification.go:78: [PUSH] ❌ Failed for booking #43: NotRegistered
+2026/08/17 18:11:03 notification.go:38: [PUSH] Attempting to send notification for booking #44
+2026/08/17 18:11:03 notification.go:50: [PUSH] Sending to device: fh_uN8ABQoqmWkVxuBHW...
+2026/08/17 18:11:03 notification.go:78: [PUSH] ❌ Failed for booking #44: NotRegistered
+2026/08/17 18:19:26 logger.go:21: === API Started ===
+2026/08/17 18:19:26 db.go:32: Database connected
+2026/08/17 18:19:26 db.go:42: Migration done
+2026/08/17 18:19:26 notification.go:35: ✅ FCM initialized
+2026/08/17 18:19:26 google.go:46: Firebase initialized successfully
+2026/08/17 18:19:26 main.go:80: Go API running on :8081
+2026/08/17 18:19:31 logger.go:21: === API Started ===
+2026/08/17 18:19:31 db.go:32: Database connected
+2026/08/17 18:19:31 db.go:42: Migration done
+2026/08/17 18:19:31 notification.go:35: ✅ FCM initialized
+2026/08/17 18:19:31 google.go:46: Firebase initialized successfully
+2026/08/17 18:19:31 main.go:80: Go API running on :8081
+2026/08/17 18:20:32 notification.go:38: [PUSH] Attempting to send notification for booking #45
+2026/08/17 18:20:32 notification.go:50: [PUSH] Sending to device: fh_uN8ABQoqmWkVxuBHW...
+2026/08/17 18:20:32 notification.go:105: [PUSH] ❌ Failed for booking #45: NotRegistered
+2026/08/17 18:22:17 logger.go:21: === API Started ===
+2026/08/17 18:22:17 db.go:32: Database connected
+2026/08/17 18:22:17 db.go:42: Migration done
+2026/08/17 18:22:17 notification.go:35: ✅ FCM initialized
+2026/08/17 18:22:17 google.go:46: Firebase initialized successfully
+2026/08/17 18:22:17 main.go:80: Go API running on :8081
+2026/08/17 18:22:25 logger.go:21: === API Started ===
+2026/08/17 18:22:25 db.go:32: Database connected
+2026/08/17 18:22:25 db.go:42: Migration done
+2026/08/17 18:22:25 notification.go:35: ✅ FCM initialized
+2026/08/17 18:22:25 google.go:46: Firebase initialized successfully
+2026/08/17 18:22:25 main.go:80: Go API running on :8081
+2026/08/17 18:25:47 notification.go:38: [PUSH] Attempting to send notification for booking #46
+2026/08/17 18:25:47 notification.go:50: [PUSH] Sending to device: fh_uN8ABQoqmWkVxuBHW...
+2026/08/17 18:25:48 notification.go:107: [PUSH] ❌ Failed for booking #46: NotRegistered
+2026/08/17 18:35:26 notification.go:38: [PUSH] Attempting to send notification for booking #47
+2026/08/17 18:35:26 notification.go:50: [PUSH] Sending to device: eF-CKcmVQL2yWczH1sR2...
+2026/08/17 18:35:27 notification.go:109: [PUSH] ✅ Sent for booking #47, MessageID: projects/axis-dd584/messages/0:1786991727018255%c6ccaea8c6ccaea8
+2026/08/17 18:39:14 logger.go:21: === API Started ===
+2026/08/17 18:39:14 db.go:32: Database connected
+2026/08/17 18:39:14 db.go:42: Migration done
+2026/08/17 18:39:14 notification.go:35: ✅ FCM initialized
+2026/08/17 18:39:14 google.go:46: Firebase initialized successfully
+2026/08/17 18:39:14 main.go:80: Go API running on :8081
+2026/08/17 18:39:40 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 18:42:58 logger.go:21: === API Started ===
+2026/08/17 18:42:58 db.go:32: Database connected
+2026/08/17 18:42:58 db.go:42: Migration done
+2026/08/17 18:42:58 notification.go:35: ✅ FCM initialized
+2026/08/17 18:42:58 google.go:46: Firebase initialized successfully
+2026/08/17 18:42:58 main.go:80: Go API running on :8081
+2026/08/17 18:43:16 logger.go:21: === API Started ===
+2026/08/17 18:43:16 db.go:32: Database connected
+2026/08/17 18:43:16 db.go:42: Migration done
+2026/08/17 18:43:16 notification.go:35: ✅ FCM initialized
+2026/08/17 18:43:16 google.go:46: Firebase initialized successfully
+2026/08/17 18:43:16 main.go:80: Go API running on :8081
+2026/08/17 18:43:50 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 18:47:13 logger.go:21: === API Started ===
+2026/08/17 18:47:13 db.go:32: Database connected
+2026/08/17 18:47:13 db.go:42: Migration done
+2026/08/17 18:47:13 notification.go:35: ✅ FCM initialized
+2026/08/17 18:47:13 google.go:46: Firebase initialized successfully
+2026/08/17 18:47:13 main.go:80: Go API running on :8081
+2026/08/17 18:47:19 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 18:48:56 notification.go:38: [PUSH] Attempting to send notification for booking #48
+2026/08/17 18:48:56 notification.go:50: [PUSH] Sending to device: eF-CKcmVQL2yWczH1sR2...
+2026/08/17 18:48:56 notification.go:107: [PUSH] ❌ Failed for booking #48: NotRegistered
+2026/08/17 18:49:50 notification.go:38: [PUSH] Attempting to send notification for booking #49
+2026/08/17 18:49:50 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 18:49:50 notification.go:107: [PUSH] ❌ Failed for booking #49: SenderId mismatch
+2026/08/17 18:52:28 logger.go:21: === API Started ===
+2026/08/17 18:52:28 db.go:32: Database connected
+2026/08/17 18:52:29 db.go:42: Migration done
+2026/08/17 18:52:29 notification.go:35: ✅ FCM initialized
+2026/08/17 18:52:29 google.go:46: Firebase initialized successfully
+2026/08/17 18:52:29 main.go:80: Go API running on :8081
+2026/08/17 18:55:35 logger.go:21: === API Started ===
+2026/08/17 18:55:35 db.go:32: Database connected
+2026/08/17 18:55:35 db.go:42: Migration done
+2026/08/17 18:55:35 notification.go:35: ✅ FCM initialized
+2026/08/17 18:55:35 google.go:46: Firebase initialized successfully
+2026/08/17 18:55:35 main.go:80: Go API running on :8081
+2026/08/17 18:55:40 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 18:57:10 logger.go:21: === API Started ===
+2026/08/17 18:57:10 db.go:32: Database connected
+2026/08/17 18:57:10 db.go:42: Migration done
+2026/08/17 18:57:10 notification.go:35: ✅ FCM initialized
+2026/08/17 18:57:10 google.go:46: Firebase initialized successfully
+2026/08/17 18:57:10 main.go:80: Go API running on :8081
+2026/08/17 18:57:53 logger.go:21: === API Started ===
+2026/08/17 18:57:53 db.go:32: Database connected
+2026/08/17 18:57:53 db.go:42: Migration done
+2026/08/17 18:57:53 notification.go:35: ✅ FCM initialized
+2026/08/17 18:57:53 google.go:46: Firebase initialized successfully
+2026/08/17 18:57:53 main.go:80: Go API running on :8081
+2026/08/17 18:57:59 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/17 19:25:58 notification.go:38: [PUSH] Attempting to send notification for booking #50
+2026/08/17 19:25:58 notification.go:50: [PUSH] Sending to device: eF-CKcmVQL2yWczH1sR2...
+2026/08/17 19:25:59 notification.go:107: [PUSH] ❌ Failed for booking #50: NotRegistered
+2026/08/17 19:38:27 notification.go:38: [PUSH] Attempting to send notification for booking #51
+2026/08/17 19:38:27 notification.go:50: [PUSH] Sending to device: test...
+2026/08/17 19:38:27 notification.go:107: [PUSH] ❌ Failed for booking #51: The registration token is not a valid FCM registration token
+2026/08/17 19:44:08 notification.go:38: [PUSH] Attempting to send notification for booking #52
+2026/08/17 19:44:08 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 19:44:08 notification.go:107: [PUSH] ❌ Failed for booking #52: SenderId mismatch
+2026/08/17 19:46:01 notification.go:38: [PUSH] Attempting to send notification for booking #53
+2026/08/17 19:46:01 notification.go:50: [PUSH] Sending to device: eGGeW0rqReKJD-9_mEfU...
+2026/08/17 19:46:01 notification.go:109: [PUSH] ✅ Sent for booking #53, MessageID: projects/axis-dd584/messages/0:1786995961587160%c6ccaea8c6ccaea8
+2026/08/17 19:48:35 notification.go:38: [PUSH] Attempting to send notification for booking #54
+2026/08/17 19:48:35 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 19:48:35 notification.go:107: [PUSH] ❌ Failed for booking #54: SenderId mismatch
+2026/08/17 20:05:22 notification.go:38: [PUSH] Attempting to send notification for booking #55
+2026/08/17 20:05:22 notification.go:50: [PUSH] Sending to device: fqRtAChdQ9y7ZGXYIbrj...
+2026/08/17 20:05:22 notification.go:109: [PUSH] ✅ Sent for booking #55, MessageID: projects/axis-dd584/messages/0:1786997122646815%c6ccaea8c6ccaea8
+2026/08/17 20:18:20 notification.go:38: [PUSH] Attempting to send notification for booking #56
+2026/08/17 20:18:20 notification.go:50: [PUSH] Sending to device: e1wbtVHvWUNulKIeIrIk...
+2026/08/17 20:18:20 notification.go:107: [PUSH] ❌ Failed for booking #56: SenderId mismatch
+2026/08/17 20:35:27 notification.go:38: [PUSH] Attempting to send notification for booking #59
+2026/08/17 20:35:27 notification.go:50: [PUSH] Sending to device: c3OezRdmQkKDmnSDhfbR...
+2026/08/17 20:35:27 notification.go:109: [PUSH] ✅ Sent for booking #59, MessageID: projects/axis-dd584/messages/8630fe03-eabc-49b2-8514-7a712f043013
+2026/08/17 21:43:41 email.go:67: OTP email sent to holuwamutemidayo@gmail.com
+2026/08/17 21:44:16 notification.go:38: [PUSH] Attempting to send notification for booking #65
+2026/08/17 21:44:16 notification.go:50: [PUSH] Sending to device: c3OezRdmQkKDmnSDhfbR...
+2026/08/17 21:44:16 notification.go:109: [PUSH] ✅ Sent for booking #65, MessageID: projects/axis-dd584/messages/57f3232c-cd74-4495-8e18-15ebfec7d077
+2026/08/17 21:44:32 email.go:67: OTP email sent to holuwamutemidayo@gmail.com
+2026/08/17 21:45:45 email.go:67: OTP email sent to holuwamutemidayo@gmail.com
+2026/08/17 21:47:42 notification.go:38: [PUSH] Attempting to send notification for booking #66
+2026/08/17 21:47:42 notification.go:50: [PUSH] Sending to device: eS2cJ6-CRYa8bWM7Vse3...
+2026/08/17 21:47:42 notification.go:107: [PUSH] ❌ Failed for booking #66: SenderId mismatch
+2026/08/18 08:46:57 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/18 08:49:14 email.go:63: Failed to send OTP email: [ERROR]: Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.
+2026/08/18 08:49:14 otp.go:66: Failed to send OTP email: [ERROR]: Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.
+2026/08/18 08:49:24 email.go:67: OTP email sent to dev.ayomide@yahoo.com
