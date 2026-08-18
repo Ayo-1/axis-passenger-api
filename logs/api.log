@@ -941,3 +941,27 @@
 2026/08/18 13:42:26 notification.go:35: ✅ FCM initialized
 2026/08/18 13:42:26 google.go:46: Firebase initialized successfully
 2026/08/18 13:42:26 main.go:80: Go API running on :8081
+2026/08/18 16:02:17 logger.go:21: === API Started ===
+2026/08/18 16:02:17 db.go:32: Database connected
+2026/08/18 16:02:17 db.go:42: Migration done
+2026/08/18 16:02:17 notification.go:35: ✅ FCM initialized
+2026/08/18 16:02:17 google.go:46: Firebase initialized successfully
+2026/08/18 16:02:17 main.go:80: Go API running on :8081
+2026/08/18 16:02:31 logger.go:21: === API Started ===
+2026/08/18 16:02:31 db.go:32: Database connected
+2026/08/18 16:02:31 db.go:42: Migration done
+2026/08/18 16:02:31 notification.go:35: ✅ FCM initialized
+2026/08/18 16:02:31 google.go:46: Firebase initialized successfully
+2026/08/18 16:02:31 main.go:80: Go API running on :8081
+2026/08/18 16:02:41 logger.go:21: === API Started ===
+2026/08/18 16:02:41 db.go:32: Database connected
+2026/08/18 16:02:41 db.go:42: Migration done
+2026/08/18 16:02:41 notification.go:35: ✅ FCM initialized
+2026/08/18 16:02:41 google.go:46: Firebase initialized successfully
+2026/08/18 16:02:41 main.go:80: Go API running on :8081
+2026/08/18 16:06:24 logger.go:21: === API Started ===
+2026/08/18 16:06:24 db.go:32: Database connected
+2026/08/18 16:06:24 db.go:42: Migration done
+2026/08/18 16:06:24 notification.go:35: ✅ FCM initialized
+2026/08/18 16:06:24 google.go:46: Firebase initialized successfully
+2026/08/18 16:06:24 main.go:80: Go API running on :8081

@@ -2,11 +2,11 @@
 package handlers
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"goapi/config"
@@ -34,9 +34,7 @@ type OTPData struct {
 }
 
 func generateOTP() string {
-	b := make([]byte, 3)
-	rand.Read(b)
-	return hex.EncodeToString(b)
+	return strconv.Itoa(rand.Intn(900000) + 100000)
 }
 
 // POST /api/v1/riders/check-email
