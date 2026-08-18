@@ -9,6 +9,9 @@ axis-api
 *.so
 *.dylib
 
+firebase-credentials.json
+axis-dd584-firebase-adminsdk-fbsvc-4d9aa197b1.json
+
 # Test binary, built with `go test -c`
 *.test
 
