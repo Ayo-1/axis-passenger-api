@@ -17,4 +17,4 @@ jobs:
           script: |
             cd /var/www/axis-api/app
             git pull origin main
-            bash deploy.sh
+            bash build.sh
