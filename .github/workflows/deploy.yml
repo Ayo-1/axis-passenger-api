@@ -19,4 +19,4 @@ jobs:
             cd /var/www/axis-api/app
             git config pull.rebase false
             git pull origin main
-            bash deploy.sh
+            bash build.sh
