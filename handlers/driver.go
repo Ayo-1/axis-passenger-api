@@ -44,6 +44,7 @@ func GetDriver(c *gin.Context) {
               AND d.is_active = 1
               AND d.account_status = 'active'
               AND d.device_token IS NOT NULL
+              AND d.phone != '550880119'
               AND d.id NOT IN (
                 SELECT driver_id FROM driver_assignments WHERE expires_at > NOW()
               )
