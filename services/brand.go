@@ -26,17 +26,17 @@ func DefaultBrand() Brand {
 	return Brand{
 		CompanyName:            "Seesail Technologies Ltd.",
 		AppName:            	"Axis",
-		LogoURL:                "https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/axis_logo.png",
-		HeaderIllustrationURL:  "https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/axs.png",
-		FooterPatternURL:       "https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/axis_footer_pattern.png",
+		LogoURL:                "https://axis-assets.axisghana.com/axis_logo.png",
+		HeaderIllustrationURL:  "https://axis-assets.axisghana.com/axs.png",
+		FooterPatternURL:       "https://axis-assets.axisghana.com/axis_footer_pattern.png",
 		CompanyAddressLine1:    "No. F170 Florida, House 6",
 		CompanyAddressLine2:    "Third Labone Link, Accra",
 		FacebookURL:            "https://www.tiktok.com/@getseesail/",
 		InstagramURL:           "https://www.instagram.com/getseesail/",
 		LinkedInURL:            "https://www.linkedin.com/company/seesail/",
-		FacebookIconURL:        "https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/axis_facebook.png",
-		InstagramIconURL:       "https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/axis_instagram.png",
-		LinkedInIconURL:        "https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/axis_linkedin.png",
+		FacebookIconURL:        "https://axis-assets.axisghana.com/axis_facebook.png",
+		InstagramIconURL:       "https://axis-assets.axisghana.com/axis_instagram.png",
+		LinkedInIconURL:        "https://axis-assets.axisghana.com/axis_linkedin.png",
 		Year:                   time.Now().Year(),
 	}
 }
