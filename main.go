@@ -53,6 +53,7 @@ func main() {
 		api.POST("/riders/check-email", handlers.CheckEmail)
 		api.POST("/riders/verify-otp", handlers.VerifyOTP)
 		api.POST("/riders/google-login", handlers.GoogleLogin)
+		api.POST("/riders/apple-login", handlers.AppleLogin)
 	}
 
 	// Protected routes (require auth)
