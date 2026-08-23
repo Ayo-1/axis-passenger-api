@@ -1,9 +1,11 @@
 package handlers
 
 import (
-	"context"
+	"crypto/rsa"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
+	"math/big"
 	"net/http"
 	"os"
 	"time"
@@ -11,22 +13,90 @@ import (
 	"goapi/config"
 	"goapi/models"
 
-	"github.com/Timothylock/go-signin-with-apple/apple"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 )
 
+type appleJWK struct {
+	Kty string `json:"kty"`
+	Kid string `json:"kid"`
+	Use string `json:"use"`
+	Alg string `json:"alg"`
+	N   string `json:"n"`
+	E   string `json:"e"`
+}
 
-func loadApplePrivateKey() (string, error) {
-	b64 := os.Getenv("APPLE_PRIVATE_KEY_B64")
-	if b64 == "" {
-		return "", fmt.Errorf("APPLE_PRIVATE_KEY_B64 not set")
-	}
-	decoded, err := base64.StdEncoding.DecodeString(b64)
+type appleJWKS struct {
+	Keys []appleJWK `json:"keys"`
+}
+
+func fetchAppleJWKS() (*appleJWKS, error) {
+	resp, err := http.Get("https://appleid.apple.com/auth/keys")
 	if err != nil {
-		return "", fmt.Errorf("failed to decode apple private key: %w", err)
+		return nil, err
 	}
-	return string(decoded), nil
+	defer resp.Body.Close()
+
+	var jwks appleJWKS
+	if err := json.NewDecoder(resp.Body).Decode(&jwks); err != nil {
+		return nil, err
+	}
+	return &jwks, nil
+}
+
+func jwkToRSAPublicKey(k appleJWK) (*rsa.PublicKey, error) {
+	nBytes, err := base64.RawURLEncoding.DecodeString(k.N)
+	if err != nil {
+		return nil, err
+	}
+	eBytes, err := base64.RawURLEncoding.DecodeString(k.E)
+	if err != nil {
+		return nil, err
+	}
+
+	n := new(big.Int).SetBytes(nBytes)
+	e := new(big.Int).SetBytes(eBytes)
+
+	return &rsa.PublicKey{N: n, E: int(e.Int64())}, nil
+}
+
+func verifyAppleIDToken(idToken string) (jwt.MapClaims, error) {
+	jwks, err := fetchAppleJWKS()
+	if err != nil {
+		return nil, fmt.Errorf("fetch apple keys: %w", err)
+	}
+
+	token, err := jwt.Parse(idToken, func(t *jwt.Token) (interface{}, error) {
+		kid, ok := t.Header["kid"].(string)
+		if !ok {
+			return nil, fmt.Errorf("missing kid in token header")
+		}
+		for _, k := range jwks.Keys {
+			if k.Kid == kid {
+				return jwkToRSAPublicKey(k)
+			}
+		}
+		return nil, fmt.Errorf("key %s not found", kid)
+	})
+	if err != nil || !token.Valid {
+		return nil, fmt.Errorf("invalid apple token: %w", err)
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return nil, fmt.Errorf("invalid claims")
+	}
+
+	if iss, _ := claims["iss"].(string); iss != "https://appleid.apple.com" {
+		return nil, fmt.Errorf("invalid issuer: %s", iss)
+	}
+	aud, _ := claims["aud"].(string)
+	if aud != os.Getenv("APPLE_CLIENT_ID") {
+		return nil, fmt.Errorf("invalid audience: %s", aud)
+	}
+
+	return claims, nil
 }
 
 // POST /v1/riders/apple-login
@@ -39,41 +109,11 @@ func AppleLogin(c *gin.Context) {
 		return
 	}
 
-	keyContents, err := loadApplePrivateKey()
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Server misconfiguration"})
-		return
-	}
-
-	secret, err := apple.GenerateClientSecret(
-		keyContents,
-		os.Getenv("APPLE_TEAM_ID"),
-		os.Getenv("APPLE_CLIENT_ID"), // your Services ID, e.g. com.axis.web
-		os.Getenv("APPLE_KEY_ID"),
-	)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate client secret"})
-		return
-	}
-
-	client := apple.New()
-	var resp apple.ValidationResponse
-	err = client.VerifyAppToken(context.Background(), apple.AppValidationTokenRequest{
-		ClientID:     os.Getenv("APPLE_CLIENT_ID"),
-		ClientSecret: secret,
-		Code:         req.IDToken, // for the JS flow this can also be an id_token; see note below
-	}, &resp)
-	if err != nil || resp.Error != "" {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Apple token"})
-		return
-	}
-
-	claim, err := apple.GetClaims(resp.IDToken)
+	claims, err := verifyAppleIDToken(req.IDToken)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Apple identity token"})
 		return
 	}
-	claims := *claim
 
 	email, _ := claims["email"].(string)
 	appleSub, _ := claims["sub"].(string)

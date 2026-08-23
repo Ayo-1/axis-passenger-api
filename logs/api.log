@@ -983,3 +983,17 @@
 2026/08/23 20:19:09 notification.go:35: ✅ FCM initialized
 2026/08/23 20:19:09 google.go:46: Firebase initialized successfully
 2026/08/23 20:19:09 main.go:81: Go API running on :8081
+2026/08/23 20:37:29 email.go:67: OTP email sent to dev.ayomide@test.coom
+2026/08/23 20:39:49 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/23 20:56:05 logger.go:21: === API Started ===
+2026/08/23 20:56:05 db.go:32: Database connected
+2026/08/23 20:56:05 db.go:42: Migration done
+2026/08/23 20:56:05 notification.go:35: ✅ FCM initialized
+2026/08/23 20:56:05 google.go:46: Firebase initialized successfully
+2026/08/23 20:56:05 main.go:81: Go API running on :8081
+2026/08/23 20:58:25 logger.go:21: === API Started ===
+2026/08/23 20:58:25 db.go:32: Database connected
+2026/08/23 20:58:25 db.go:42: Migration done
+2026/08/23 20:58:25 notification.go:35: ✅ FCM initialized
+2026/08/23 20:58:25 google.go:46: Firebase initialized successfully
+2026/08/23 20:58:25 main.go:81: Go API running on :8081
