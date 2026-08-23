@@ -16,6 +16,7 @@ import (
 	"github.com/google/uuid"
 )
 
+
 func loadApplePrivateKey() (string, error) {
 	b64 := os.Getenv("APPLE_PRIVATE_KEY_B64")
 	if b64 == "" {
