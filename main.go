@@ -3,6 +3,7 @@ package main
 import (
 	"goapi/config"
 	"goapi/handlers"
+	"goapi/handlers/web"
 	"goapi/middleware"
 	"log"
 	"os"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"goapi/services"
 )
 
 func main() {
@@ -22,8 +24,14 @@ func main() {
 	config.InitLogger() // Add this line
 	config.ConnectDB()
 	config.MigrateDB()
+	config.InitRedis()
 	handlers.InitFCM() // Add this line
 	handlers.InitEmailService()
+
+	paystackSvc := services.NewPaystackService(os.Getenv("PAYSTACK_SECRET_KEY_TEST"))
+	stripeSvc := services.NewStripeService(os.Getenv("STRIPE_SECRET_KEY"))
+
+	web.InitPaymentServices(paystackSvc, stripeSvc)
 
 	// Initialize Firebase
 	if err := handlers.InitFirebase(); err != nil {
@@ -72,6 +80,26 @@ func main() {
 	estimate := r.Group("/v1")
 	estimate.Use(middleware.RateLimit(10, time.Minute))
 	estimate.POST("/estimate", handlers.GetEstimate)
+
+
+
+
+	// Web routes
+	webRoutes := r.Group("/v1/app")
+	webRoutes.Use(middleware.RateLimit(30, time.Minute))
+	{
+		webRoutes.GET("/config", web.GetAppConfig)
+		webRoutes.POST("/bookings/verify-payment", web.VerifyBookingPayment)
+		webRoutes.POST("/bookings/estimate", web.CreateEstimate)
+		webRoutes.POST("/bookings/driver/change", web.ChangeDriver)
+		webRoutes.POST("/bookings", web.CreateBooking)
+		webRoutes.POST("/bookings/lookup", web.LookupBooking)
+		webRoutes.PATCH("/bookings/update", web.UpdateBooking)
+		webRoutes.POST("/bookings/cancel", web.CancelBooking)
+
+		webRoutes.POST("/rentals", web.CreateRental)
+
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {

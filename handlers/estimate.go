@@ -26,10 +26,15 @@ const (
 
 type EstimateRequest struct {
 	SessionID      string  `json:"session_id" binding:"required"`
-	DriverID       string    `json:"driver_id" binding:"required"`
+	DriverID       string  `json:"driver_id" binding:"required"`
 	DropoffLat     float64 `json:"dropoff_lat" binding:"required"`
 	DropoffLng     float64 `json:"dropoff_lng" binding:"required"`
-	DropoffAddress string  `json:"dropoff_address"` // display name from Places API
+	DropoffAddress string  `json:"dropoff_address"`
+
+	// New fields
+	PickupLat     float64 `json:"pickup_lat" binding:"required"`
+	PickupLng     float64 `json:"pickup_lng" binding:"required"`
+	PickupAddress string  `json:"pickup_address"` // e.g. "Kotoka International Airport, Accra"
 }
 
 type mapsResponse struct {
@@ -52,12 +57,13 @@ type mapsResponse struct {
 func GetEstimate(c *gin.Context) {
 	var req EstimateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "session_id, driver_id, dropoff_lat and dropoff_lng are required"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "session_id, driver_id, pickup_lat, pickup_lng, dropoff_lat and dropoff_lng are required"})
 		return
 	}
 
 	// Basic coordinate sanity check
-	if req.DropoffLat < -90 || req.DropoffLat > 90 || req.DropoffLng < -180 || req.DropoffLng > 180 {
+	if req.DropoffLat < -90 || req.DropoffLat > 90 || req.DropoffLng < -180 || req.DropoffLng > 180 ||
+		req.PickupLat < -90 || req.PickupLat > 90 || req.PickupLng < -180 || req.PickupLng > 180 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid coordinates"})
 		return
 	}
@@ -70,10 +76,11 @@ func GetEstimate(c *gin.Context) {
 		c.JSON(http.StatusForbidden, gin.H{"error": "No active driver assignment, get a driver first"})
 		return
 	}
+
 	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
 	mapsURL := fmt.Sprintf(
 		"https://maps.googleapis.com/maps/api/distancematrix/json?origins=%f,%f&destinations=%f,%f&key=%s&units=metric",
-		airportLat, airportLng,
+		req.PickupLat, req.PickupLng,   // ← use the chosen airport
 		req.DropoffLat, req.DropoffLng,
 		apiKey,
 	)
@@ -102,10 +109,15 @@ func GetEstimate(c *gin.Context) {
 	calculated := baseFare + (distanceKm * pricePerKm)
 	fare := math.Max(minimumBaseFare, calculated)
 
+	pickupLabel := req.PickupAddress
+	if pickupLabel == "" {
+		pickupLabel = "Airport"
+	}
+
 	c.JSON(http.StatusOK, gin.H{"estimate": gin.H{
 		"session_id":    req.SessionID,
 		"driver_id":     req.DriverID,
-		"pickup":        "Kotoka International Airport, Accra",
+		"pickup":        pickupLabel,          // ← correct airport name
 		"dropoff":       req.DropoffAddress,
 		"distance_km":   math.Round(distanceKm*10) / 10,
 		"distance_text": el.Distance.Text,

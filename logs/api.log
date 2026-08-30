@@ -997,3 +997,331 @@
 2026/08/23 20:58:25 notification.go:35: ✅ FCM initialized
 2026/08/23 20:58:25 google.go:46: Firebase initialized successfully
 2026/08/23 20:58:25 main.go:81: Go API running on :8081
+2026/08/23 20:59:03 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/23 20:59:43 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/23 21:06:28 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/23 22:10:48 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/24 14:54:36 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/24 15:06:52 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/24 15:08:02 logger.go:21: === API Started ===
+2026/08/24 15:08:02 db.go:32: Database connected
+2026/08/24 15:08:02 db.go:42: Migration done
+2026/08/24 15:08:02 notification.go:35: ✅ FCM initialized
+2026/08/24 15:08:02 google.go:46: Firebase initialized successfully
+2026/08/24 15:08:02 main.go:81: Go API running on :8081
+2026/08/24 15:08:17 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/24 16:47:32 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/28 14:33:05 logger.go:21: === API Started ===
+2026/08/28 14:33:05 db.go:32: Database connected
+2026/08/28 14:33:05 db.go:42: Migration done
+2026/08/28 14:33:05 notification.go:35: ✅ FCM initialized
+2026/08/28 14:33:05 google.go:46: Firebase initialized successfully
+2026/08/28 14:33:05 main.go:81: Go API running on :8081
+2026/08/28 14:33:51 logger.go:21: === API Started ===
+2026/08/28 14:33:51 db.go:32: Database connected
+2026/08/28 14:33:51 db.go:42: Migration done
+2026/08/28 14:33:51 redis.go:23: Connected to Redis
+2026/08/28 14:33:51 notification.go:35: ✅ FCM initialized
+2026/08/28 14:33:51 google.go:46: Firebase initialized successfully
+2026/08/28 14:33:51 main.go:93: Go API running on :8081
+2026/08/28 14:39:35 logger.go:21: === API Started ===
+2026/08/28 14:39:35 db.go:32: Database connected
+2026/08/28 14:39:35 db.go:42: Migration done
+2026/08/28 14:39:35 redis.go:23: Connected to Redis
+2026/08/28 14:39:35 notification.go:35: ✅ FCM initialized
+2026/08/28 14:39:35 google.go:46: Firebase initialized successfully
+2026/08/28 14:39:35 main.go:93: Go API running on :8081
+2026/08/28 14:41:02 logger.go:21: === API Started ===
+2026/08/28 14:41:02 db.go:32: Database connected
+2026/08/28 14:41:02 db.go:42: Migration done
+2026/08/28 14:41:02 redis.go:23: Connected to Redis
+2026/08/28 14:41:02 notification.go:35: ✅ FCM initialized
+2026/08/28 14:41:02 google.go:46: Firebase initialized successfully
+2026/08/28 14:41:02 main.go:93: Go API running on :8081
+2026/08/28 19:12:01 logger.go:21: === API Started ===
+2026/08/28 19:12:01 db.go:32: Database connected
+2026/08/28 19:12:01 db.go:42: Migration done
+2026/08/28 19:12:01 redis.go:23: Connected to Redis
+2026/08/28 19:12:01 notification.go:35: ✅ FCM initialized
+2026/08/28 19:12:01 google.go:46: Firebase initialized successfully
+2026/08/28 19:12:01 main.go:93: Go API running on :8081
+2026/08/28 19:12:21 logger.go:21: === API Started ===
+2026/08/28 19:12:21 db.go:32: Database connected
+2026/08/28 19:12:21 db.go:42: Migration done
+2026/08/28 19:12:21 redis.go:23: Connected to Redis
+2026/08/28 19:12:21 notification.go:35: ✅ FCM initialized
+2026/08/28 19:12:21 google.go:46: Firebase initialized successfully
+2026/08/28 19:12:21 main.go:93: Go API running on :8081
+2026/08/29 09:57:39 logger.go:21: === API Started ===
+2026/08/29 09:57:39 db.go:32: Database connected
+2026/08/29 09:57:39 db.go:42: Migration done
+2026/08/29 09:57:39 redis.go:23: Connected to Redis
+2026/08/29 09:57:39 notification.go:35: ✅ FCM initialized
+2026/08/29 09:57:39 google.go:46: Firebase initialized successfully
+2026/08/29 09:57:39 main.go:93: Go API running on :8081
+2026/08/29 09:58:08 logger.go:21: === API Started ===
+2026/08/29 09:58:08 db.go:32: Database connected
+2026/08/29 09:58:08 db.go:42: Migration done
+2026/08/29 09:58:08 redis.go:23: Connected to Redis
+2026/08/29 09:58:08 notification.go:35: ✅ FCM initialized
+2026/08/29 09:58:08 google.go:46: Firebase initialized successfully
+2026/08/29 09:58:08 main.go:93: Go API running on :8081
+2026/08/29 10:01:11 logger.go:21: === API Started ===
+2026/08/29 10:01:11 db.go:32: Database connected
+2026/08/29 10:01:11 db.go:42: Migration done
+2026/08/29 10:01:11 redis.go:23: Connected to Redis
+2026/08/29 10:01:11 notification.go:35: ✅ FCM initialized
+2026/08/29 10:01:11 google.go:46: Firebase initialized successfully
+2026/08/29 10:01:11 main.go:93: Go API running on :8081
+2026/08/29 10:08:18 logger.go:21: === API Started ===
+2026/08/29 10:08:18 db.go:32: Database connected
+2026/08/29 10:08:18 db.go:42: Migration done
+2026/08/29 10:08:18 redis.go:23: Connected to Redis
+2026/08/29 10:08:18 notification.go:35: ✅ FCM initialized
+2026/08/29 10:08:18 google.go:46: Firebase initialized successfully
+2026/08/29 10:08:18 main.go:99: Go API running on :8081
+2026/08/29 10:09:57 logger.go:21: === API Started ===
+2026/08/29 10:09:57 db.go:32: Database connected
+2026/08/29 10:09:57 db.go:42: Migration done
+2026/08/29 10:09:57 redis.go:23: Connected to Redis
+2026/08/29 10:09:57 notification.go:35: ✅ FCM initialized
+2026/08/29 10:09:57 google.go:46: Firebase initialized successfully
+2026/08/29 10:09:57 main.go:99: Go API running on :8081
+2026/08/29 10:33:42 logger.go:21: === API Started ===
+2026/08/29 10:33:42 db.go:32: Database connected
+2026/08/29 10:33:42 db.go:42: Migration done
+2026/08/29 10:33:42 redis.go:23: Connected to Redis
+2026/08/29 10:33:42 notification.go:35: ✅ FCM initialized
+2026/08/29 10:33:42 google.go:46: Firebase initialized successfully
+2026/08/29 10:33:42 main.go:99: Go API running on :8081
+2026/08/29 10:36:57 logger.go:21: === API Started ===
+2026/08/29 10:36:57 db.go:32: Database connected
+2026/08/29 10:36:57 db.go:42: Migration done
+2026/08/29 10:36:57 redis.go:23: Connected to Redis
+2026/08/29 10:36:57 notification.go:35: ✅ FCM initialized
+2026/08/29 10:36:57 google.go:46: Firebase initialized successfully
+2026/08/29 10:36:57 main.go:99: Go API running on :8081
+2026/08/29 10:37:06 logger.go:21: === API Started ===
+2026/08/29 10:37:06 db.go:32: Database connected
+2026/08/29 10:37:06 db.go:42: Migration done
+2026/08/29 10:37:06 redis.go:23: Connected to Redis
+2026/08/29 10:37:06 notification.go:35: ✅ FCM initialized
+2026/08/29 10:37:06 google.go:46: Firebase initialized successfully
+2026/08/29 10:37:06 main.go:99: Go API running on :8081
+2026/08/29 10:37:54 logger.go:21: === API Started ===
+2026/08/29 10:37:54 db.go:32: Database connected
+2026/08/29 10:37:54 db.go:42: Migration done
+2026/08/29 10:37:54 redis.go:23: Connected to Redis
+2026/08/29 10:37:54 notification.go:35: ✅ FCM initialized
+2026/08/29 10:37:54 google.go:46: Firebase initialized successfully
+2026/08/29 10:37:54 main.go:99: Go API running on :8081
+2026/08/29 11:03:19 logger.go:21: === API Started ===
+2026/08/29 11:03:19 db.go:32: Database connected
+2026/08/29 11:03:19 db.go:42: Migration done
+2026/08/29 11:03:19 redis.go:23: Connected to Redis
+2026/08/29 11:03:19 notification.go:35: ✅ FCM initialized
+2026/08/29 11:03:19 google.go:46: Firebase initialized successfully
+2026/08/29 11:03:19 main.go:99: Go API running on :8081
+2026/08/29 11:04:36 logger.go:21: === API Started ===
+2026/08/29 11:04:36 db.go:32: Database connected
+2026/08/29 11:04:36 db.go:42: Migration done
+2026/08/29 11:04:36 redis.go:23: Connected to Redis
+2026/08/29 11:04:36 notification.go:35: ✅ FCM initialized
+2026/08/29 11:04:36 google.go:46: Firebase initialized successfully
+2026/08/29 11:04:36 main.go:99: Go API running on :8081
+2026/08/29 11:41:10 logger.go:21: === API Started ===
+2026/08/29 11:41:10 db.go:32: Database connected
+2026/08/29 11:41:10 db.go:42: Migration done
+2026/08/29 11:41:10 redis.go:23: Connected to Redis
+2026/08/29 11:41:10 notification.go:35: ✅ FCM initialized
+2026/08/29 11:41:10 google.go:46: Firebase initialized successfully
+2026/08/29 11:41:10 main.go:99: Go API running on :8081
+2026/08/29 12:26:01 logger.go:21: === API Started ===
+2026/08/29 12:26:01 db.go:32: Database connected
+2026/08/29 12:26:01 db.go:42: Migration done
+2026/08/29 12:26:01 redis.go:23: Connected to Redis
+2026/08/29 12:26:01 notification.go:35: ✅ FCM initialized
+2026/08/29 12:26:01 google.go:46: Firebase initialized successfully
+2026/08/29 12:26:01 main.go:99: Go API running on :8081
+2026/08/29 12:28:35 logger.go:21: === API Started ===
+2026/08/29 12:28:35 db.go:32: Database connected
+2026/08/29 12:28:35 db.go:42: Migration done
+2026/08/29 12:28:35 redis.go:23: Connected to Redis
+2026/08/29 12:28:35 notification.go:35: ✅ FCM initialized
+2026/08/29 12:28:35 google.go:46: Firebase initialized successfully
+2026/08/29 12:28:35 main.go:99: Go API running on :8081
+2026/08/29 12:28:52 logger.go:21: === API Started ===
+2026/08/29 12:28:52 db.go:32: Database connected
+2026/08/29 12:28:52 db.go:42: Migration done
+2026/08/29 12:28:52 redis.go:23: Connected to Redis
+2026/08/29 12:28:52 notification.go:35: ✅ FCM initialized
+2026/08/29 12:28:52 google.go:46: Firebase initialized successfully
+2026/08/29 12:28:52 main.go:99: Go API running on :8081
+2026/08/29 12:30:38 logger.go:21: === API Started ===
+2026/08/29 12:30:38 db.go:32: Database connected
+2026/08/29 12:30:38 db.go:42: Migration done
+2026/08/29 12:30:38 redis.go:23: Connected to Redis
+2026/08/29 12:30:38 notification.go:35: ✅ FCM initialized
+2026/08/29 12:30:38 google.go:46: Firebase initialized successfully
+2026/08/29 12:30:38 main.go:99: Go API running on :8081
+2026/08/29 12:36:51 logger.go:21: === API Started ===
+2026/08/29 12:36:51 db.go:32: Database connected
+2026/08/29 12:36:51 db.go:42: Migration done
+2026/08/29 12:36:51 redis.go:23: Connected to Redis
+2026/08/29 12:36:51 notification.go:35: ✅ FCM initialized
+2026/08/29 12:36:51 google.go:46: Firebase initialized successfully
+2026/08/29 12:36:51 main.go:99: Go API running on :8081
+2026/08/29 12:37:12 logger.go:21: === API Started ===
+2026/08/29 12:37:12 db.go:32: Database connected
+2026/08/29 12:37:12 db.go:42: Migration done
+2026/08/29 12:37:12 redis.go:23: Connected to Redis
+2026/08/29 12:37:12 notification.go:35: ✅ FCM initialized
+2026/08/29 12:37:12 google.go:46: Firebase initialized successfully
+2026/08/29 12:37:12 main.go:99: Go API running on :8081
+2026/08/29 12:37:35 logger.go:21: === API Started ===
+2026/08/29 12:37:35 db.go:32: Database connected
+2026/08/29 12:37:35 db.go:42: Migration done
+2026/08/29 12:37:35 redis.go:23: Connected to Redis
+2026/08/29 12:37:35 notification.go:35: ✅ FCM initialized
+2026/08/29 12:37:35 google.go:46: Firebase initialized successfully
+2026/08/29 12:37:35 main.go:105: Go API running on :8081
+2026/08/29 12:42:13 logger.go:21: === API Started ===
+2026/08/29 12:42:13 db.go:32: Database connected
+2026/08/29 12:42:13 db.go:42: Migration done
+2026/08/29 12:42:13 redis.go:23: Connected to Redis
+2026/08/29 12:42:13 notification.go:35: ✅ FCM initialized
+2026/08/29 12:42:13 google.go:46: Firebase initialized successfully
+2026/08/29 12:42:13 main.go:105: Go API running on :8081
+2026/08/29 12:53:16 logger.go:21: === API Started ===
+2026/08/29 12:53:16 db.go:32: Database connected
+2026/08/29 12:53:16 db.go:42: Migration done
+2026/08/29 12:53:16 redis.go:23: Connected to Redis
+2026/08/29 12:53:16 notification.go:35: ✅ FCM initialized
+2026/08/29 12:53:16 google.go:46: Firebase initialized successfully
+2026/08/29 12:53:16 main.go:105: Go API running on :8081
+2026/08/29 12:54:44 logger.go:21: === API Started ===
+2026/08/29 12:54:44 db.go:32: Database connected
+2026/08/29 12:54:44 db.go:42: Migration done
+2026/08/29 12:54:44 redis.go:23: Connected to Redis
+2026/08/29 12:54:44 notification.go:35: ✅ FCM initialized
+2026/08/29 12:54:44 google.go:46: Firebase initialized successfully
+2026/08/29 12:54:44 main.go:105: Go API running on :8081
+2026/08/29 12:56:17 logger.go:21: === API Started ===
+2026/08/29 12:56:17 db.go:32: Database connected
+2026/08/29 12:56:17 db.go:42: Migration done
+2026/08/29 12:56:17 redis.go:23: Connected to Redis
+2026/08/29 12:56:17 notification.go:35: ✅ FCM initialized
+2026/08/29 12:56:17 google.go:46: Firebase initialized successfully
+2026/08/29 12:56:17 main.go:105: Go API running on :8081
+2026/08/29 12:57:06 logger.go:21: === API Started ===
+2026/08/29 12:57:06 db.go:32: Database connected
+2026/08/29 12:57:06 db.go:42: Migration done
+2026/08/29 12:57:06 redis.go:23: Connected to Redis
+2026/08/29 12:57:06 notification.go:35: ✅ FCM initialized
+2026/08/29 12:57:06 google.go:46: Firebase initialized successfully
+2026/08/29 12:57:06 main.go:106: Go API running on :8081
+2026/08/29 15:37:42 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/29 15:57:17 notification.go:38: [PUSH] Attempting to send notification for booking #86
+2026/08/29 15:57:17 notification.go:50: [PUSH] Sending to device: test...
+2026/08/29 15:57:18 notification.go:107: [PUSH] ❌ Failed for booking #86: The registration token is not a valid FCM registration token
+2026/08/29 16:24:00 logger.go:21: === API Started ===
+2026/08/29 16:24:00 db.go:32: Database connected
+2026/08/29 16:24:00 db.go:42: Migration done
+2026/08/29 16:24:00 redis.go:23: Connected to Redis
+2026/08/29 16:24:00 notification.go:35: ✅ FCM initialized
+2026/08/29 16:24:00 google.go:46: Firebase initialized successfully
+2026/08/29 16:24:00 main.go:106: Go API running on :8081
+2026/08/29 16:28:17 logger.go:21: === API Started ===
+2026/08/29 16:28:17 db.go:32: Database connected
+2026/08/29 16:28:17 db.go:42: Migration done
+2026/08/29 16:28:17 redis.go:23: Connected to Redis
+2026/08/29 16:28:17 notification.go:35: ✅ FCM initialized
+2026/08/29 16:28:17 google.go:46: Firebase initialized successfully
+2026/08/29 16:28:17 main.go:106: Go API running on :8081
+2026/08/29 16:29:54 notification.go:38: [PUSH] Attempting to send notification for booking #87
+2026/08/29 16:29:54 notification.go:50: [PUSH] Sending to device: 914ec07a-d40b-46cf-8...
+2026/08/29 16:29:54 notification.go:107: [PUSH] ❌ Failed for booking #87: The registration token is not a valid FCM registration token
+2026/08/30 22:32:07 logger.go:21: === API Started ===
+2026/08/30 22:32:07 db.go:32: Database connected
+2026/08/30 22:32:07 db.go:42: Migration done
+2026/08/30 22:32:07 redis.go:23: Connected to Redis
+2026/08/30 22:32:07 notification.go:35: ✅ FCM initialized
+2026/08/30 22:32:07 google.go:46: Firebase initialized successfully
+2026/08/30 22:32:07 main.go:106: Go API running on :8081
+2026/08/30 22:39:54 logger.go:21: === API Started ===
+2026/08/30 22:39:54 db.go:32: Database connected
+2026/08/30 22:39:54 db.go:42: Migration done
+2026/08/30 22:39:54 redis.go:23: Connected to Redis
+2026/08/30 22:39:54 notification.go:35: ✅ FCM initialized
+2026/08/30 22:39:54 google.go:46: Firebase initialized successfully
+2026/08/30 22:39:54 main.go:109: Go API running on :8081
+2026/08/30 22:54:28 logger.go:21: === API Started ===
+2026/08/30 22:54:28 db.go:32: Database connected
+2026/08/30 22:54:28 db.go:42: Migration done
+2026/08/30 22:54:28 redis.go:23: Connected to Redis
+2026/08/30 22:54:28 notification.go:35: ✅ FCM initialized
+2026/08/30 22:54:28 google.go:46: Firebase initialized successfully
+2026/08/30 22:54:28 main.go:109: Go API running on :8081
+2026/08/30 22:54:58 logger.go:21: === API Started ===
+2026/08/30 22:54:58 db.go:32: Database connected
+2026/08/30 22:54:58 db.go:42: Migration done
+2026/08/30 22:54:58 redis.go:23: Connected to Redis
+2026/08/30 22:54:58 notification.go:35: ✅ FCM initialized
+2026/08/30 22:54:58 google.go:46: Firebase initialized successfully
+2026/08/30 22:54:58 main.go:109: Go API running on :8081
+2026/08/30 22:55:37 logger.go:21: === API Started ===
+2026/08/30 22:55:37 db.go:32: Database connected
+2026/08/30 22:55:37 db.go:42: Migration done
+2026/08/30 22:55:37 redis.go:23: Connected to Redis
+2026/08/30 22:55:37 notification.go:35: ✅ FCM initialized
+2026/08/30 22:55:37 google.go:46: Firebase initialized successfully
+2026/08/30 22:55:37 main.go:109: Go API running on :8081
+2026/08/30 22:55:56 logger.go:21: === API Started ===
+2026/08/30 22:55:56 db.go:32: Database connected
+2026/08/30 22:55:56 db.go:42: Migration done
+2026/08/30 22:55:56 redis.go:23: Connected to Redis
+2026/08/30 22:55:56 notification.go:35: ✅ FCM initialized
+2026/08/30 22:55:56 google.go:46: Firebase initialized successfully
+2026/08/30 22:55:56 main.go:109: Go API running on :8081
+2026/08/30 22:56:32 logger.go:21: === API Started ===
+2026/08/30 22:56:32 db.go:32: Database connected
+2026/08/30 22:56:32 db.go:42: Migration done
+2026/08/30 22:56:32 redis.go:23: Connected to Redis
+2026/08/30 22:56:32 notification.go:35: ✅ FCM initialized
+2026/08/30 22:56:32 google.go:46: Firebase initialized successfully
+2026/08/30 22:56:32 main.go:109: Go API running on :8081
+2026/08/30 22:56:42 logger.go:21: === API Started ===
+2026/08/30 22:56:42 db.go:32: Database connected
+2026/08/30 22:56:42 db.go:42: Migration done
+2026/08/30 22:56:42 redis.go:23: Connected to Redis
+2026/08/30 22:56:42 notification.go:35: ✅ FCM initialized
+2026/08/30 22:56:42 google.go:46: Firebase initialized successfully
+2026/08/30 22:56:42 main.go:109: Go API running on :8081
+2026/08/30 22:57:32 logger.go:21: === API Started ===
+2026/08/30 22:57:32 db.go:32: Database connected
+2026/08/30 22:57:32 db.go:42: Migration done
+2026/08/30 22:57:32 redis.go:23: Connected to Redis
+2026/08/30 22:57:32 notification.go:35: ✅ FCM initialized
+2026/08/30 22:57:32 google.go:46: Firebase initialized successfully
+2026/08/30 22:57:32 main.go:109: Go API running on :8081
+2026/08/30 22:58:35 logger.go:21: === API Started ===
+2026/08/30 22:58:35 db.go:32: Database connected
+2026/08/30 22:58:35 db.go:42: Migration done
+2026/08/30 22:58:35 redis.go:23: Connected to Redis
+2026/08/30 22:58:35 notification.go:35: ✅ FCM initialized
+2026/08/30 22:58:35 google.go:46: Firebase initialized successfully
+2026/08/30 22:58:35 main.go:109: Go API running on :8081
+2026/08/30 23:05:12 logger.go:21: === API Started ===
+2026/08/30 23:05:12 db.go:32: Database connected
+2026/08/30 23:05:12 db.go:42: Migration done
+2026/08/30 23:05:12 redis.go:23: Connected to Redis
+2026/08/30 23:05:12 notification.go:35: ✅ FCM initialized
+2026/08/30 23:05:12 google.go:46: Firebase initialized successfully
+2026/08/30 23:05:12 main.go:109: Go API running on :8081
+2026/08/30 23:13:37 logger.go:21: === API Started ===
+2026/08/30 23:13:37 db.go:32: Database connected
+2026/08/30 23:13:37 db.go:42: Migration done
+2026/08/30 23:13:37 redis.go:23: Connected to Redis
+2026/08/30 23:13:37 notification.go:35: ✅ FCM initialized
+2026/08/30 23:13:37 google.go:46: Firebase initialized successfully
+2026/08/30 23:13:37 main.go:109: Go API running on :8081
