@@ -29,7 +29,7 @@ func main() {
 	handlers.InitEmailService()
 	web.InitEmailService()
 
-	paystackSvc := services.NewPaystackService(os.Getenv("PAYSTACK_SECRET_KEY_TEST"))
+	paystackSvc := services.NewPaystackService(os.Getenv("PAYSTACK_SECRET_KEY"))
 	stripeSvc := services.NewStripeService(os.Getenv("STRIPE_SECRET_KEY"))
 
 	web.InitPaymentServices(paystackSvc, stripeSvc)
