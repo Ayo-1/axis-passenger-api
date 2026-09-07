@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"log/slog"
+	"strings"
 
 	"github.com/stripe/stripe-go/v81"
 	"github.com/stripe/stripe-go/v81/checkout/session"
@@ -22,7 +23,7 @@ type StripePaymentLinkResponse struct {
 	SessionID  string `json:"session_id"`
 }
 
-func (s *StripeService) GeneratePaymentLink(ghsAmount float64, targetCurrency, email, description, reference string, metadata map[string]string) (*StripePaymentLinkResponse, error) {
+func (s *StripeService) GeneratePaymentLink(ghsAmount float64, targetCurrency, email, description, reference string, metadata map[string]string, successURL, cancelURL string) (*StripePaymentLinkResponse, error) {
 	rate := getFXRate(targetCurrency)
 
 	convertedAmount := ghsAmount * rate
@@ -32,10 +33,21 @@ func (s *StripeService) GeneratePaymentLink(ghsAmount float64, targetCurrency, e
 
 	unitAmount := int64(convertedAmount * 100)
 
+	// ── Use {CHECKOUT_SESSION_ID} placeholder in success URL ──
+	// Stripe will automatically replace this with the actual session ID
+	finalSuccessURL := successURL
+	if !strings.Contains(successURL, "session_id") && !strings.Contains(successURL, "{CHECKOUT_SESSION_ID}") {
+		if strings.Contains(successURL, "?") {
+			finalSuccessURL = successURL + "&session_id={CHECKOUT_SESSION_ID}"
+		} else {
+			finalSuccessURL = successURL + "?session_id={CHECKOUT_SESSION_ID}"
+		}
+	}
+
 	params := &stripe.CheckoutSessionParams{
-		Mode:          stripe.String(string(stripe.CheckoutSessionModePayment)),
-		CustomerEmail: stripe.String(email),
-		ClientReferenceID: stripe.String(reference),  // ADD THIS
+		Mode:              stripe.String(string(stripe.CheckoutSessionModePayment)),
+		CustomerEmail:     stripe.String(email),
+		ClientReferenceID: stripe.String(reference),
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
 			{
 				PriceData: &stripe.CheckoutSessionLineItemPriceDataParams{
@@ -48,8 +60,8 @@ func (s *StripeService) GeneratePaymentLink(ghsAmount float64, targetCurrency, e
 				Quantity: stripe.Int64(1),
 			},
 		},
-		SuccessURL: stripe.String("https://your-site.com/payment/success?session_id={CHECKOUT_SESSION_ID}"),
-		CancelURL:  stripe.String("https://your-site.com/payment/cancel"),
+		SuccessURL: stripe.String(finalSuccessURL),
+		CancelURL:  stripe.String(cancelURL),
 		Metadata:   metadata,
 	}
 

@@ -27,6 +27,7 @@ func main() {
 	config.InitRedis()
 	handlers.InitFCM() // Add this line
 	handlers.InitEmailService()
+	web.InitEmailService()
 
 	paystackSvc := services.NewPaystackService(os.Getenv("PAYSTACK_SECRET_KEY_TEST"))
 	stripeSvc := services.NewStripeService(os.Getenv("STRIPE_SECRET_KEY"))
@@ -96,9 +97,49 @@ func main() {
 		webRoutes.POST("/bookings/lookup", web.LookupBooking)
 		webRoutes.PATCH("/bookings/update", web.UpdateBooking)
 		webRoutes.POST("/bookings/cancel", web.CancelBooking)
+		webRoutes.POST("/bookings/receipt", web.GetBookingReceipt)
+		webRoutes.POST("/bookings/receipt/link", web.CreateReceiptLink)
+		webRoutes.POST("/bookings/receipt/token", web.GetReceiptByToken)
+		webRoutes.GET("/pay/details", web.GetGuestPaymentDetails)
+		webRoutes.POST("/pay/create-link", web.CreateGuestPaymentLink)
+		
 
 		webRoutes.POST("/rentals", web.CreateRental)
+		
+	}
 
+	
+	
+	hotelGroup := r.Group("/v1/app/hotels")
+
+	// Public hotel routes
+	publicHotel := hotelGroup.Group("/")
+	publicHotel.Use(middleware.RateLimit(30, time.Minute))
+	{
+		publicHotel.POST("/apply", web.ApplyHotel)
+		publicHotel.POST("/auth/login", web.LoginHotel)
+		publicHotel.POST("/auth/google", web.GoogleLoginHotel)
+
+	}
+	// Protected hotel routes
+	protectedHotel := hotelGroup.Group("/")
+	protectedHotel.Use(
+		middleware.HotelAuthRequired(),
+		middleware.RateLimit(30, time.Minute),
+	)
+	{
+		protectedHotel.GET("/me", web.HotelMe)
+		protectedHotel.POST("/setup", web.SetupHotel)
+		protectedHotel.GET("/dashboard", web.HotelDashboard)
+		protectedHotel.POST("/bookings", web.BookForGuest)
+		protectedHotel.GET("/bookings", web.ListHotelBookings)
+		protectedHotel.GET("/earnings", web.HotelEarnings)
+		protectedHotel.POST("/withdraw", web.RequestPayout)
+		protectedHotel.POST("/bookings/status", web.UpdatePartnerBookingStatus)
+		protectedHotel.POST("/rentals", web.BookRentalForGuest)
+
+
+		
 	}
 
 	port := os.Getenv("PORT")

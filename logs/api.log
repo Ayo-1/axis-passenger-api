@@ -1325,3 +1325,1237 @@
 2026/08/30 23:13:37 notification.go:35: ✅ FCM initialized
 2026/08/30 23:13:37 google.go:46: Firebase initialized successfully
 2026/08/30 23:13:37 main.go:109: Go API running on :8081
+2026/08/31 09:32:51 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/31 10:12:22 email.go:67: OTP email sent to dev.ayomide@gmail.com
+2026/08/31 11:02:19 logger.go:21: === API Started ===
+2026/08/31 11:02:19 db.go:32: Database connected
+2026/08/31 11:02:19 db.go:42: Migration done
+2026/08/31 11:02:19 redis.go:23: Connected to Redis
+2026/08/31 11:02:19 notification.go:35: ✅ FCM initialized
+2026/08/31 11:02:19 google.go:46: Firebase initialized successfully
+2026/08/31 11:02:19 main.go:109: Go API running on :8081
+2026/08/31 11:02:32 logger.go:21: === API Started ===
+2026/08/31 11:02:32 db.go:32: Database connected
+2026/08/31 11:02:32 db.go:42: Migration done
+2026/08/31 11:02:32 redis.go:23: Connected to Redis
+2026/08/31 11:02:32 notification.go:35: ✅ FCM initialized
+2026/08/31 11:02:32 google.go:46: Firebase initialized successfully
+2026/08/31 11:02:32 main.go:109: Go API running on :8081
+2026/08/31 11:02:51 logger.go:21: === API Started ===
+2026/08/31 11:02:51 db.go:32: Database connected
+2026/08/31 11:02:51 db.go:42: Migration done
+2026/08/31 11:02:51 redis.go:23: Connected to Redis
+2026/08/31 11:02:51 notification.go:35: ✅ FCM initialized
+2026/08/31 11:02:51 google.go:46: Firebase initialized successfully
+2026/08/31 11:02:51 main.go:109: Go API running on :8081
+2026/08/31 11:03:05 logger.go:21: === API Started ===
+2026/08/31 11:03:05 db.go:32: Database connected
+2026/08/31 11:03:05 db.go:42: Migration done
+2026/08/31 11:03:05 redis.go:23: Connected to Redis
+2026/08/31 11:03:05 notification.go:35: ✅ FCM initialized
+2026/08/31 11:03:05 google.go:46: Firebase initialized successfully
+2026/08/31 11:03:05 main.go:109: Go API running on :8081
+2026/08/31 11:35:47 logger.go:21: === API Started ===
+2026/08/31 11:35:47 db.go:32: Database connected
+2026/08/31 11:35:47 db.go:42: Migration done
+2026/08/31 11:35:47 redis.go:23: Connected to Redis
+2026/08/31 11:35:47 notification.go:35: ✅ FCM initialized
+2026/08/31 11:35:47 google.go:46: Firebase initialized successfully
+2026/08/31 11:35:47 main.go:109: Go API running on :8081
+2026/08/31 12:16:54 logger.go:21: === API Started ===
+2026/08/31 12:16:54 db.go:32: Database connected
+2026/08/31 12:16:54 db.go:42: Migration done
+2026/08/31 12:16:54 redis.go:23: Connected to Redis
+2026/08/31 12:16:54 notification.go:35: ✅ FCM initialized
+2026/08/31 12:16:54 google.go:46: Firebase initialized successfully
+2026/08/31 12:16:54 main.go:109: Go API running on :8081
+2026/08/31 12:32:28 logger.go:21: === API Started ===
+2026/08/31 12:32:28 db.go:32: Database connected
+2026/08/31 12:32:28 db.go:42: Migration done
+2026/08/31 12:32:28 redis.go:23: Connected to Redis
+2026/08/31 12:32:28 notification.go:35: ✅ FCM initialized
+2026/08/31 12:32:28 google.go:46: Firebase initialized successfully
+2026/08/31 12:32:28 main.go:109: Go API running on :8081
+2026/08/31 12:32:41 logger.go:21: === API Started ===
+2026/08/31 12:32:41 db.go:32: Database connected
+2026/08/31 12:32:41 db.go:42: Migration done
+2026/08/31 12:32:41 redis.go:23: Connected to Redis
+2026/08/31 12:32:41 notification.go:35: ✅ FCM initialized
+2026/08/31 12:32:41 google.go:46: Firebase initialized successfully
+2026/08/31 12:32:41 main.go:109: Go API running on :8081
+2026/08/31 13:15:08 logger.go:21: === API Started ===
+2026/08/31 13:15:08 db.go:32: Database connected
+2026/08/31 13:15:09 db.go:42: Migration done
+2026/08/31 13:15:09 redis.go:23: Connected to Redis
+2026/08/31 13:15:09 notification.go:35: ✅ FCM initialized
+2026/08/31 13:15:09 google.go:46: Firebase initialized successfully
+2026/08/31 13:15:09 main.go:109: Go API running on :8081
+2026/08/31 13:15:30 logger.go:21: === API Started ===
+2026/08/31 13:15:30 db.go:32: Database connected
+2026/08/31 13:15:30 db.go:42: Migration done
+2026/08/31 13:15:30 redis.go:23: Connected to Redis
+2026/08/31 13:15:30 notification.go:35: ✅ FCM initialized
+2026/08/31 13:15:30 google.go:46: Firebase initialized successfully
+2026/08/31 13:15:30 main.go:109: Go API running on :8081
+2026/08/31 13:20:23 logger.go:21: === API Started ===
+2026/08/31 13:20:23 db.go:32: Database connected
+2026/08/31 13:20:23 db.go:42: Migration done
+2026/08/31 13:20:23 redis.go:23: Connected to Redis
+2026/08/31 13:20:23 notification.go:35: ✅ FCM initialized
+2026/08/31 13:20:23 google.go:46: Firebase initialized successfully
+2026/08/31 13:20:23 main.go:109: Go API running on :8081
+2026/08/31 13:27:38 logger.go:21: === API Started ===
+2026/08/31 13:27:38 db.go:32: Database connected
+2026/08/31 13:27:38 db.go:42: Migration done
+2026/08/31 13:27:38 redis.go:23: Connected to Redis
+2026/08/31 13:27:38 notification.go:35: ✅ FCM initialized
+2026/08/31 13:27:38 google.go:46: Firebase initialized successfully
+2026/08/31 13:27:38 main.go:109: Go API running on :8081
+2026/08/31 13:28:16 logger.go:21: === API Started ===
+2026/08/31 13:28:16 db.go:32: Database connected
+2026/08/31 13:28:16 db.go:42: Migration done
+2026/08/31 13:28:16 redis.go:23: Connected to Redis
+2026/08/31 13:28:16 notification.go:35: ✅ FCM initialized
+2026/08/31 13:28:16 google.go:46: Firebase initialized successfully
+2026/08/31 13:28:16 main.go:109: Go API running on :8081
+2026/08/31 13:32:36 logger.go:21: === API Started ===
+2026/08/31 13:32:36 db.go:32: Database connected
+2026/08/31 13:32:36 db.go:42: Migration done
+2026/08/31 13:32:36 redis.go:23: Connected to Redis
+2026/08/31 13:32:36 notification.go:35: ✅ FCM initialized
+2026/08/31 13:32:36 google.go:46: Firebase initialized successfully
+2026/08/31 13:32:36 main.go:109: Go API running on :8081
+2026/08/31 13:43:27 logger.go:21: === API Started ===
+2026/08/31 13:43:27 db.go:32: Database connected
+2026/08/31 13:43:27 db.go:42: Migration done
+2026/08/31 13:43:27 redis.go:23: Connected to Redis
+2026/08/31 13:43:27 notification.go:35: ✅ FCM initialized
+2026/08/31 13:43:27 google.go:46: Firebase initialized successfully
+2026/08/31 13:43:27 main.go:124: Go API running on :8081
+2026/08/31 14:32:13 logger.go:21: === API Started ===
+2026/08/31 14:32:13 db.go:32: Database connected
+2026/08/31 14:32:13 db.go:42: Migration done
+2026/08/31 14:32:13 redis.go:23: Connected to Redis
+2026/08/31 14:32:13 notification.go:35: ✅ FCM initialized
+2026/08/31 14:32:13 google.go:46: Firebase initialized successfully
+2026/08/31 14:32:13 main.go:124: Go API running on :8081
+2026/08/31 14:33:52 logger.go:21: === API Started ===
+2026/08/31 14:33:52 db.go:32: Database connected
+2026/08/31 14:33:53 db.go:42: Migration done
+2026/08/31 14:33:53 redis.go:23: Connected to Redis
+2026/08/31 14:33:53 notification.go:35: ✅ FCM initialized
+2026/08/31 14:33:53 google.go:46: Firebase initialized successfully
+2026/08/31 14:33:53 main.go:124: Go API running on :8081
+2026/08/31 14:34:42 logger.go:21: === API Started ===
+2026/08/31 14:34:42 db.go:32: Database connected
+2026/08/31 14:34:42 db.go:42: Migration done
+2026/08/31 14:34:42 redis.go:23: Connected to Redis
+2026/08/31 14:34:42 notification.go:35: ✅ FCM initialized
+2026/08/31 14:34:42 google.go:46: Firebase initialized successfully
+2026/08/31 14:34:42 main.go:125: Go API running on :8081
+2026/08/31 14:35:02 logger.go:21: === API Started ===
+2026/08/31 14:35:02 db.go:32: Database connected
+2026/08/31 14:35:02 db.go:42: Migration done
+2026/08/31 14:35:02 redis.go:23: Connected to Redis
+2026/08/31 14:35:02 notification.go:35: ✅ FCM initialized
+2026/08/31 14:35:02 google.go:46: Firebase initialized successfully
+2026/08/31 14:35:02 main.go:125: Go API running on :8081
+2026/08/31 14:37:33 logger.go:21: === API Started ===
+2026/08/31 14:37:33 db.go:32: Database connected
+2026/08/31 14:37:33 db.go:42: Migration done
+2026/08/31 14:37:33 redis.go:23: Connected to Redis
+2026/08/31 14:37:33 notification.go:35: ✅ FCM initialized
+2026/08/31 14:37:33 google.go:46: Firebase initialized successfully
+2026/08/31 14:37:33 main.go:126: Go API running on :8081
+2026/08/31 14:41:08 logger.go:21: === API Started ===
+2026/08/31 14:41:08 db.go:32: Database connected
+2026/08/31 14:41:08 db.go:42: Migration done
+2026/08/31 14:41:08 redis.go:23: Connected to Redis
+2026/08/31 14:41:08 notification.go:35: ✅ FCM initialized
+2026/08/31 14:41:08 google.go:46: Firebase initialized successfully
+2026/08/31 14:41:08 main.go:135: Go API running on :8081
+2026/08/31 14:41:17 logger.go:21: === API Started ===
+2026/08/31 14:41:17 db.go:32: Database connected
+2026/08/31 14:41:17 db.go:42: Migration done
+2026/08/31 14:41:17 redis.go:23: Connected to Redis
+2026/08/31 14:41:17 notification.go:35: ✅ FCM initialized
+2026/08/31 14:41:17 google.go:46: Firebase initialized successfully
+2026/08/31 14:41:17 main.go:135: Go API running on :8081
+2026/08/31 14:44:29 logger.go:21: === API Started ===
+2026/08/31 14:44:29 db.go:32: Database connected
+2026/08/31 14:44:29 db.go:42: Migration done
+2026/08/31 14:44:29 redis.go:23: Connected to Redis
+2026/08/31 14:44:29 notification.go:35: ✅ FCM initialized
+2026/08/31 14:44:29 google.go:46: Firebase initialized successfully
+2026/08/31 14:44:29 main.go:135: Go API running on :8081
+2026/08/31 15:01:49 logger.go:21: === API Started ===
+2026/08/31 15:01:49 db.go:32: Database connected
+2026/08/31 15:01:49 db.go:42: Migration done
+2026/08/31 15:01:49 redis.go:23: Connected to Redis
+2026/08/31 15:01:49 notification.go:35: ✅ FCM initialized
+2026/08/31 15:01:49 google.go:46: Firebase initialized successfully
+2026/08/31 15:01:49 main.go:135: Go API running on :8081
+2026/08/31 15:02:36 logger.go:21: === API Started ===
+2026/08/31 15:02:36 db.go:32: Database connected
+2026/08/31 15:02:36 db.go:42: Migration done
+2026/08/31 15:02:36 redis.go:23: Connected to Redis
+2026/08/31 15:02:36 notification.go:35: ✅ FCM initialized
+2026/08/31 15:02:36 google.go:46: Firebase initialized successfully
+2026/08/31 15:02:36 main.go:135: Go API running on :8081
+2026/08/31 15:03:17 logger.go:21: === API Started ===
+2026/08/31 15:03:17 db.go:32: Database connected
+2026/08/31 15:03:17 db.go:42: Migration done
+2026/08/31 15:03:17 redis.go:23: Connected to Redis
+2026/08/31 15:03:17 notification.go:35: ✅ FCM initialized
+2026/08/31 15:03:17 google.go:46: Firebase initialized successfully
+2026/08/31 15:03:17 main.go:135: Go API running on :8081
+2026/08/31 15:05:23 email.go:128: Would send hotel application confirmation to dev.ayomide+33@gmail.com (email disabled)
+2026/08/31 15:05:23 email.go:165: Would send new hotel application notification (email disabled)
+2026/08/31 15:17:13 logger.go:21: === API Started ===
+2026/08/31 15:17:13 db.go:32: Database connected
+2026/08/31 15:17:13 db.go:42: Migration done
+2026/08/31 15:17:13 redis.go:23: Connected to Redis
+2026/08/31 15:17:13 notification.go:35: ✅ FCM initialized
+2026/08/31 15:17:13 google.go:46: Firebase initialized successfully
+2026/08/31 15:17:13 main.go:135: Go API running on :8081
+2026/08/31 15:19:48 email.go:128: Would send hotel application confirmation to dev.ayomide+3@gmail.com (email disabled)
+2026/08/31 15:19:48 email.go:165: Would send new hotel application notification (email disabled)
+2026/08/31 15:40:58 logger.go:21: === API Started ===
+2026/08/31 15:40:58 db.go:32: Database connected
+2026/08/31 15:40:58 db.go:42: Migration done
+2026/08/31 15:40:58 redis.go:23: Connected to Redis
+2026/08/31 15:40:58 notification.go:35: ✅ FCM initialized
+2026/08/31 15:40:58 google.go:46: Firebase initialized successfully
+2026/08/31 15:40:58 main.go:136: Go API running on :8081
+2026/08/31 15:43:30 email.go:156: Hotel application confirmation sent to dev.ayomide@gmail.com
+2026/08/31 15:43:30 email.go:203: New hotel application notification sent to dev.ayomide@gmail.com
+2026/08/31 16:04:54 logger.go:21: === API Started ===
+2026/08/31 16:04:54 db.go:32: Database connected
+2026/08/31 16:04:54 db.go:42: Migration done
+2026/08/31 16:04:54 redis.go:23: Connected to Redis
+2026/08/31 16:04:54 notification.go:35: ✅ FCM initialized
+2026/08/31 16:04:54 google.go:46: Firebase initialized successfully
+2026/08/31 16:04:54 main.go:138: Go API running on :8081
+2026/08/31 16:40:10 logger.go:21: === API Started ===
+2026/08/31 16:40:10 db.go:32: Database connected
+2026/08/31 16:40:10 db.go:42: Migration done
+2026/08/31 16:40:10 redis.go:23: Connected to Redis
+2026/08/31 16:40:10 notification.go:35: ✅ FCM initialized
+2026/08/31 16:40:10 google.go:46: Firebase initialized successfully
+2026/08/31 16:40:10 main.go:138: Go API running on :8081
+2026/08/31 16:41:05 logger.go:21: === API Started ===
+2026/08/31 16:41:05 db.go:32: Database connected
+2026/08/31 16:41:05 db.go:42: Migration done
+2026/08/31 16:41:05 redis.go:23: Connected to Redis
+2026/08/31 16:41:05 notification.go:35: ✅ FCM initialized
+2026/08/31 16:41:05 google.go:46: Firebase initialized successfully
+2026/08/31 16:41:05 main.go:138: Go API running on :8081
+2026/08/31 16:41:15 logger.go:21: === API Started ===
+2026/08/31 16:41:15 db.go:32: Database connected
+2026/08/31 16:41:15 db.go:42: Migration done
+2026/08/31 16:41:15 redis.go:23: Connected to Redis
+2026/08/31 16:41:15 notification.go:35: ✅ FCM initialized
+2026/08/31 16:41:15 google.go:46: Firebase initialized successfully
+2026/08/31 16:41:15 main.go:138: Go API running on :8081
+2026/08/31 16:41:36 logger.go:21: === API Started ===
+2026/08/31 16:41:36 db.go:32: Database connected
+2026/08/31 16:41:36 db.go:42: Migration done
+2026/08/31 16:41:36 redis.go:23: Connected to Redis
+2026/08/31 16:41:36 notification.go:35: ✅ FCM initialized
+2026/08/31 16:41:36 google.go:46: Firebase initialized successfully
+2026/08/31 16:41:36 main.go:138: Go API running on :8081
+2026/08/31 16:45:38 logger.go:21: === API Started ===
+2026/08/31 16:45:38 db.go:32: Database connected
+2026/08/31 16:45:38 db.go:42: Migration done
+2026/08/31 16:45:38 redis.go:23: Connected to Redis
+2026/08/31 16:45:38 notification.go:35: ✅ FCM initialized
+2026/08/31 16:45:38 google.go:46: Firebase initialized successfully
+2026/08/31 16:45:38 main.go:138: Go API running on :8081
+2026/08/31 16:45:58 logger.go:21: === API Started ===
+2026/08/31 16:45:58 db.go:32: Database connected
+2026/08/31 16:45:58 db.go:42: Migration done
+2026/08/31 16:45:58 redis.go:23: Connected to Redis
+2026/08/31 16:45:58 notification.go:35: ✅ FCM initialized
+2026/08/31 16:45:58 google.go:46: Firebase initialized successfully
+2026/08/31 16:45:58 main.go:138: Go API running on :8081
+2026/08/31 16:46:10 logger.go:21: === API Started ===
+2026/08/31 16:46:10 db.go:32: Database connected
+2026/08/31 16:46:10 db.go:42: Migration done
+2026/08/31 16:46:10 redis.go:23: Connected to Redis
+2026/08/31 16:46:10 notification.go:35: ✅ FCM initialized
+2026/08/31 16:46:10 google.go:46: Firebase initialized successfully
+2026/08/31 16:46:10 main.go:138: Go API running on :8081
+2026/08/31 16:46:39 logger.go:21: === API Started ===
+2026/08/31 16:46:39 db.go:32: Database connected
+2026/08/31 16:46:39 db.go:42: Migration done
+2026/08/31 16:46:39 redis.go:23: Connected to Redis
+2026/08/31 16:46:39 notification.go:35: ✅ FCM initialized
+2026/08/31 16:46:39 google.go:46: Firebase initialized successfully
+2026/08/31 16:46:39 main.go:138: Go API running on :8081
+2026/08/31 16:46:49 hotel.go:189: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=
+2026/08/31 16:49:52 logger.go:21: === API Started ===
+2026/08/31 16:49:52 db.go:32: Database connected
+2026/08/31 16:49:52 db.go:42: Migration done
+2026/08/31 16:49:52 redis.go:23: Connected to Redis
+2026/08/31 16:49:52 notification.go:35: ✅ FCM initialized
+2026/08/31 16:49:52 google.go:46: Firebase initialized successfully
+2026/08/31 16:49:52 main.go:138: Go API running on :8081
+2026/08/31 16:50:03 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/08/31 16:50:31 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/01 03:53:44 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/01 04:36:29 logger.go:21: === API Started ===
+2026/09/01 04:36:29 db.go:32: Database connected
+2026/09/01 04:36:29 db.go:42: Migration done
+2026/09/01 04:36:29 redis.go:23: Connected to Redis
+2026/09/01 04:36:29 notification.go:35: ✅ FCM initialized
+2026/09/01 04:36:29 google.go:46: Firebase initialized successfully
+2026/09/01 04:36:29 main.go:138: Go API running on :8081
+2026/09/01 04:37:31 logger.go:21: === API Started ===
+2026/09/01 04:37:31 db.go:32: Database connected
+2026/09/01 04:37:31 db.go:42: Migration done
+2026/09/01 04:37:31 redis.go:23: Connected to Redis
+2026/09/01 04:37:31 notification.go:35: ✅ FCM initialized
+2026/09/01 04:37:31 google.go:46: Firebase initialized successfully
+2026/09/01 04:37:31 main.go:138: Go API running on :8081
+2026/09/01 04:37:41 logger.go:21: === API Started ===
+2026/09/01 04:37:41 db.go:32: Database connected
+2026/09/01 04:37:41 db.go:42: Migration done
+2026/09/01 04:37:41 redis.go:23: Connected to Redis
+2026/09/01 04:37:41 notification.go:35: ✅ FCM initialized
+2026/09/01 04:37:41 google.go:46: Firebase initialized successfully
+2026/09/01 04:37:41 main.go:138: Go API running on :8081
+2026/09/01 04:38:15 logger.go:21: === API Started ===
+2026/09/01 04:38:15 db.go:32: Database connected
+2026/09/01 04:38:15 db.go:42: Migration done
+2026/09/01 04:38:15 redis.go:23: Connected to Redis
+2026/09/01 04:38:15 notification.go:35: ✅ FCM initialized
+2026/09/01 04:38:15 google.go:46: Firebase initialized successfully
+2026/09/01 04:38:15 main.go:139: Go API running on :8081
+2026/09/01 04:53:59 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/01 05:16:28 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/01 09:46:14 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/01 11:13:20 logger.go:21: === API Started ===
+2026/09/01 11:13:20 db.go:32: Database connected
+2026/09/01 11:13:20 db.go:42: Migration done
+2026/09/01 11:13:20 redis.go:23: Connected to Redis
+2026/09/01 11:13:20 notification.go:35: ✅ FCM initialized
+2026/09/01 11:13:20 google.go:46: Firebase initialized successfully
+2026/09/01 11:13:20 main.go:139: Go API running on :8081
+2026/09/01 11:13:48 logger.go:21: === API Started ===
+2026/09/01 11:13:48 db.go:32: Database connected
+2026/09/01 11:13:48 db.go:42: Migration done
+2026/09/01 11:13:48 redis.go:23: Connected to Redis
+2026/09/01 11:13:48 notification.go:35: ✅ FCM initialized
+2026/09/01 11:13:48 google.go:46: Firebase initialized successfully
+2026/09/01 11:13:48 main.go:139: Go API running on :8081
+2026/09/01 11:14:34 logger.go:21: === API Started ===
+2026/09/01 11:14:34 db.go:32: Database connected
+2026/09/01 11:14:34 db.go:42: Migration done
+2026/09/01 11:14:34 redis.go:23: Connected to Redis
+2026/09/01 11:14:34 notification.go:35: ✅ FCM initialized
+2026/09/01 11:14:34 google.go:46: Firebase initialized successfully
+2026/09/01 11:14:34 main.go:139: Go API running on :8081
+2026/09/01 11:19:20 logger.go:21: === API Started ===
+2026/09/01 11:19:20 db.go:32: Database connected
+2026/09/01 11:19:20 db.go:42: Migration done
+2026/09/01 11:19:20 redis.go:23: Connected to Redis
+2026/09/01 11:19:20 notification.go:35: ✅ FCM initialized
+2026/09/01 11:19:20 google.go:46: Firebase initialized successfully
+2026/09/01 11:19:20 main.go:139: Go API running on :8081
+2026/09/01 11:23:25 logger.go:21: === API Started ===
+2026/09/01 11:23:25 db.go:32: Database connected
+2026/09/01 11:23:25 db.go:42: Migration done
+2026/09/01 11:23:25 redis.go:23: Connected to Redis
+2026/09/01 11:23:25 notification.go:35: ✅ FCM initialized
+2026/09/01 11:23:25 google.go:46: Firebase initialized successfully
+2026/09/01 11:23:25 main.go:139: Go API running on :8081
+2026/09/01 11:24:12 logger.go:21: === API Started ===
+2026/09/01 11:24:12 db.go:32: Database connected
+2026/09/01 11:24:12 db.go:42: Migration done
+2026/09/01 11:24:12 redis.go:23: Connected to Redis
+2026/09/01 11:24:12 notification.go:35: ✅ FCM initialized
+2026/09/01 11:24:12 google.go:46: Firebase initialized successfully
+2026/09/01 11:24:12 main.go:139: Go API running on :8081
+2026/09/01 11:24:27 logger.go:21: === API Started ===
+2026/09/01 11:24:27 db.go:32: Database connected
+2026/09/01 11:24:27 db.go:42: Migration done
+2026/09/01 11:24:27 redis.go:23: Connected to Redis
+2026/09/01 11:24:27 notification.go:39: ✅ FCM initialized
+2026/09/01 11:24:27 google.go:46: Firebase initialized successfully
+2026/09/01 11:24:27 main.go:139: Go API running on :8081
+2026/09/01 11:35:30 logger.go:21: === API Started ===
+2026/09/01 11:35:30 db.go:32: Database connected
+2026/09/01 11:35:30 db.go:42: Migration done
+2026/09/01 11:35:30 redis.go:23: Connected to Redis
+2026/09/01 11:35:30 notification.go:39: ✅ FCM initialized
+2026/09/01 11:35:30 google.go:46: Firebase initialized successfully
+2026/09/01 11:35:30 main.go:139: Go API running on :8081
+2026/09/01 11:35:45 logger.go:21: === API Started ===
+2026/09/01 11:35:45 db.go:32: Database connected
+2026/09/01 11:35:45 db.go:42: Migration done
+2026/09/01 11:35:45 redis.go:23: Connected to Redis
+2026/09/01 11:35:45 notification.go:39: ✅ FCM initialized
+2026/09/01 11:35:45 google.go:46: Firebase initialized successfully
+2026/09/01 11:35:45 main.go:139: Go API running on :8081
+2026/09/01 11:36:54 email.go:93: OTP email sent to dev.ayomide@gmail.com
+2026/09/01 11:48:48 notification.go:203: [NOTIFY] ⚠️ No device token for driver 
+2026/09/01 11:52:42 notification.go:200: [NOTIFY] ✅ Push sent for booking #117, MessageID: projects/axis-dd584/messages/fa85a20d-fd2f-4611-98c7-5feb40e23599
+2026/09/01 11:52:42 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/01 11:52:42 notification.go:220: [NOTIFY] ✅ Email sent for booking #117 to dev.ayomide@gmail.com
+2026/09/01 12:05:22 logger.go:21: === API Started ===
+2026/09/01 12:05:22 db.go:32: Database connected
+2026/09/01 12:05:22 db.go:42: Migration done
+2026/09/01 12:05:22 redis.go:23: Connected to Redis
+2026/09/01 12:05:22 notification.go:39: ✅ FCM initialized
+2026/09/01 12:05:22 google.go:46: Firebase initialized successfully
+2026/09/01 12:05:22 main.go:139: Go API running on :8081
+2026/09/01 13:02:15 logger.go:21: === API Started ===
+2026/09/01 13:02:15 db.go:32: Database connected
+2026/09/01 13:02:15 db.go:42: Migration done
+2026/09/01 13:02:15 redis.go:23: Connected to Redis
+2026/09/01 13:02:15 notification.go:39: ✅ FCM initialized
+2026/09/01 13:02:15 google.go:46: Firebase initialized successfully
+2026/09/01 13:02:15 main.go:143: Go API running on :8081
+2026/09/01 13:05:40 logger.go:21: === API Started ===
+2026/09/01 13:05:40 db.go:32: Database connected
+2026/09/01 13:05:40 db.go:42: Migration done
+2026/09/01 13:05:40 redis.go:23: Connected to Redis
+2026/09/01 13:05:40 notification.go:39: ✅ FCM initialized
+2026/09/01 13:05:40 google.go:46: Firebase initialized successfully
+2026/09/01 13:05:40 main.go:143: Go API running on :8081
+2026/09/01 14:13:01 notification.go:198: [NOTIFY] ❌ Push failed for booking #118: The registration token is not a valid FCM registration token
+2026/09/01 14:13:01 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/01 14:13:01 notification.go:220: [NOTIFY] ✅ Email sent for booking #118 to kofiache77@gmail.com
+2026/09/01 15:05:34 logger.go:21: === API Started ===
+2026/09/01 15:05:34 db.go:32: Database connected
+2026/09/01 15:05:34 db.go:42: Migration done
+2026/09/01 15:05:34 redis.go:23: Connected to Redis
+2026/09/01 15:05:34 notification.go:39: ✅ FCM initialized
+2026/09/01 15:05:34 google.go:46: Firebase initialized successfully
+2026/09/01 15:05:34 main.go:143: Go API running on :8081
+2026/09/01 15:05:48 logger.go:21: === API Started ===
+2026/09/01 15:05:48 db.go:32: Database connected
+2026/09/01 15:05:48 db.go:42: Migration done
+2026/09/01 15:05:48 redis.go:23: Connected to Redis
+2026/09/01 15:05:48 notification.go:39: ✅ FCM initialized
+2026/09/01 15:05:48 google.go:46: Firebase initialized successfully
+2026/09/01 15:05:48 main.go:143: Go API running on :8081
+2026/09/01 15:06:01 logger.go:21: === API Started ===
+2026/09/01 15:06:01 db.go:32: Database connected
+2026/09/01 15:06:01 db.go:42: Migration done
+2026/09/01 15:06:01 redis.go:23: Connected to Redis
+2026/09/01 15:06:01 notification.go:39: ✅ FCM initialized
+2026/09/01 15:06:01 google.go:46: Firebase initialized successfully
+2026/09/01 15:06:01 main.go:143: Go API running on :8081
+2026/09/01 15:06:59 logger.go:21: === API Started ===
+2026/09/01 15:06:59 db.go:32: Database connected
+2026/09/01 15:06:59 db.go:42: Migration done
+2026/09/01 15:06:59 redis.go:23: Connected to Redis
+2026/09/01 15:06:59 notification.go:42: ✅ FCM initialized
+2026/09/01 15:06:59 google.go:46: Firebase initialized successfully
+2026/09/01 15:06:59 main.go:143: Go API running on :8081
+2026/09/01 15:20:14 logger.go:21: === API Started ===
+2026/09/01 15:20:14 db.go:32: Database connected
+2026/09/01 15:20:14 db.go:42: Migration done
+2026/09/01 15:20:14 redis.go:23: Connected to Redis
+2026/09/01 15:20:14 notification.go:42: ✅ FCM initialized
+2026/09/01 15:20:14 google.go:46: Firebase initialized successfully
+2026/09/01 15:20:14 main.go:143: Go API running on :8081
+2026/09/01 15:37:13 logger.go:21: === API Started ===
+2026/09/01 15:37:13 db.go:32: Database connected
+2026/09/01 15:37:13 db.go:42: Migration done
+2026/09/01 15:37:13 redis.go:23: Connected to Redis
+2026/09/01 15:37:13 notification.go:42: ✅ FCM initialized
+2026/09/01 15:37:13 google.go:46: Firebase initialized successfully
+2026/09/01 15:37:13 main.go:143: Go API running on :8081
+2026/09/01 15:37:50 logger.go:21: === API Started ===
+2026/09/01 15:37:50 db.go:32: Database connected
+2026/09/01 15:37:50 db.go:42: Migration done
+2026/09/01 15:37:50 redis.go:23: Connected to Redis
+2026/09/01 15:37:50 notification.go:42: ✅ FCM initialized
+2026/09/01 15:37:50 google.go:46: Firebase initialized successfully
+2026/09/01 15:37:50 main.go:143: Go API running on :8081
+2026/09/01 15:38:30 logger.go:21: === API Started ===
+2026/09/01 15:38:30 db.go:32: Database connected
+2026/09/01 15:38:30 db.go:42: Migration done
+2026/09/01 15:38:30 redis.go:23: Connected to Redis
+2026/09/01 15:38:30 notification.go:42: ✅ FCM initialized
+2026/09/01 15:38:30 google.go:46: Firebase initialized successfully
+2026/09/01 15:38:30 main.go:143: Go API running on :8081
+2026/09/01 15:39:30 logger.go:21: === API Started ===
+2026/09/01 15:39:30 db.go:32: Database connected
+2026/09/01 15:39:30 db.go:42: Migration done
+2026/09/01 15:39:30 redis.go:23: Connected to Redis
+2026/09/01 15:39:30 notification.go:42: ✅ FCM initialized
+2026/09/01 15:39:30 google.go:46: Firebase initialized successfully
+2026/09/01 15:39:30 main.go:143: Go API running on :8081
+2026/09/01 15:44:15 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 15:44:15 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 15:44:16 notification.go:235: [NOTIFY] ❌ Push failed for booking #119: The registration token is not a valid FCM registration token
+2026/09/01 15:44:16 notification.go:235: [NOTIFY] ❌ Push failed for booking #119: The registration token is not a valid FCM registration token
+2026/09/01 15:44:16 email.go:530: Scheduled ride notification sent to dev.ayomide+axis@gmail.com
+2026/09/01 15:44:16 notification.go:257: [NOTIFY] ✅ Email sent for booking #119 to dev.ayomide+axis@gmail.com
+2026/09/01 15:44:16 email.go:530: Scheduled ride notification sent to dev.ayomide+axis@gmail.com
+2026/09/01 15:44:16 notification.go:257: [NOTIFY] ✅ Email sent for booking #119 to dev.ayomide+axis@gmail.com
+2026/09/01 15:59:30 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 15:59:30 notification.go:235: [NOTIFY] ❌ Push failed for booking #120: The registration token is not a valid FCM registration token
+2026/09/01 15:59:30 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/01 15:59:30 notification.go:257: [NOTIFY] ✅ Email sent for booking #120 to kofiache77@gmail.com
+2026/09/01 16:02:35 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 16:02:35 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 16:02:35 notification.go:235: [NOTIFY] ❌ Push failed for booking #121: The registration token is not a valid FCM registration token
+2026/09/01 16:02:35 notification.go:235: [NOTIFY] ❌ Push failed for booking #121: The registration token is not a valid FCM registration token
+2026/09/01 16:02:35 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/01 16:02:35 notification.go:257: [NOTIFY] ✅ Email sent for booking #121 to kofiache77@gmail.com
+2026/09/01 16:02:35 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/01 16:02:35 notification.go:257: [NOTIFY] ✅ Email sent for booking #121 to kofiache77@gmail.com
+2026/09/01 16:18:44 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 16:18:44 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1146 (42S02): Table 'axis_dev.driver_notifications' doesn't exist
+2026/09/01 16:18:44 notification.go:235: [NOTIFY] ❌ Push failed for booking #122: The registration token is not a valid FCM registration token
+2026/09/01 16:18:44 notification.go:235: [NOTIFY] ❌ Push failed for booking #122: The registration token is not a valid FCM registration token
+2026/09/01 16:18:45 email.go:530: Scheduled ride notification sent to dev.ayomide+axis@gmail.com
+2026/09/01 16:18:45 notification.go:257: [NOTIFY] ✅ Email sent for booking #122 to dev.ayomide+axis@gmail.com
+2026/09/01 16:18:45 email.go:530: Scheduled ride notification sent to dev.ayomide+axis@gmail.com
+2026/09/01 16:18:45 notification.go:257: [NOTIFY] ✅ Email sent for booking #122 to dev.ayomide+axis@gmail.com
+2026/09/01 16:21:53 logger.go:21: === API Started ===
+2026/09/01 16:21:53 db.go:32: Database connected
+2026/09/01 16:21:53 db.go:42: Migration done
+2026/09/01 16:21:53 redis.go:23: Connected to Redis
+2026/09/01 16:21:53 notification.go:42: ✅ FCM initialized
+2026/09/01 16:21:53 google.go:46: Firebase initialized successfully
+2026/09/01 16:21:53 main.go:143: Go API running on :8081
+2026/09/01 16:25:35 logger.go:21: === API Started ===
+2026/09/01 16:25:35 db.go:32: Database connected
+2026/09/01 16:25:35 db.go:42: Migration done
+2026/09/01 16:25:35 redis.go:23: Connected to Redis
+2026/09/01 16:25:35 notification.go:42: ✅ FCM initialized
+2026/09/01 16:25:35 google.go:46: Firebase initialized successfully
+2026/09/01 16:25:35 main.go:143: Go API running on :8081
+2026/09/01 16:31:38 logger.go:21: === API Started ===
+2026/09/01 16:31:38 db.go:32: Database connected
+2026/09/01 16:31:38 db.go:42: Migration done
+2026/09/01 16:31:38 redis.go:23: Connected to Redis
+2026/09/01 16:31:38 notification.go:42: ✅ FCM initialized
+2026/09/01 16:31:38 google.go:46: Firebase initialized successfully
+2026/09/01 16:31:38 main.go:143: Go API running on :8081
+2026/09/01 16:36:54 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1054 (42S22): Unknown column 'type' in 'field list'
+2026/09/01 16:36:54 notification.go:237: [NOTIFY] ✅ Push sent for booking #123, MessageID: projects/axis-dd584/messages/c493603c-f673-4143-ae06-e2e25fd491f3
+2026/09/01 16:36:54 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/01 16:36:54 notification.go:257: [NOTIFY] ✅ Email sent for booking #123 to dev.ayomide@gmail.com
+2026/09/01 16:37:49 logger.go:21: === API Started ===
+2026/09/01 16:37:49 db.go:32: Database connected
+2026/09/01 16:37:49 db.go:42: Migration done
+2026/09/01 16:37:49 redis.go:23: Connected to Redis
+2026/09/01 16:37:49 notification.go:42: ✅ FCM initialized
+2026/09/01 16:37:49 google.go:46: Firebase initialized successfully
+2026/09/01 16:37:49 main.go:143: Go API running on :8081
+2026/09/01 16:40:10 logger.go:21: === API Started ===
+2026/09/01 16:40:10 db.go:32: Database connected
+2026/09/01 16:40:10 db.go:42: Migration done
+2026/09/01 16:40:10 redis.go:23: Connected to Redis
+2026/09/01 16:40:10 notification.go:42: ✅ FCM initialized
+2026/09/01 16:40:10 google.go:46: Firebase initialized successfully
+2026/09/01 16:40:10 main.go:143: Go API running on :8081
+2026/09/01 16:50:26 logger.go:21: === API Started ===
+2026/09/01 16:50:26 db.go:32: Database connected
+2026/09/01 16:50:26 db.go:42: Migration done
+2026/09/01 16:50:26 redis.go:23: Connected to Redis
+2026/09/01 16:50:26 notification.go:42: ✅ FCM initialized
+2026/09/01 16:50:26 google.go:46: Firebase initialized successfully
+2026/09/01 16:50:26 main.go:143: Go API running on :8081
+2026/09/01 16:54:43 notification.go:177: [NOTIFY] ❌ Failed to create notification record: failed to create notification: Error 1054 (42S22): Unknown column 'type' in 'field list'
+2026/09/01 16:54:44 notification.go:237: [NOTIFY] ✅ Push sent for booking #124, MessageID: projects/axis-dd584/messages/fe86804d-0fd7-438c-893a-2e680e07ea27
+2026/09/01 16:54:44 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/01 16:54:44 notification.go:257: [NOTIFY] ✅ Email sent for booking #124 to dev.ayomide@gmail.com
+2026/09/01 17:01:29 logger.go:21: === API Started ===
+2026/09/01 17:01:29 db.go:32: Database connected
+2026/09/01 17:01:29 db.go:42: Migration done
+2026/09/01 17:01:29 redis.go:23: Connected to Redis
+2026/09/01 17:01:29 notification.go:42: ✅ FCM initialized
+2026/09/01 17:01:29 google.go:46: Firebase initialized successfully
+2026/09/01 17:01:29 main.go:143: Go API running on :8081
+2026/09/01 17:03:43 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/01 17:03:43 notification.go:237: [NOTIFY] ✅ Push sent for booking #125, MessageID: projects/axis-dd584/messages/1609998e-51c4-41fc-9deb-1e02a4087a41
+2026/09/01 17:03:43 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/01 17:03:43 notification.go:257: [NOTIFY] ✅ Email sent for booking #125 to dev.ayomide@gmail.com
+2026/09/01 18:53:06 logger.go:21: === API Started ===
+2026/09/01 18:53:06 db.go:32: Database connected
+2026/09/01 18:53:06 db.go:42: Migration done
+2026/09/01 18:53:06 redis.go:23: Connected to Redis
+2026/09/01 18:53:06 notification.go:42: ✅ FCM initialized
+2026/09/01 18:53:06 google.go:46: Firebase initialized successfully
+2026/09/01 18:53:06 main.go:143: Go API running on :8081
+2026/09/01 21:01:12 logger.go:21: === API Started ===
+2026/09/01 21:01:12 db.go:32: Database connected
+2026/09/01 21:01:12 db.go:42: Migration done
+2026/09/01 21:01:12 redis.go:23: Connected to Redis
+2026/09/01 21:01:12 notification.go:42: ✅ FCM initialized
+2026/09/01 21:01:12 google.go:46: Firebase initialized successfully
+2026/09/01 21:01:12 main.go:143: Go API running on :8081
+2026/09/01 21:04:25 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/01 21:04:25 notification.go:235: [NOTIFY] ❌ Push failed for booking #126: NotRegistered
+2026/09/01 21:04:25 email.go:530: Scheduled ride notification sent to tempmail@yahoo.com
+2026/09/01 21:04:25 notification.go:257: [NOTIFY] ✅ Email sent for booking #126 to tempmail@yahoo.com
+2026/09/01 21:06:34 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/01 21:06:34 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/01 21:06:34 notification.go:235: [NOTIFY] ❌ Push failed for booking #128: The registration token is not a valid FCM registration token
+2026/09/01 21:06:34 notification.go:235: [NOTIFY] ❌ Push failed for booking #127: The registration token is not a valid FCM registration token
+2026/09/01 21:06:35 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/01 21:06:35 notification.go:257: [NOTIFY] ✅ Email sent for booking #127 to dev.ayomide@gmail.com
+2026/09/01 21:06:35 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/01 21:06:35 notification.go:257: [NOTIFY] ✅ Email sent for booking #128 to dev.ayomide@gmail.com
+2026/09/01 21:19:58 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/01 21:19:58 notification.go:240: [NOTIFY] ⚠️ No device token for driver John
+2026/09/01 21:19:58 email.go:530: Scheduled ride notification sent to tempmail@gmail.com
+2026/09/01 21:19:58 notification.go:257: [NOTIFY] ✅ Email sent for booking #129 to tempmail@gmail.com
+2026/09/02 13:14:04 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/02 13:14:04 notification.go:240: [NOTIFY] ⚠️ No device token for driver John
+2026/09/02 13:14:05 email.go:530: Scheduled ride notification sent to tempmail@gmail.com
+2026/09/02 13:14:05 notification.go:257: [NOTIFY] ✅ Email sent for booking #130 to tempmail@gmail.com
+2026/09/02 13:16:22 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/02 13:16:22 notification.go:235: [NOTIFY] ❌ Push failed for booking #131: The registration token is not a valid FCM registration token
+2026/09/02 13:16:22 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/02 13:16:22 notification.go:257: [NOTIFY] ✅ Email sent for booking #131 to dev.ayomide@gmail.com
+2026/09/02 13:31:29 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/02 13:36:45 logger.go:21: === API Started ===
+2026/09/02 13:36:45 db.go:32: Database connected
+2026/09/02 13:36:45 db.go:42: Migration done
+2026/09/02 13:36:45 redis.go:23: Connected to Redis
+2026/09/02 13:36:45 notification.go:42: ✅ FCM initialized
+2026/09/02 13:36:45 google.go:46: Firebase initialized successfully
+2026/09/02 13:36:45 main.go:143: Go API running on :8081
+2026/09/02 13:37:09 logger.go:21: === API Started ===
+2026/09/02 13:37:09 db.go:32: Database connected
+2026/09/02 13:37:09 db.go:42: Migration done
+2026/09/02 13:37:09 redis.go:23: Connected to Redis
+2026/09/02 13:37:09 notification.go:42: ✅ FCM initialized
+2026/09/02 13:37:09 google.go:46: Firebase initialized successfully
+2026/09/02 13:37:09 main.go:143: Go API running on :8081
+2026/09/02 18:51:44 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/03 13:10:30 logger.go:21: === API Started ===
+2026/09/03 13:10:30 db.go:32: Database connected
+2026/09/03 13:10:30 db.go:42: Migration done
+2026/09/03 13:10:30 redis.go:23: Connected to Redis
+2026/09/03 13:10:30 notification.go:42: ✅ FCM initialized
+2026/09/03 13:10:30 google.go:46: Firebase initialized successfully
+2026/09/03 13:10:30 main.go:143: Go API running on :8081
+2026/09/03 13:24:55 logger.go:21: === API Started ===
+2026/09/03 13:24:55 db.go:32: Database connected
+2026/09/03 13:24:55 db.go:42: Migration done
+2026/09/03 13:24:55 redis.go:23: Connected to Redis
+2026/09/03 13:24:55 notification.go:42: ✅ FCM initialized
+2026/09/03 13:24:55 google.go:46: Firebase initialized successfully
+2026/09/03 13:24:55 main.go:143: Go API running on :8081
+2026/09/03 13:26:48 logger.go:21: === API Started ===
+2026/09/03 13:26:48 db.go:32: Database connected
+2026/09/03 13:26:48 db.go:42: Migration done
+2026/09/03 13:26:48 redis.go:23: Connected to Redis
+2026/09/03 13:26:48 notification.go:42: ✅ FCM initialized
+2026/09/03 13:26:48 google.go:46: Firebase initialized successfully
+2026/09/03 13:26:48 main.go:143: Go API running on :8081
+2026/09/03 13:26:56 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 13:26:56 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/03 13:39:31 logger.go:21: === API Started ===
+2026/09/03 13:39:31 db.go:32: Database connected
+2026/09/03 13:39:31 db.go:42: Migration done
+2026/09/03 13:39:31 redis.go:23: Connected to Redis
+2026/09/03 13:39:31 notification.go:42: ✅ FCM initialized
+2026/09/03 13:39:31 google.go:46: Firebase initialized successfully
+2026/09/03 13:39:31 main.go:143: Go API running on :8081
+2026/09/03 13:48:40 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 13:48:40 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/03 13:53:30 logger.go:21: === API Started ===
+2026/09/03 13:53:30 db.go:32: Database connected
+2026/09/03 13:53:30 db.go:42: Migration done
+2026/09/03 13:53:30 redis.go:23: Connected to Redis
+2026/09/03 13:53:30 notification.go:42: ✅ FCM initialized
+2026/09/03 13:53:30 google.go:46: Firebase initialized successfully
+2026/09/03 13:53:30 main.go:143: Go API running on :8081
+2026/09/03 13:55:16 logger.go:21: === API Started ===
+2026/09/03 13:55:16 db.go:32: Database connected
+2026/09/03 13:55:16 db.go:42: Migration done
+2026/09/03 13:55:16 redis.go:23: Connected to Redis
+2026/09/03 13:55:16 notification.go:42: ✅ FCM initialized
+2026/09/03 13:55:16 google.go:46: Firebase initialized successfully
+2026/09/03 13:55:16 main.go:143: Go API running on :8081
+2026/09/03 13:56:24 logger.go:21: === API Started ===
+2026/09/03 13:56:24 db.go:32: Database connected
+2026/09/03 13:56:24 db.go:42: Migration done
+2026/09/03 13:56:24 redis.go:23: Connected to Redis
+2026/09/03 13:56:24 notification.go:42: ✅ FCM initialized
+2026/09/03 13:56:24 google.go:46: Firebase initialized successfully
+2026/09/03 13:56:24 main.go:143: Go API running on :8081
+2026/09/03 14:14:23 logger.go:21: === API Started ===
+2026/09/03 14:14:23 db.go:32: Database connected
+2026/09/03 14:14:23 db.go:42: Migration done
+2026/09/03 14:14:23 redis.go:23: Connected to Redis
+2026/09/03 14:14:23 notification.go:42: ✅ FCM initialized
+2026/09/03 14:14:23 google.go:46: Firebase initialized successfully
+2026/09/03 14:14:23 main.go:143: Go API running on :8081
+2026/09/03 14:24:40 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 14:24:40 notification.go:235: [NOTIFY] ❌ Push failed for booking #134: The registration token is not a valid FCM registration token
+2026/09/03 14:24:40 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 14:24:40 notification.go:255: [NOTIFY] ❌ Email failed for booking #134: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 15:17:19 logger.go:21: === API Started ===
+2026/09/03 15:17:19 db.go:32: Database connected
+2026/09/03 15:17:19 db.go:42: Migration done
+2026/09/03 15:17:19 redis.go:23: Connected to Redis
+2026/09/03 15:17:19 notification.go:42: ✅ FCM initialized
+2026/09/03 15:17:19 google.go:46: Firebase initialized successfully
+2026/09/03 15:17:19 main.go:143: Go API running on :8081
+2026/09/03 15:17:38 logger.go:21: === API Started ===
+2026/09/03 15:17:38 db.go:32: Database connected
+2026/09/03 15:17:38 db.go:42: Migration done
+2026/09/03 15:17:38 redis.go:23: Connected to Redis
+2026/09/03 15:17:38 notification.go:42: ✅ FCM initialized
+2026/09/03 15:17:38 google.go:46: Firebase initialized successfully
+2026/09/03 15:17:38 main.go:143: Go API running on :8081
+2026/09/03 15:17:57 logger.go:21: === API Started ===
+2026/09/03 15:17:57 db.go:32: Database connected
+2026/09/03 15:17:57 db.go:42: Migration done
+2026/09/03 15:17:57 redis.go:23: Connected to Redis
+2026/09/03 15:17:57 notification.go:42: ✅ FCM initialized
+2026/09/03 15:17:57 google.go:46: Firebase initialized successfully
+2026/09/03 15:17:57 main.go:143: Go API running on :8081
+2026/09/03 15:18:33 logger.go:21: === API Started ===
+2026/09/03 15:18:33 db.go:32: Database connected
+2026/09/03 15:18:33 db.go:42: Migration done
+2026/09/03 15:18:33 redis.go:23: Connected to Redis
+2026/09/03 15:18:33 notification.go:42: ✅ FCM initialized
+2026/09/03 15:18:33 google.go:46: Firebase initialized successfully
+2026/09/03 15:18:33 main.go:143: Go API running on :8081
+2026/09/03 15:18:57 logger.go:21: === API Started ===
+2026/09/03 15:18:57 db.go:32: Database connected
+2026/09/03 15:18:57 db.go:42: Migration done
+2026/09/03 15:18:57 redis.go:23: Connected to Redis
+2026/09/03 15:18:57 notification.go:42: ✅ FCM initialized
+2026/09/03 15:18:57 google.go:46: Firebase initialized successfully
+2026/09/03 15:18:57 main.go:143: Go API running on :8081
+2026/09/03 15:19:21 booking.go:1384: INFO Driver id: !BADKEY=8ffc08b2-91a5-11f1-b287-06db06437209
+2026/09/03 15:19:21 booking.go:1385: INFO Driver Details: !BADKEY="{ID: FirstName: LastName: Phone: Email: Avatar:}"
+2026/09/03 15:19:21 booking.go:1466: INFO Driver Details: !BADKEY=map[]
+2026/09/03 15:21:56 logger.go:21: === API Started ===
+2026/09/03 15:21:56 db.go:32: Database connected
+2026/09/03 15:21:56 db.go:42: Migration done
+2026/09/03 15:21:56 redis.go:23: Connected to Redis
+2026/09/03 15:21:56 notification.go:42: ✅ FCM initialized
+2026/09/03 15:21:56 google.go:46: Firebase initialized successfully
+2026/09/03 15:21:56 main.go:143: Go API running on :8081
+2026/09/03 15:23:50 logger.go:21: === API Started ===
+2026/09/03 15:23:50 db.go:32: Database connected
+2026/09/03 15:23:50 db.go:42: Migration done
+2026/09/03 15:23:50 redis.go:23: Connected to Redis
+2026/09/03 15:23:50 notification.go:42: ✅ FCM initialized
+2026/09/03 15:23:50 google.go:46: Firebase initialized successfully
+2026/09/03 15:23:50 main.go:143: Go API running on :8081
+2026/09/03 15:24:10 logger.go:21: === API Started ===
+2026/09/03 15:24:10 db.go:32: Database connected
+2026/09/03 15:24:10 db.go:42: Migration done
+2026/09/03 15:24:10 redis.go:23: Connected to Redis
+2026/09/03 15:24:10 notification.go:42: ✅ FCM initialized
+2026/09/03 15:24:10 google.go:46: Firebase initialized successfully
+2026/09/03 15:24:10 main.go:143: Go API running on :8081
+2026/09/03 15:24:18 booking.go:1398: ERROR Failed to fetch driver error="Error 1054 (42S22): Unknown column 'avatar' in 'field list'" driver_id=8ffc08b2-91a5-11f1-b287-06db06437209
+2026/09/03 15:24:18 booking.go:1505: INFO Driver Details: !BADKEY=map[]
+2026/09/03 15:24:18 booking.go:1398: ERROR Failed to fetch driver error="Error 1054 (42S22): Unknown column 'avatar' in 'field list'" driver_id=8ffc08b2-91a5-11f1-b287-06db06437209
+2026/09/03 15:24:18 booking.go:1505: INFO Driver Details: !BADKEY=map[]
+2026/09/03 15:27:54 logger.go:21: === API Started ===
+2026/09/03 15:27:54 db.go:32: Database connected
+2026/09/03 15:27:54 db.go:42: Migration done
+2026/09/03 15:27:54 redis.go:23: Connected to Redis
+2026/09/03 15:27:54 notification.go:42: ✅ FCM initialized
+2026/09/03 15:27:54 google.go:46: Firebase initialized successfully
+2026/09/03 15:27:54 main.go:143: Go API running on :8081
+2026/09/03 15:28:40 logger.go:21: === API Started ===
+2026/09/03 15:28:40 db.go:32: Database connected
+2026/09/03 15:28:40 db.go:42: Migration done
+2026/09/03 15:28:40 redis.go:23: Connected to Redis
+2026/09/03 15:28:40 notification.go:42: ✅ FCM initialized
+2026/09/03 15:28:40 google.go:46: Firebase initialized successfully
+2026/09/03 15:28:40 main.go:143: Go API running on :8081
+2026/09/03 15:28:52 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 15:28:52 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 15:28:52 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 15:28:52 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 15:44:24 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 15:44:24 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 15:44:24 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 15:44:24 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 15:44:24 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 15:49:08 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 15:49:39 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 15:49:39 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:02:41 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/03 16:16:57 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 16:16:57 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 16:16:57 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 16:16:57 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 16:18:24 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:18:24 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:18:28 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:18:28 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:20:54 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 16:20:54 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 16:20:54 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:20:54 booking.go:1494: INFO Driver Details: !BADKEY=map[]
+2026/09/03 16:20:54 booking.go:1396: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 16:20:54 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:moh@example.com first_name:Moh id:8ffc08b2-91a5-11f1-b287-06db06437209 last_name:Mdee phone:550880112 vehicle:map[car_make:Kia car_model:Sorento color:Black image_url: plate_number:GT-332-22 year:2008]]"
+2026/09/03 16:26:24 logger.go:21: === API Started ===
+2026/09/03 16:26:24 db.go:32: Database connected
+2026/09/03 16:26:24 db.go:42: Migration done
+2026/09/03 16:26:24 redis.go:23: Connected to Redis
+2026/09/03 16:26:24 notification.go:42: ✅ FCM initialized
+2026/09/03 16:26:24 google.go:46: Firebase initialized successfully
+2026/09/03 16:26:24 main.go:143: Go API running on :8081
+2026/09/03 16:36:20 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:20 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:23 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:23 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:23 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:23 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:23 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 16:36:23 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 16:36:23 notification.go:235: [NOTIFY] ❌ Push failed for booking #136: SenderId mismatch
+2026/09/03 16:36:23 notification.go:235: [NOTIFY] ❌ Push failed for booking #135: SenderId mismatch
+2026/09/03 16:36:24 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 16:36:24 notification.go:255: [NOTIFY] ❌ Email failed for booking #136: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 16:36:24 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 16:36:24 notification.go:255: [NOTIFY] ❌ Email failed for booking #135: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 16:36:30 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:30 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:30 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:30 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:30 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:30 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:30 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:30 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:30 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:30 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:36:30 booking.go:1396: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 16:36:30 booking.go:1494: INFO Driver Details: !BADKEY="map[avatar_url: email:testdriver@example.com first_name:Kwame id:b827711c-918c-11f1-b287-06db06437209 last_name:Test phone:550880117 vehicle:map[car_make:Toyota car_model:Corolla color:Black image_url: plate_number:GT-1234-22 year:2022]]"
+2026/09/03 16:43:10 logger.go:21: === API Started ===
+2026/09/03 16:43:10 db.go:32: Database connected
+2026/09/03 16:43:10 db.go:42: Migration done
+2026/09/03 16:43:10 redis.go:23: Connected to Redis
+2026/09/03 16:43:10 notification.go:42: ✅ FCM initialized
+2026/09/03 16:43:10 google.go:46: Firebase initialized successfully
+2026/09/03 16:43:10 main.go:143: Go API running on :8081
+2026/09/03 16:45:14 logger.go:21: === API Started ===
+2026/09/03 16:45:14 db.go:32: Database connected
+2026/09/03 16:45:14 db.go:42: Migration done
+2026/09/03 16:45:14 redis.go:23: Connected to Redis
+2026/09/03 16:45:14 notification.go:42: ✅ FCM initialized
+2026/09/03 16:45:14 google.go:46: Firebase initialized successfully
+2026/09/03 16:45:14 main.go:143: Go API running on :8081
+2026/09/03 17:05:54 logger.go:21: === API Started ===
+2026/09/03 17:05:54 db.go:32: Database connected
+2026/09/03 17:05:54 db.go:42: Migration done
+2026/09/03 17:05:54 redis.go:23: Connected to Redis
+2026/09/03 17:05:54 notification.go:42: ✅ FCM initialized
+2026/09/03 17:05:54 google.go:46: Firebase initialized successfully
+2026/09/03 17:05:54 main.go:143: Go API running on :8081
+2026/09/03 17:09:03 logger.go:21: === API Started ===
+2026/09/03 17:09:03 db.go:32: Database connected
+2026/09/03 17:09:03 db.go:42: Migration done
+2026/09/03 17:09:03 redis.go:23: Connected to Redis
+2026/09/03 17:09:03 notification.go:42: ✅ FCM initialized
+2026/09/03 17:09:03 google.go:46: Firebase initialized successfully
+2026/09/03 17:09:03 main.go:143: Go API running on :8081
+2026/09/03 17:09:52 booking.go:1544: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/03 17:10:13 booking.go:1544: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:10:18 booking.go:1544: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:10:20 booking.go:1544: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:10:21 booking.go:1544: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:10:22 booking.go:1544: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:10:23 booking.go:1544: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:23:29 logger.go:21: === API Started ===
+2026/09/03 17:23:29 db.go:32: Database connected
+2026/09/03 17:23:29 db.go:42: Migration done
+2026/09/03 17:23:29 redis.go:23: Connected to Redis
+2026/09/03 17:23:29 notification.go:42: ✅ FCM initialized
+2026/09/03 17:23:29 google.go:46: Firebase initialized successfully
+2026/09/03 17:23:29 main.go:143: Go API running on :8081
+2026/09/03 17:25:58 booking.go:1566: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:31:12 logger.go:21: === API Started ===
+2026/09/03 17:31:12 db.go:32: Database connected
+2026/09/03 17:31:12 db.go:42: Migration done
+2026/09/03 17:31:12 redis.go:23: Connected to Redis
+2026/09/03 17:31:12 notification.go:42: ✅ FCM initialized
+2026/09/03 17:31:12 google.go:46: Firebase initialized successfully
+2026/09/03 17:31:12 main.go:143: Go API running on :8081
+2026/09/03 17:31:58 booking.go:1566: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:33:51 booking.go:1566: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 17:37:36 logger.go:21: === API Started ===
+2026/09/03 17:37:36 db.go:32: Database connected
+2026/09/03 17:37:36 db.go:42: Migration done
+2026/09/03 17:37:36 redis.go:23: Connected to Redis
+2026/09/03 17:37:36 notification.go:42: ✅ FCM initialized
+2026/09/03 17:37:36 google.go:46: Firebase initialized successfully
+2026/09/03 17:37:36 main.go:143: Go API running on :8081
+2026/09/03 19:31:23 booking.go:1566: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 20:24:07 logger.go:21: === API Started ===
+2026/09/03 20:24:07 db.go:32: Database connected
+2026/09/03 20:24:07 db.go:42: Migration done
+2026/09/03 20:24:07 redis.go:23: Connected to Redis
+2026/09/03 20:24:07 notification.go:42: ✅ FCM initialized
+2026/09/03 20:24:07 google.go:46: Firebase initialized successfully
+2026/09/03 20:24:07 main.go:143: Go API running on :8081
+2026/09/03 20:26:37 logger.go:21: === API Started ===
+2026/09/03 20:26:37 db.go:32: Database connected
+2026/09/03 20:26:37 db.go:42: Migration done
+2026/09/03 20:26:37 redis.go:23: Connected to Redis
+2026/09/03 20:26:37 notification.go:42: ✅ FCM initialized
+2026/09/03 20:26:37 google.go:46: Firebase initialized successfully
+2026/09/03 20:26:37 main.go:146: Go API running on :8081
+2026/09/03 20:34:18 logger.go:21: === API Started ===
+2026/09/03 20:34:18 db.go:32: Database connected
+2026/09/03 20:34:18 db.go:42: Migration done
+2026/09/03 20:34:18 redis.go:23: Connected to Redis
+2026/09/03 20:34:18 notification.go:42: ✅ FCM initialized
+2026/09/03 20:34:18 google.go:46: Firebase initialized successfully
+2026/09/03 20:34:18 main.go:149: Go API running on :8081
+2026/09/03 20:39:57 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/03 20:44:21 booking.go:1570: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 20:44:21 booking.go:1570: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/03 20:44:21 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 20:44:21 notification.go:235: [NOTIFY] ❌ Push failed for booking #137: The registration token is not a valid FCM registration token
+2026/09/03 20:44:21 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 20:44:21 notification.go:255: [NOTIFY] ❌ Email failed for booking #137: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 20:57:49 logger.go:21: === API Started ===
+2026/09/03 20:57:49 db.go:32: Database connected
+2026/09/03 20:57:49 db.go:42: Migration done
+2026/09/03 20:57:49 redis.go:23: Connected to Redis
+2026/09/03 20:57:49 notification.go:42: ✅ FCM initialized
+2026/09/03 20:57:49 google.go:46: Firebase initialized successfully
+2026/09/03 20:57:49 main.go:149: Go API running on :8081
+2026/09/03 20:59:56 logger.go:21: === API Started ===
+2026/09/03 20:59:56 db.go:32: Database connected
+2026/09/03 20:59:56 db.go:42: Migration done
+2026/09/03 20:59:56 redis.go:23: Connected to Redis
+2026/09/03 20:59:56 notification.go:42: ✅ FCM initialized
+2026/09/03 20:59:56 google.go:46: Firebase initialized successfully
+2026/09/03 20:59:56 main.go:148: Go API running on :8081
+2026/09/03 21:04:20 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/03 21:05:15 booking.go:1570: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 21:05:19 booking.go:1570: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 21:05:19 booking.go:1570: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 21:05:19 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 21:05:19 notification.go:235: [NOTIFY] ❌ Push failed for booking #138: SenderId mismatch
+2026/09/03 21:05:19 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 21:05:19 notification.go:255: [NOTIFY] ❌ Email failed for booking #138: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/03 21:05:30 booking.go:1570: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 21:05:45 booking.go:1570: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/03 21:11:29 logger.go:21: === API Started ===
+2026/09/03 21:11:29 db.go:32: Database connected
+2026/09/03 21:11:29 db.go:42: Migration done
+2026/09/03 21:11:29 redis.go:23: Connected to Redis
+2026/09/03 21:11:29 notification.go:42: ✅ FCM initialized
+2026/09/03 21:11:29 google.go:46: Firebase initialized successfully
+2026/09/03 21:11:29 main.go:148: Go API running on :8081
+2026/09/03 21:13:08 logger.go:21: === API Started ===
+2026/09/03 21:13:08 db.go:32: Database connected
+2026/09/03 21:13:08 db.go:42: Migration done
+2026/09/03 21:13:08 redis.go:23: Connected to Redis
+2026/09/03 21:13:08 notification.go:42: ✅ FCM initialized
+2026/09/03 21:13:08 google.go:46: Firebase initialized successfully
+2026/09/03 21:13:08 main.go:148: Go API running on :8081
+2026/09/03 21:15:20 logger.go:21: === API Started ===
+2026/09/03 21:15:20 db.go:32: Database connected
+2026/09/03 21:15:20 db.go:42: Migration done
+2026/09/03 21:15:20 redis.go:23: Connected to Redis
+2026/09/03 21:15:20 notification.go:42: ✅ FCM initialized
+2026/09/03 21:15:20 google.go:46: Firebase initialized successfully
+2026/09/03 21:15:20 main.go:148: Go API running on :8081
+2026/09/03 21:23:34 logger.go:21: === API Started ===
+2026/09/03 21:23:34 db.go:32: Database connected
+2026/09/03 21:23:34 db.go:42: Migration done
+2026/09/03 21:23:34 redis.go:23: Connected to Redis
+2026/09/03 21:23:34 notification.go:42: ✅ FCM initialized
+2026/09/03 21:23:34 google.go:46: Firebase initialized successfully
+2026/09/03 21:23:34 main.go:148: Go API running on :8081
+2026/09/03 21:54:46 logger.go:21: === API Started ===
+2026/09/03 21:54:46 db.go:32: Database connected
+2026/09/03 21:54:46 db.go:42: Migration done
+2026/09/03 21:54:46 redis.go:23: Connected to Redis
+2026/09/03 21:54:46 notification.go:42: ✅ FCM initialized
+2026/09/03 21:54:46 google.go:46: Firebase initialized successfully
+2026/09/03 21:54:46 main.go:148: Go API running on :8081
+2026/09/03 21:55:00 logger.go:21: === API Started ===
+2026/09/03 21:55:00 db.go:32: Database connected
+2026/09/03 21:55:00 db.go:42: Migration done
+2026/09/03 21:55:00 redis.go:23: Connected to Redis
+2026/09/03 21:55:00 notification.go:42: ✅ FCM initialized
+2026/09/03 21:55:00 google.go:46: Firebase initialized successfully
+2026/09/03 21:55:00 main.go:148: Go API running on :8081
+2026/09/03 21:55:51 logger.go:21: === API Started ===
+2026/09/03 21:55:51 db.go:32: Database connected
+2026/09/03 21:55:51 db.go:42: Migration done
+2026/09/03 21:55:51 redis.go:23: Connected to Redis
+2026/09/03 21:55:51 notification.go:42: ✅ FCM initialized
+2026/09/03 21:55:51 google.go:46: Firebase initialized successfully
+2026/09/03 21:55:51 main.go:150: Go API running on :8081
+2026/09/03 21:59:42 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/03 22:00:49 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/03 22:03:03 email.go:698: Partner payment link sent to zardibesti@necub.com
+2026/09/03 22:14:08 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 22:14:08 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/03 22:23:24 hotel.go:192: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/03 22:29:51 logger.go:21: === API Started ===
+2026/09/03 22:29:51 db.go:32: Database connected
+2026/09/03 22:29:51 db.go:42: Migration done
+2026/09/03 22:29:51 redis.go:23: Connected to Redis
+2026/09/03 22:29:51 notification.go:42: ✅ FCM initialized
+2026/09/03 22:29:51 google.go:46: Firebase initialized successfully
+2026/09/03 22:29:51 main.go:150: Go API running on :8081
+2026/09/03 22:32:00 hotel.go:192: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/03 22:32:57 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/03 22:39:35 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 22:39:35 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/03 22:47:46 logger.go:21: === API Started ===
+2026/09/03 22:47:46 db.go:32: Database connected
+2026/09/03 22:47:46 db.go:42: Migration done
+2026/09/03 22:47:46 redis.go:23: Connected to Redis
+2026/09/03 22:47:46 notification.go:42: ✅ FCM initialized
+2026/09/03 22:47:46 google.go:46: Firebase initialized successfully
+2026/09/03 22:47:46 main.go:150: Go API running on :8081
+2026/09/03 22:49:44 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/03 22:49:44 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/03 22:49:44 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 22:49:44 notification.go:235: [NOTIFY] ❌ Push failed for booking #143: The registration token is not a valid FCM registration token
+2026/09/03 22:49:44 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/03 22:49:44 notification.go:257: [NOTIFY] ✅ Email sent for booking #143 to dev.ayomide@gmail.com
+2026/09/03 22:51:31 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/03 22:52:13 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 22:52:13 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/03 23:32:24 booking.go:1572: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/03 23:32:24 booking.go:1572: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/03 23:32:24 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 23:32:24 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/03 23:32:25 notification.go:235: [NOTIFY] ❌ Push failed for booking #146: NotRegistered
+2026/09/03 23:32:25 notification.go:235: [NOTIFY] ❌ Push failed for booking #147: NotRegistered
+2026/09/03 23:32:25 email.go:530: Scheduled ride notification sent to tempmail@yahoo.com
+2026/09/03 23:32:25 notification.go:257: [NOTIFY] ✅ Email sent for booking #146 to tempmail@yahoo.com
+2026/09/03 23:32:25 email.go:530: Scheduled ride notification sent to tempmail@yahoo.com
+2026/09/03 23:32:25 notification.go:257: [NOTIFY] ✅ Email sent for booking #147 to tempmail@yahoo.com
+2026/09/04 08:14:49 booking.go:1572: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 08:14:49 booking.go:1572: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 08:14:49 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 08:14:49 notification.go:235: [NOTIFY] ❌ Push failed for booking #148: The registration token is not a valid FCM registration token
+2026/09/04 08:14:49 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/04 08:14:49 notification.go:257: [NOTIFY] ✅ Email sent for booking #148 to kofiache77@gmail.com
+2026/09/04 08:37:12 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 08:37:16 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 08:37:16 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 08:37:16 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 08:37:16 notification.go:235: [NOTIFY] ❌ Push failed for booking #149: The registration token is not a valid FCM registration token
+2026/09/04 08:37:16 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/04 08:37:16 notification.go:257: [NOTIFY] ✅ Email sent for booking #149 to dev.ayomide@gmail.com
+2026/09/04 09:07:40 logger.go:21: === API Started ===
+2026/09/04 09:07:40 db.go:32: Database connected
+2026/09/04 09:07:40 db.go:42: Migration done
+2026/09/04 09:07:40 redis.go:23: Connected to Redis
+2026/09/04 09:07:40 notification.go:42: ✅ FCM initialized
+2026/09/04 09:07:40 google.go:46: Firebase initialized successfully
+2026/09/04 09:07:40 main.go:150: Go API running on :8081
+2026/09/04 09:07:55 logger.go:21: === API Started ===
+2026/09/04 09:07:55 db.go:32: Database connected
+2026/09/04 09:07:55 db.go:42: Migration done
+2026/09/04 09:07:55 redis.go:23: Connected to Redis
+2026/09/04 09:07:55 notification.go:42: ✅ FCM initialized
+2026/09/04 09:07:55 google.go:46: Firebase initialized successfully
+2026/09/04 09:07:55 main.go:150: Go API running on :8081
+2026/09/04 09:09:03 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/04 09:12:48 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 09:12:48 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/04 12:20:46 hotel.go:192: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/04 13:44:55 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 13:44:58 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 13:45:03 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 13:45:03 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 13:45:03 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 13:45:03 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 13:45:03 notification.go:235: [NOTIFY] ❌ Push failed for booking #152: The registration token is not a valid FCM registration token
+2026/09/04 13:45:03 notification.go:235: [NOTIFY] ❌ Push failed for booking #153: The registration token is not a valid FCM registration token
+2026/09/04 13:45:03 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/04 13:45:03 notification.go:257: [NOTIFY] ✅ Email sent for booking #152 to dev.ayomide@gmail.com
+2026/09/04 13:45:03 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/04 13:45:03 notification.go:257: [NOTIFY] ✅ Email sent for booking #153 to dev.ayomide@gmail.com
+2026/09/04 13:45:47 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 13:48:04 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 13:48:04 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/04 15:21:25 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 15:21:25 booking.go:1572: INFO Driver found driver="{ID:4ea03389-89b5-11f1-bc75-06db06437209 FirstName:Ayomide LastName:Oloyede Phone:550880119 Email:dev.ayomide@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/04 15:21:25 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 15:21:25 notification.go:235: [NOTIFY] ❌ Push failed for booking #155: The registration token is not a valid FCM registration token
+2026/09/04 15:21:25 email.go:530: Scheduled ride notification sent to dev.ayomide@gmail.com
+2026/09/04 15:21:25 notification.go:257: [NOTIFY] ✅ Email sent for booking #155 to dev.ayomide@gmail.com
+2026/09/04 15:23:11 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/04 15:23:11 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/05 06:07:03 hotel.go:192: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/05 06:07:53 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:07:57 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:00 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:04 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:07 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:11 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:14 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:18 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:18 email.go:698: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/05 06:08:21 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:25 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:28 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:32 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:35 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:39 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:42 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:08:46 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:09:34 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:09:48 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 06:09:48 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 06:09:48 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/05 06:09:48 notification.go:235: [NOTIFY] ❌ Push failed for booking #158: SenderId mismatch
+2026/09/05 06:09:48 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 06:09:48 notification.go:255: [NOTIFY] ❌ Email failed for booking #158: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 06:10:34 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:21:20 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:22:20 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:23:20 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:24:20 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:20 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:31 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:34 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:38 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:41 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:45 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:48 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:52 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:55 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:25:59 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:02 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:06 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:09 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:13 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:16 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:20 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:23 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:27 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:30 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:34 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:37 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:41 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:44 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:46 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:48 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:50 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:51 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:56 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:26:59 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:27:03 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:27:05 booking.go:1572: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 06:30:43 email.go:368: New hotel application notification sent to dev.ayomide@gmail.com
+2026/09/05 06:30:43 email.go:277: Hotel application confirmation sent to victorblavo@gmail.com
+2026/09/05 06:54:52 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:54:56 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:54:59 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:55:03 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:55:06 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:55:10 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:55:10 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 06:55:10 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/05 06:55:10 notification.go:235: [NOTIFY] ❌ Push failed for booking #159: The registration token is not a valid FCM registration token
+2026/09/05 06:55:10 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 06:55:10 notification.go:255: [NOTIFY] ❌ Email failed for booking #159: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 07:01:15 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 07:01:36 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 07:01:55 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 07:02:03 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 07:02:33 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 07:02:44 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 07:02:57 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 16:21:32 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 16:21:36 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 16:21:36 booking.go:1572: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/05 16:21:36 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/05 16:21:36 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/05 16:21:36 notification.go:235: [NOTIFY] ❌ Push failed for booking #162: The registration token is not a valid FCM registration token
+2026/09/05 16:21:36 notification.go:235: [NOTIFY] ❌ Push failed for booking #161: The registration token is not a valid FCM registration token
+2026/09/05 16:21:36 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 16:21:36 notification.go:255: [NOTIFY] ❌ Email failed for booking #162: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 16:21:36 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 16:21:36 notification.go:255: [NOTIFY] ❌ Email failed for booking #161: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/05 16:23:54 booking.go:1572: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 16:23:54 booking.go:1572: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/05 16:23:54 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/05 16:23:54 notification.go:235: [NOTIFY] ❌ Push failed for booking #163: NotRegistered
+2026/09/05 16:23:54 email.go:530: Scheduled ride notification sent to tempmail@yahoo.com
+2026/09/05 16:23:54 notification.go:257: [NOTIFY] ✅ Email sent for booking #163 to tempmail@yahoo.com
+2026/09/05 20:51:45 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:51:48 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:51:52 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:51:55 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:51:59 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:52:02 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:52:19 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:52:32 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:53:05 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:53:33 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:54:37 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:56:38 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 20:58:41 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/05 21:01:21 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 04:47:17 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 04:47:17 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 04:47:17 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/06 04:47:18 notification.go:235: [NOTIFY] ❌ Push failed for booking #165: SenderId mismatch
+2026/09/06 04:47:18 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/06 04:47:18 notification.go:255: [NOTIFY] ❌ Email failed for booking #165: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/06 04:50:13 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 14:44:12 booking.go:1572: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/06 14:44:12 booking.go:1572: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/06 14:44:12 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/06 14:44:12 notification.go:235: [NOTIFY] ❌ Push failed for booking #166: The registration token is not a valid FCM registration token
+2026/09/06 14:44:12 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/06 14:44:12 notification.go:257: [NOTIFY] ✅ Email sent for booking #166 to kofiache77@gmail.com
+2026/09/06 14:49:05 booking.go:1572: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/06 14:50:20 booking.go:1572: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/06 15:33:00 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 15:34:38 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 15:36:07 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 15:40:36 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 19:37:58 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/06 20:03:25 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/07 09:29:28 hotel.go:192: Google login: email=victorblavo@gmail.com, member.HotelID=fdeb51b7-e243-439c-9f72-bbe638eb3556, hotel.Status=active
+2026/09/07 12:17:25 hotel.go:192: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/07 12:59:41 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/07 12:59:41 booking.go:1572: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/07 12:59:41 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/07 12:59:41 notification.go:235: [NOTIFY] ❌ Push failed for booking #168: SenderId mismatch
+2026/09/07 12:59:41 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/07 12:59:41 notification.go:255: [NOTIFY] ❌ Email failed for booking #168: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/07 15:41:16 logger.go:21: === API Started ===
+2026/09/07 15:41:16 db.go:32: Database connected
+2026/09/07 15:41:16 db.go:42: Migration done
+2026/09/07 15:41:16 redis.go:23: Connected to Redis
+2026/09/07 15:41:16 notification.go:42: ✅ FCM initialized
+2026/09/07 15:41:16 google.go:46: Firebase initialized successfully
+2026/09/07 15:41:16 main.go:150: Go API running on :8081
+2026/09/07 15:42:02 logger.go:21: === API Started ===
+2026/09/07 15:42:02 db.go:32: Database connected
+2026/09/07 15:42:02 db.go:42: Migration done
+2026/09/07 15:42:02 redis.go:23: Connected to Redis
+2026/09/07 15:42:02 notification.go:42: ✅ FCM initialized
+2026/09/07 15:42:02 google.go:46: Firebase initialized successfully
+2026/09/07 15:42:02 main.go:150: Go API running on :8081
+2026/09/07 15:57:23 booking.go:1582: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/07 15:57:23 booking.go:1582: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/07 15:57:23 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/07 15:57:23 notification.go:235: [NOTIFY] ❌ Push failed for booking #169: The registration token is not a valid FCM registration token
+2026/09/07 15:57:23 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/07 15:57:23 notification.go:255: [NOTIFY] ❌ Email failed for booking #169: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/07 16:13:00 booking.go:1582: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/07 16:13:02 booking.go:1582: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/07 16:13:02 booking.go:1582: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/07 16:13:02 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/07 16:13:03 notification.go:235: [NOTIFY] ❌ Push failed for booking #170: The registration token is not a valid FCM registration token
+2026/09/07 16:13:03 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/07 16:13:03 notification.go:255: [NOTIFY] ❌ Email failed for booking #170: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.

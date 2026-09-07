@@ -43,6 +43,7 @@ type BookingSchedule struct {
 	RoomNumber         string     `gorm:"size:50" json:"room_number"`
 	TripType           string     `gorm:"size:20;default:pickup" json:"trip_type"`
 	Airport            string     `gorm:"size:100" json:"airport"`
+	TrackFlight        bool       `json:"track_flight"`
 	FlightNumber       string     `gorm:"size:20" json:"flight_number"`
 	ReturnFlightNumber string     `gorm:"size:20" json:"return_flight_number"`
 	ScheduledAt        *time.Time `json:"scheduled_at"`
@@ -72,6 +73,7 @@ type BookingSchedule struct {
 	ProcessingFee    float64 `gorm:"default:0" json:"processing_fee"`
 	PartnerNet       float64 `json:"partner_net"`
 	CommissionAmount float64 `json:"commission_amount"`
+	ProtocolFee      float64 `gorm:"default:0" json:"protocol_fee"`
 	FinalFare        float64 `json:"final_fare"`
 
 	Passengers     int     `gorm:"default:1" json:"passengers"`
@@ -105,5 +107,24 @@ type RentalCar struct {
 	CreatedAt   time.Time `json:"created_at"`
 }
 
+
+type TripPayment struct {
+	ID          uint      `gorm:"primaryKey" json:"id"`
+	TripID      uint      `gorm:"index" json:"trip_id"`
+	DriverID    *string   `gorm:"index;size:36" json:"driver_id"`  // Pointer for nullable
+	RiderEmail  string    `gorm:"size:255" json:"rider_email"`
+	Amount      float64   `json:"amount"`
+	Fee         float64   `json:"fee"`
+	Method      string    `gorm:"size:20" json:"method"`
+	Reference   string    `gorm:"size:255" json:"reference"`
+	Status      string    `gorm:"size:20" json:"status"`
+	BookingType string    `gorm:"size:20;default:'quick_ride'" json:"booking_type"` // "quick_ride", "scheduled_ride", "rental"
+	GroupRef    string    `gorm:"size:255;index" json:"group_ref"` // Links both legs (parent reference)
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+func (TripPayment) TableName() string {
+	return "trip_payments"
+}
 func (Booking) TableName() string { return "bookings" }
 func (BookingSchedule) TableName() string { return "bookings" }
