@@ -2559,3 +2559,10 @@
 2026/09/07 16:13:03 notification.go:235: [NOTIFY] ❌ Push failed for booking #170: The registration token is not a valid FCM registration token
 2026/09/07 16:13:03 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
 2026/09/07 16:13:03 notification.go:255: [NOTIFY] ❌ Email failed for booking #170: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/07 21:06:45 logger.go:21: === API Started ===
+2026/09/07 21:06:45 db.go:32: Database connected
+2026/09/07 21:06:45 db.go:42: Migration done
+2026/09/07 21:06:45 redis.go:23: Connected to Redis
+2026/09/07 21:06:45 notification.go:42: ✅ FCM initialized
+2026/09/07 21:06:45 google.go:46: Firebase initialized successfully
+2026/09/07 21:06:45 main.go:150: Go API running on :8081

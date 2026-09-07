@@ -181,6 +181,7 @@ func CreateEstimate(c *gin.Context) {
 		JOIN driver_vehicles dv ON dv.driver_id = d.id AND dv.is_active = 1
 		WHERE d.is_active = 1 
 		AND d.account_status = 'active'
+		AND d.phone != '550880119'
 		AND dv.tier_id = ?
 		AND d.id NOT IN (
 			SELECT driver_id FROM bookings 
@@ -264,6 +265,7 @@ func ChangeDriver(c *gin.Context) {
 		JOIN driver_vehicles dv ON dv.driver_id = d.id AND dv.is_active = 1
 		WHERE d.is_active = 1 
 		AND d.account_status = 'active'
+		AND d.phone != '550880119'
 		AND dv.tier_id = ?
 		AND d.id != ?
 		AND d.id NOT IN (
