@@ -110,10 +110,11 @@ func receiptPayload(b *models.BookingSchedule) gin.H {
 		"notes":              b.Notes,
 		"distanceKm":         b.DistanceKm,
 		"durationText":       b.DurationText,
-		"processingFee":      b.ProcessingFee,
 		"finalFare":          b.FinalFare,
 		"createdAt":          b.CreatedAt,
 		"updatedAt":          b.UpdatedAt,
+		"processingFee": 	  b.ProcessingFee,
+		"protocolFee":        b.ProtocolFee,
 	}
 	
 	// Add driver details if driver is assigned

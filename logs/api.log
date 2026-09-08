@@ -2566,3 +2566,137 @@
 2026/09/07 21:06:45 notification.go:42: ✅ FCM initialized
 2026/09/07 21:06:45 google.go:46: Firebase initialized successfully
 2026/09/07 21:06:45 main.go:150: Go API running on :8081
+2026/09/07 21:49:47 logger.go:21: === API Started ===
+2026/09/07 21:49:47 db.go:32: Database connected
+2026/09/07 21:49:47 db.go:42: Migration done
+2026/09/07 21:49:47 redis.go:23: Connected to Redis
+2026/09/07 21:49:47 notification.go:42: ✅ FCM initialized
+2026/09/07 21:49:47 google.go:46: Firebase initialized successfully
+2026/09/07 21:49:47 main.go:150: Go API running on :8081
+2026/09/07 21:50:03 logger.go:21: === API Started ===
+2026/09/07 21:50:03 db.go:32: Database connected
+2026/09/07 21:50:03 db.go:42: Migration done
+2026/09/07 21:50:03 redis.go:23: Connected to Redis
+2026/09/07 21:50:03 notification.go:42: ✅ FCM initialized
+2026/09/07 21:50:03 google.go:46: Firebase initialized successfully
+2026/09/07 21:50:03 main.go:150: Go API running on :8081
+2026/09/07 21:54:06 logger.go:21: === API Started ===
+2026/09/07 21:54:06 db.go:32: Database connected
+2026/09/07 21:54:06 db.go:42: Migration done
+2026/09/07 21:54:06 redis.go:23: Connected to Redis
+2026/09/07 21:54:06 notification.go:42: ✅ FCM initialized
+2026/09/07 21:54:06 google.go:46: Firebase initialized successfully
+2026/09/07 21:54:06 main.go:150: Go API running on :8081
+2026/09/07 22:03:18 logger.go:21: === API Started ===
+2026/09/07 22:03:18 db.go:32: Database connected
+2026/09/07 22:03:18 db.go:42: Migration done
+2026/09/07 22:03:18 redis.go:23: Connected to Redis
+2026/09/07 22:03:18 notification.go:42: ✅ FCM initialized
+2026/09/07 22:03:18 google.go:46: Firebase initialized successfully
+2026/09/07 22:03:18 main.go:150: Go API running on :8081
+2026/09/07 22:28:23 logger.go:21: === API Started ===
+2026/09/07 22:28:23 db.go:32: Database connected
+2026/09/07 22:28:23 db.go:42: Migration done
+2026/09/07 22:28:23 redis.go:23: Connected to Redis
+2026/09/07 22:28:23 notification.go:42: ✅ FCM initialized
+2026/09/07 22:28:23 google.go:46: Firebase initialized successfully
+2026/09/07 22:28:23 main.go:150: Go API running on :8081
+2026/09/07 22:29:43 logger.go:21: === API Started ===
+2026/09/07 22:29:43 db.go:32: Database connected
+2026/09/07 22:29:44 db.go:42: Migration done
+2026/09/07 22:29:44 redis.go:23: Connected to Redis
+2026/09/07 22:29:44 notification.go:42: ✅ FCM initialized
+2026/09/07 22:29:44 google.go:46: Firebase initialized successfully
+2026/09/07 22:29:44 main.go:150: Go API running on :8081
+2026/09/07 22:32:38 logger.go:21: === API Started ===
+2026/09/07 22:32:38 db.go:32: Database connected
+2026/09/07 22:32:38 db.go:42: Migration done
+2026/09/07 22:32:38 redis.go:23: Connected to Redis
+2026/09/07 22:32:38 notification.go:42: ✅ FCM initialized
+2026/09/07 22:32:38 google.go:46: Firebase initialized successfully
+2026/09/07 22:32:38 main.go:150: Go API running on :8081
+2026/09/07 22:38:28 logger.go:21: === API Started ===
+2026/09/07 22:38:28 db.go:32: Database connected
+2026/09/07 22:38:28 db.go:42: Migration done
+2026/09/07 22:38:28 redis.go:23: Connected to Redis
+2026/09/07 22:38:28 notification.go:42: ✅ FCM initialized
+2026/09/07 22:38:28 google.go:46: Firebase initialized successfully
+2026/09/07 22:38:28 main.go:150: Go API running on :8081
+2026/09/07 22:41:44 logger.go:21: === API Started ===
+2026/09/07 22:41:44 db.go:32: Database connected
+2026/09/07 22:41:44 db.go:42: Migration done
+2026/09/07 22:41:44 redis.go:23: Connected to Redis
+2026/09/07 22:41:44 notification.go:42: ✅ FCM initialized
+2026/09/07 22:41:44 google.go:46: Firebase initialized successfully
+2026/09/07 22:41:44 main.go:150: Go API running on :8081
+2026/09/07 22:46:47 logger.go:21: === API Started ===
+2026/09/07 22:46:47 db.go:32: Database connected
+2026/09/07 22:46:47 db.go:42: Migration done
+2026/09/07 22:46:47 redis.go:23: Connected to Redis
+2026/09/07 22:46:47 notification.go:42: ✅ FCM initialized
+2026/09/07 22:46:47 google.go:46: Firebase initialized successfully
+2026/09/07 22:46:47 main.go:150: Go API running on :8081
+2026/09/07 22:50:15 booking.go:1562: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/07 22:50:15 booking.go:1562: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/07 22:50:15 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/07 22:50:15 notification.go:235: [NOTIFY] ❌ Push failed for booking #172: The registration token is not a valid FCM registration token
+2026/09/07 22:50:15 email.go:530: Scheduled ride notification sent to tempmail@yahoo.com
+2026/09/07 22:50:15 notification.go:257: [NOTIFY] ✅ Email sent for booking #172 to tempmail@yahoo.com
+2026/09/07 23:11:42 logger.go:21: === API Started ===
+2026/09/07 23:11:42 db.go:32: Database connected
+2026/09/07 23:11:42 db.go:42: Migration done
+2026/09/07 23:11:42 redis.go:23: Connected to Redis
+2026/09/07 23:11:42 notification.go:42: ✅ FCM initialized
+2026/09/07 23:11:42 google.go:46: Firebase initialized successfully
+2026/09/07 23:11:42 main.go:150: Go API running on :8081
+2026/09/07 23:44:05 logger.go:21: === API Started ===
+2026/09/07 23:44:05 db.go:32: Database connected
+2026/09/07 23:44:05 db.go:42: Migration done
+2026/09/07 23:44:05 redis.go:23: Connected to Redis
+2026/09/07 23:44:05 notification.go:42: ✅ FCM initialized
+2026/09/07 23:44:05 reconcile.go:13: INFO payment reconciler started
+2026/09/07 23:44:05 main.go:42: INFO booking cleanup worker started
+2026/09/07 23:44:05 google.go:46: Firebase initialized successfully
+2026/09/07 23:44:05 main.go:178: Go API running on :8081
+2026/09/07 23:49:49 hotel.go:190: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/07 23:54:05 main.go:68: INFO expired stale pending bookings count=8
+2026/09/08 00:02:13 logger.go:21: === API Started ===
+2026/09/08 00:02:13 db.go:32: Database connected
+2026/09/08 00:02:13 db.go:42: Migration done
+2026/09/08 00:02:13 redis.go:23: Connected to Redis
+2026/09/08 00:02:13 notification.go:42: ✅ FCM initialized
+2026/09/08 00:02:13 main.go:42: INFO booking cleanup worker started
+2026/09/08 00:02:13 reconcile.go:13: INFO payment reconciler started
+2026/09/08 00:02:13 google.go:46: Firebase initialized successfully
+2026/09/08 00:02:13 main.go:178: Go API running on :8081
+2026/09/08 00:04:05 booking.go:1376: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/08 00:04:05 booking.go:1376: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/08 00:04:05 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/08 00:04:06 notification.go:235: [NOTIFY] ❌ Push failed for booking #173: The registration token is not a valid FCM registration token
+2026/09/08 00:04:06 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/08 00:04:06 notification.go:255: [NOTIFY] ❌ Email failed for booking #173: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/08 00:10:14 logger.go:21: === API Started ===
+2026/09/08 00:10:14 db.go:32: Database connected
+2026/09/08 00:10:14 db.go:42: Migration done
+2026/09/08 00:10:14 redis.go:23: Connected to Redis
+2026/09/08 00:10:14 notification.go:42: ✅ FCM initialized
+2026/09/08 00:10:14 google.go:46: Firebase initialized successfully
+2026/09/08 00:10:14 main.go:178: Go API running on :8081
+2026/09/08 00:10:14 reconcile.go:13: INFO payment reconciler started
+2026/09/08 00:10:14 main.go:42: INFO booking cleanup worker started
+2026/09/08 00:11:03 logger.go:21: === API Started ===
+2026/09/08 00:11:03 db.go:32: Database connected
+2026/09/08 00:11:03 db.go:42: Migration done
+2026/09/08 00:11:03 redis.go:23: Connected to Redis
+2026/09/08 00:11:03 notification.go:42: ✅ FCM initialized
+2026/09/08 00:11:03 reconcile.go:13: INFO payment reconciler started
+2026/09/08 00:11:03 main.go:42: INFO booking cleanup worker started
+2026/09/08 00:11:03 google.go:46: Firebase initialized successfully
+2026/09/08 00:11:03 main.go:178: Go API running on :8081
+2026/09/08 00:12:53 booking.go:1376: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/08 00:12:53 booking.go:1376: INFO Driver found driver="{ID:b827711c-918c-11f1-b287-06db06437209 FirstName:Kwame LastName:Test Phone:550880117 Email:testdriver@example.com AvatarURL:}"
+2026/09/08 00:12:53 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/08 00:12:53 notification.go:235: [NOTIFY] ❌ Push failed for booking #174: SenderId mismatch
+2026/09/08 00:12:53 email.go:931: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/08 00:12:53 email.go:526: Failed to send scheduled ride notification to testdriver@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/08 00:12:53 notification.go:255: [NOTIFY] ❌ Email failed for booking #174: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.

@@ -35,7 +35,7 @@ func ConnectDB() {
 // MigrateDB creates the driver_assignments table if it doesn't exist.
 // It does NOT touch your existing Laravel tables.
 func MigrateDB() {
-	err := DB.AutoMigrate(&models.DriverAssignment{})
+	err := DB.AutoMigrate(&models.DriverAssignment{}, &models.PaymentIntent{})
 	if err != nil {
 		log.Fatal("Migration failed:", err)
 	}

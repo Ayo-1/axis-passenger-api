@@ -4,20 +4,20 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"math"
 	"math/rand"
 	"net/http"
-	"time"
 	"os"
 	"strings"
-	"log/slog"
+	"time"
 
 	"github.com/gin-gonic/gin"
 
 	"goapi/config"
+	"goapi/handlers"
 	"goapi/models"
 	"goapi/services"
-	"goapi/handlers"
 )
 
 var (
@@ -30,23 +30,24 @@ func InitPaymentServices(paystack *services.PaystackService, stripe *services.St
 	PaystackService = paystack
 	StripeService = stripe
 }
+
 type EstimateRequest struct {
-	TripType          string  `json:"tripType" binding:"required,oneof=pickup dropoff both"`
-	Airport           string  `json:"airport"`
-	AirportID         string  `json:"airportId" binding:"required"`
-	MainLocationLabel string  `json:"mainLocationLabel" binding:"required"`
-	MainLocationLat   float64 `json:"mainLocationLat" binding:"required"`
-	MainLocationLng   float64 `json:"mainLocationLng" binding:"required"`
-	ReturnLocationLabel string `json:"returnLocationLabel"`
-	ReturnLocationLat float64 `json:"returnLocationLat"`
-	ReturnLocationLng float64 `json:"returnLocationLng"`
-	Passengers        int     `json:"passengers" binding:"required,min=1,max=8"`
-	Luggage           int     `json:"luggage" binding:"min=0,max=8"`
-	TierID            string  `json:"tierId" binding:"required"`
-	MeetGreet         bool    `json:"meetGreet"`
-	ChildSeat         bool    `json:"childSeat"`
-	ScheduledAt       string  `json:"scheduledAt" binding:"required"`
-	Protocol         bool    `json:"protocol"`
+	TripType            string  `json:"tripType" binding:"required,oneof=pickup dropoff both"`
+	Airport             string  `json:"airport"`
+	AirportID           string  `json:"airportId" binding:"required"`
+	MainLocationLabel   string  `json:"mainLocationLabel" binding:"required"`
+	MainLocationLat     float64 `json:"mainLocationLat" binding:"required"`
+	MainLocationLng     float64 `json:"mainLocationLng" binding:"required"`
+	ReturnLocationLabel string  `json:"returnLocationLabel"`
+	ReturnLocationLat   float64 `json:"returnLocationLat"`
+	ReturnLocationLng   float64 `json:"returnLocationLng"`
+	Passengers          int     `json:"passengers" binding:"required,min=1,max=8"`
+	Luggage             int     `json:"luggage" binding:"min=0,max=8"`
+	TierID              string  `json:"tierId" binding:"required"`
+	MeetGreet           bool    `json:"meetGreet"`
+	ChildSeat           bool    `json:"childSeat"`
+	ScheduledAt         string  `json:"scheduledAt" binding:"required"`
+	Protocol            bool    `json:"protocol"`
 }
 
 type DriverPreview struct {
@@ -64,6 +65,7 @@ type EstimateResponse struct {
 	DistanceKm       float64        `json:"distanceKm"`
 	ExtrasTotal      float64        `json:"extrasTotal"`
 	Driver           *DriverPreview `json:"driver"`
+	ProcessingFee    float64        `json:"processingFee"`
 	AvailableDrivers int            `json:"availableDrivers"`
 }
 
@@ -156,8 +158,16 @@ func CreateEstimate(c *gin.Context) {
 	}
 
 	// Calculate extras
+	// Round distance to 1 decimal place
+	distanceKm = math.Round(distanceKm*10) / 10
+
+	// Calculate extras
 	extrasTotal := 0.0
-	
+
+	// Platform fee (mandatory)
+	const platformFee = 28.0
+	extrasTotal += platformFee
+
 	// Protocol fee: GHS 500 per person if selected
 	if req.Protocol {
 		extrasTotal += float64(req.Passengers) * 500
@@ -169,7 +179,16 @@ func CreateEstimate(c *gin.Context) {
 		baseFare = fareConfig.MinimumFare
 	}
 
+	// Round base fare to 2 decimal places
+	baseFare = math.Round(baseFare*100) / 100
+
 	fareTotal := baseFare + extrasTotal
+
+	// Round final fare to 2 decimal places
+	// fareTotal = math.Round(fareTotal*100) / 100
+
+	// Round to whole number
+	fareTotal = math.Round(fareTotal)
 
 	// Find available driver
 	var driver DriverPreview
@@ -208,6 +227,7 @@ func CreateEstimate(c *gin.Context) {
 			Currency:         "GHS",
 			DistanceKm:       distanceKm,
 			ExtrasTotal:      extrasTotal,
+			ProcessingFee:    platformFee,
 			Driver:           nil,
 			AvailableDrivers: 0,
 		})
@@ -221,6 +241,7 @@ func CreateEstimate(c *gin.Context) {
 		ExtrasTotal:      extrasTotal,
 		Driver:           &driver,
 		AvailableDrivers: availableCount,
+		ProcessingFee:    platformFee,
 	})
 }
 
@@ -289,39 +310,39 @@ func ChangeDriver(c *gin.Context) {
 // ── Create Booking ───────────────────────────────────────────
 
 type CreateBookingRequest struct {
-	ServiceType        string  `json:"serviceType" binding:"required,oneof=ride"`
-	Channel            string  `json:"channel" binding:"required,oneof=direct partner"`
-	GuestName          string  `json:"guestName" binding:"required,min=2"`
-	GuestPhone         string  `json:"guestPhone" binding:"required,min=9"`
-	GuestEmail         string  `json:"guestEmail" binding:"required,email"`
-	TripType           string  `json:"tripType" binding:"required,oneof=pickup dropoff both"`
-	AirportID          string  `json:"airportId" binding:"required"`
-	Airport            string  `json:"airport" binding:"required"`
-	MainLocationLabel  string  `json:"mainLocationLabel" binding:"required"`
-	MainLocationLat    float64 `json:"mainLocationLat" binding:"required"`
-	MainLocationLng    float64 `json:"mainLocationLng" binding:"required"`
-	ReturnLocationLabel string `json:"returnLocationLabel"`
-	ReturnLocationLat  float64 `json:"returnLocationLat"`
-	ReturnLocationLng  float64 `json:"returnLocationLng"`
-	TrackFlight        bool    `json:"track_flight"`
-	FlightNumber       string  `json:"flightNumber"`
-	ScheduledAt        string  `json:"scheduledAt" binding:"required"`
-	ReturnFlightNumber string  `json:"returnFlightNumber"`
-	ReturnScheduledAt  string  `json:"returnScheduledAt"`
-	Passengers         int     `json:"passengers" binding:"required,min=1,max=8"`
-	Luggage            int     `json:"luggage" binding:"min=0,max=8"`
-	TierID             string  `json:"tierId" binding:"required"`
-	RentalDays         int     `json:"rentalDays"`
-	Extras             []Extra `json:"extras"`
-	PaymentMethod      string  `json:"paymentMethod" binding:"required,oneof=paystack stripe"`
-	DriverID           string  `json:"driverId" binding:"required"`
-	FareTotal          float64 `json:"fareTotal" binding:"required"`
-	Notes              string  `json:"notes"`
-	HotelID string `json:"hotelId"`
-	PaymentMode   string `json:"paymentMode"`
-	CollectionMethod string `json:"collectionMethod"`
-	DeliveryAddress string `json:"deliveryAddress"`
-	Protocol       bool    `json:"protocol"`
+	ServiceType         string  `json:"serviceType" binding:"required,oneof=ride"`
+	Channel             string  `json:"channel" binding:"required,oneof=direct partner"`
+	GuestName           string  `json:"guestName" binding:"required,min=2"`
+	GuestPhone          string  `json:"guestPhone" binding:"required,min=9"`
+	GuestEmail          string  `json:"guestEmail" binding:"required,email"`
+	TripType            string  `json:"tripType" binding:"required,oneof=pickup dropoff both"`
+	AirportID           string  `json:"airportId" binding:"required"`
+	Airport             string  `json:"airport" binding:"required"`
+	MainLocationLabel   string  `json:"mainLocationLabel" binding:"required"`
+	MainLocationLat     float64 `json:"mainLocationLat" binding:"required"`
+	MainLocationLng     float64 `json:"mainLocationLng" binding:"required"`
+	ReturnLocationLabel string  `json:"returnLocationLabel"`
+	ReturnLocationLat   float64 `json:"returnLocationLat"`
+	ReturnLocationLng   float64 `json:"returnLocationLng"`
+	TrackFlight         bool    `json:"track_flight"`
+	FlightNumber        string  `json:"flightNumber"`
+	ScheduledAt         string  `json:"scheduledAt" binding:"required"`
+	ReturnFlightNumber  string  `json:"returnFlightNumber"`
+	ReturnScheduledAt   string  `json:"returnScheduledAt"`
+	Passengers          int     `json:"passengers" binding:"required,min=1,max=8"`
+	Luggage             int     `json:"luggage" binding:"min=0,max=8"`
+	TierID              string  `json:"tierId" binding:"required"`
+	RentalDays          int     `json:"rentalDays"`
+	Extras              []Extra `json:"extras"`
+	PaymentMethod       string  `json:"paymentMethod" binding:"required,oneof=paystack stripe"`
+	DriverID            string  `json:"driverId" binding:"required"`
+	FareTotal           float64 `json:"fareTotal" binding:"required"`
+	Notes               string  `json:"notes"`
+	HotelID             string  `json:"hotelId"`
+	PaymentMode         string  `json:"paymentMode"`
+	CollectionMethod    string  `json:"collectionMethod"`
+	DeliveryAddress     string  `json:"deliveryAddress"`
+	Protocol            bool    `json:"protocol"`
 }
 
 type Extra struct {
@@ -334,6 +355,22 @@ func CreateBooking(c *gin.Context) {
 	var req CreateBookingRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	req.Channel = "direct"
+	req.HotelID = ""
+
+	// Cap pending bookings per email to limit abuse
+	var recentPending int64
+	config.DB.Model(&models.BookingSchedule{}).
+		Where("LOWER(guest_email) = LOWER(?) AND status = 'pending' AND created_at > ?",
+			req.GuestEmail, time.Now().Add(-1*time.Hour)).
+		Count(&recentPending)
+	if recentPending >= 5 {
+		c.JSON(http.StatusTooManyRequests, gin.H{
+			"error": "too many pending bookings — complete or cancel an existing one first",
+		})
 		return
 	}
 
@@ -352,10 +389,19 @@ func CreateBooking(c *gin.Context) {
 	}
 
 	// Validate tier exists
-	var tierExists int
-	config.DB.Raw(`SELECT COUNT(*) FROM vehicle_tiers WHERE id = ? AND is_active = 1`, req.TierID).Scan(&tierExists)
-	if tierExists == 0 {
+	var tier models.VehicleTier
+	if err := config.DB.Raw(`
+		SELECT id, passengers, luggage FROM vehicle_tiers WHERE id = ? AND is_active = 1
+	`, req.TierID).Scan(&tier).Error; err != nil || tier.ID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid tier ID"})
+		return
+	}
+	if req.Passengers > tier.Passengers {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "too many passengers for this vehicle"})
+		return
+	}
+	if req.Luggage > tier.Luggage {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "too much luggage for this vehicle"})
 		return
 	}
 
@@ -378,6 +424,17 @@ func CreateBooking(c *gin.Context) {
 		return
 	}
 
+	// Reject if driver already has a booking in the ±2h window
+	var driverConflicts int64
+	config.DB.Model(&models.BookingSchedule{}).
+		Where("driver_id = ? AND status IN ('confirmed','pending') AND scheduled_at BETWEEN ? AND ?",
+			req.DriverID, scheduledTime.Add(-2*time.Hour), scheduledTime.Add(2*time.Hour)).
+		Count(&driverConflicts)
+	if driverConflicts > 0 {
+		c.JSON(http.StatusConflict, gin.H{"error": "driver no longer available for this time"})
+		return
+	}
+
 	var returnTime *time.Time
 	if req.TripType == "both" {
 		parsed, err := time.Parse(time.RFC3339, req.ReturnScheduledAt)
@@ -387,6 +444,36 @@ func CreateBooking(c *gin.Context) {
 		}
 		returnTime = &parsed
 	}
+
+	if req.TripType == "both" && returnTime != nil {
+		var returnConflicts int64
+		config.DB.Model(&models.BookingSchedule{}).
+			Where("driver_id = ? AND status IN ('confirmed','pending') AND scheduled_at BETWEEN ? AND ?",
+				req.DriverID, returnTime.Add(-2*time.Hour), returnTime.Add(2*time.Hour)).
+			Count(&returnConflicts)
+		if returnConflicts > 0 {
+			c.JSON(http.StatusConflict, gin.H{"error": "driver no longer available for the return leg"})
+			return
+		}
+	}
+
+	fare, err := computeFare(fareInput{
+		AirportID:  req.AirportID,
+		TripType:   req.TripType,
+		MainLat:    req.MainLocationLat,
+		MainLng:    req.MainLocationLng,
+		ReturnLat:  req.ReturnLocationLat,
+		ReturnLng:  req.ReturnLocationLng,
+		Passengers: req.Passengers,
+		Protocol:   req.Protocol,
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to price this trip"})
+		return
+	}
+
+	// Overwrite whatever the client sent. Never trust it.
+	req.FareTotal = fare.Total
 
 	// ── Map pickup/dropoff correctly ──
 	var pickupLat, pickupLng, dropoffLat, dropoffLng float64
@@ -420,12 +507,9 @@ func CreateBooking(c *gin.Context) {
 		dropoffLng = req.MainLocationLng
 		dropoffLabel = req.MainLocationLabel
 	}
-
-	protocolFee := 0.0
-	if req.Protocol {
-		protocolFee = float64(req.Passengers) * 500
-	}
-
+	// After calculating protocolFee:
+	platformFee := fare.PlatformFee
+	protocolFee := fare.ProtocolFee
 
 	// ── Map return leg for round trip ──
 	var returnPickupLat, returnPickupLng, returnDropoffLat, returnDropoffLng float64
@@ -481,7 +565,8 @@ func CreateBooking(c *gin.Context) {
 			Passengers:     req.Passengers,
 			Luggage:        req.Luggage,
 			TierID:         req.TierID,
-			ProtocolFee:   protocolFee,
+			ProcessingFee:  platformFee / 2,
+			ProtocolFee:    protocolFee,
 			FareTotal:      outboundFare,
 			PaymentMode:    req.PaymentMethod,
 			PaymentStatus:  "pending",
@@ -517,7 +602,8 @@ func CreateBooking(c *gin.Context) {
 			Passengers:     req.Passengers,
 			Luggage:        req.Luggage,
 			TierID:         req.TierID,
-			ProtocolFee:   protocolFee,
+			ProcessingFee:  platformFee / 2,
+			ProtocolFee:    protocolFee,
 			FareTotal:      returnFare,
 			PaymentMode:    req.PaymentMethod,
 			PaymentStatus:  "pending",
@@ -532,60 +618,28 @@ func CreateBooking(c *gin.Context) {
 			return
 		}
 
-		// Generate payment link for total fare
-		var paymentURL string
-		var stripeSessionID string
-
-		if req.PaymentMethod == "paystack" {
-			resp, err := PaystackService.GeneratePaymentLink(services.PaymentLinkRequest{
-				Amount:      req.FareTotal,
-				Email:       req.GuestEmail,
-				Description: "Axis Booking - " + reference,
-				Reference:   reference,
-				Metadata: map[string]interface{}{
-					"type":              "booking_payment",
-					"booking_id":        outboundBooking.ID,
-					"return_booking_id": returnBooking.ID,
-					"reference":         reference,
-					"trip_type":         "both",
-				},
-				CallbackURL: os.Getenv("APP_URL_MAIN") + "/book?ref=" + reference + "&provider=paystack",
-			})
-			if err == nil {
-				paymentURL = resp.PaymentURL
-			} else {
-				config.DB.Delete(&outboundBooking)
-				config.DB.Delete(&returnBooking)
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
-				return
-			}
-		} else {
-			resp, err := StripeService.GeneratePaymentLink(
-				req.FareTotal,
-				"USD",
-				req.GuestEmail,
-				"Axis Booking - "+reference,
-				reference,
-				map[string]string{
-					"booking_id":        fmt.Sprintf("%d", outboundBooking.ID),
-					"return_booking_id": fmt.Sprintf("%d", returnBooking.ID),
-					"reference":         reference,
-					"trip_type":         "both",
-				},
-				os.Getenv("APP_URL_MAIN") + "/book?ref=" + reference + "&provider=stripe",
-				os.Getenv("APP_URL_MAIN") + "/book?cancelled=1",
-			)
-			if err == nil {
-				paymentURL = resp.PaymentURL
-				stripeSessionID = resp.SessionID
-			} else {
-				config.DB.Delete(&outboundBooking)
-				config.DB.Delete(&returnBooking)
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
-				return
-			}
+		res, err := createPaymentIntent(
+			reference,
+			req.PaymentMethod,
+			req.GuestEmail,
+			"Axis Booking - "+reference,
+			req.FareTotal,
+			os.Getenv("APP_URL_MAIN")+"/book?ref="+reference+"&provider="+req.PaymentMethod,
+			os.Getenv("APP_URL_MAIN")+"/book?cancelled=1",
+			map[string]interface{}{
+				"type":              "booking_payment",
+				"booking_id":        outboundBooking.ID,
+				"return_booking_id": returnBooking.ID,
+				"trip_type":         "both",
+			},
+		)
+		if err != nil {
+			config.DB.Delete(&outboundBooking)
+			config.DB.Delete(&returnBooking)
+			slog.Error("payment intent failed", "ref", reference, "error", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
+			return
 		}
-
 		c.JSON(http.StatusCreated, gin.H{
 			"status": "success",
 			"data": gin.H{
@@ -593,9 +647,9 @@ func CreateBooking(c *gin.Context) {
 				"reference":         reference,
 				"outboundReference": outboundBooking.SessionID,
 				"returnReference":   returnBooking.SessionID,
-				"paymentUrl":        paymentURL,
+				"paymentUrl":        res.PaymentURL,
 				"provider":          req.PaymentMethod,
-				"stripe_session_id": stripeSessionID,
+				"stripe_session_id": res.StripeSessionID,
 				"status":            "pending",
 				"paymentStatus":     "pending",
 				"fareTotal":         req.FareTotal,
@@ -628,7 +682,8 @@ func CreateBooking(c *gin.Context) {
 			Passengers:     req.Passengers,
 			Luggage:        req.Luggage,
 			TierID:         req.TierID,
-			ProtocolFee:   protocolFee,
+			ProcessingFee:  platformFee,
+			ProtocolFee:    protocolFee,
 			FareTotal:      req.FareTotal,
 			PaymentMode:    req.PaymentMethod,
 			PaymentStatus:  "pending",
@@ -641,54 +696,25 @@ func CreateBooking(c *gin.Context) {
 			return
 		}
 
-		// Generate payment link
-		var paymentURL string
-		var stripeSessionID string
-
-		if req.PaymentMethod == "paystack" {
-			resp, err := PaystackService.GeneratePaymentLink(services.PaymentLinkRequest{
-				Amount:      req.FareTotal,
-				Email:       req.GuestEmail,
-				Description: "Axis Booking - " + reference,
-				Reference:   reference,
-				Metadata: map[string]interface{}{
-					"type":       "booking_payment",
-					"booking_id": booking.ID,
-					"reference":  reference,
-					"trip_type":  req.TripType,
-				},
-				CallbackURL: os.Getenv("APP_URL_MAIN") + "/book?ref=" + reference + "&provider=paystack",
-			})
-			if err == nil {
-				paymentURL = resp.PaymentURL
-			} else {
-				config.DB.Delete(&booking)
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
-				return
-			}
-		} else {
-			resp, err := StripeService.GeneratePaymentLink(
-				req.FareTotal,
-				"USD",
-				req.GuestEmail,
-				"Axis Booking - "+reference,
-				reference,
-				map[string]string{
-					"booking_id": fmt.Sprintf("%d", booking.ID),
-					"reference":  reference,
-					"trip_type":  req.TripType,
-				},
-				os.Getenv("APP_URL_MAIN") + "/book?ref=" + reference + "&provider=stripe",
-				os.Getenv("APP_URL_MAIN") + "/book?cancelled=1",
-			)
-			if err == nil {
-				paymentURL = resp.PaymentURL
-				stripeSessionID = resp.SessionID
-			} else {
-				config.DB.Delete(&booking)
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
-				return
-			}
+		res, err := createPaymentIntent(
+			reference,
+			req.PaymentMethod,
+			req.GuestEmail,
+			"Axis Booking - "+reference,
+			req.FareTotal,
+			os.Getenv("APP_URL_MAIN")+"/book?ref="+reference+"&provider="+req.PaymentMethod,
+			os.Getenv("APP_URL_MAIN")+"/book?cancelled=1",
+			map[string]interface{}{
+				"type":       "booking_payment",
+				"booking_id": booking.ID,
+				"trip_type":  req.TripType,
+			},
+		)
+		if err != nil {
+			config.DB.Delete(&booking)
+			slog.Error("payment intent failed", "ref", reference, "error", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
+			return
 		}
 
 		c.JSON(http.StatusCreated, gin.H{
@@ -696,9 +722,9 @@ func CreateBooking(c *gin.Context) {
 			"data": gin.H{
 				"id":                booking.ID,
 				"reference":         reference,
-				"paymentUrl":        paymentURL,
+				"paymentUrl":        res.PaymentURL,
 				"provider":          req.PaymentMethod,
-				"stripe_session_id": stripeSessionID,
+				"stripe_session_id": res.StripeSessionID,
 				"status":            "pending",
 				"paymentStatus":     "pending",
 				"fareTotal":         req.FareTotal,
@@ -726,7 +752,7 @@ func LookupBooking(c *gin.Context) {
 
 	// Clean up the reference - remove any trailing spaces and convert to uppercase
 	reference := strings.TrimSpace(strings.ToUpper(req.Reference))
-	
+
 	// Reject lookups with internal suffixes
 	if strings.HasSuffix(reference, "-OUT") || strings.HasSuffix(reference, "-RTN") {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -744,7 +770,7 @@ func LookupBooking(c *gin.Context) {
 		// Try round trip outbound leg
 		err = config.DB.Where("session_id = ? AND (LOWER(guest_email) = LOWER(?) OR RIGHT(guest_phone, 4) = ?)",
 			reference+"-OUT", req.Contact, req.Contact).First(&booking).Error
-		
+
 		if err != nil {
 			c.JSON(http.StatusNotFound, gin.H{"error": "booking not found"})
 			return
@@ -754,14 +780,14 @@ func LookupBooking(c *gin.Context) {
 	// Check if round trip
 	if strings.Contains(booking.SessionID, "-OUT") {
 		baseReference := strings.TrimSuffix(booking.SessionID, "-OUT")
-		
+
 		// Get return leg
 		var returnBooking models.BookingSchedule
 		config.DB.Where("session_id = ?", baseReference+"-RTN").First(&returnBooking)
-		
+
 		// Build combined response with parent reference
 		combinedPayload := receiptPayload(&booking)
-		
+
 		// Add return leg info to the SAME payload
 		if returnBooking.ID != 0 {
 			combinedPayload["returnFlightNumber"] = returnBooking.FlightNumber
@@ -772,14 +798,14 @@ func LookupBooking(c *gin.Context) {
 			combinedPayload["returnDropoffAddress"] = returnBooking.DropoffAddress
 			combinedPayload["returnDropoffLat"] = returnBooking.DropoffLat
 			combinedPayload["returnDropoffLng"] = returnBooking.DropoffLng
-			
+
 			// Combined fare
 			combinedPayload["fareTotal"] = booking.FareTotal + returnBooking.FareTotal
 			combinedPayload["tripType"] = "both"
 		}
-		
+
 		c.JSON(http.StatusOK, gin.H{
-			"status": "success", 
+			"status": "success",
 			"data":   combinedPayload,
 		})
 		return
@@ -813,7 +839,7 @@ func UpdateBooking(c *gin.Context) {
 		// Check if it's a round trip (try -OUT suffix)
 		err = config.DB.Where("session_id = ? AND (LOWER(guest_email) = LOWER(?) OR RIGHT(guest_phone, 4) = ?)",
 			req.Reference+"-OUT", req.Contact, req.Contact).First(&booking).Error
-		
+
 		if err != nil {
 			c.JSON(http.StatusNotFound, gin.H{"error": "booking not found"})
 			return
@@ -826,9 +852,9 @@ func UpdateBooking(c *gin.Context) {
 	if isRoundTrip {
 		// Update BOTH legs
 		baseReference := strings.TrimSuffix(strings.TrimSuffix(booking.SessionID, "-OUT"), "-RTN")
-		
+
 		// updates := make(map[string]interface{})
-		
+
 		if req.FlightNumber != "" {
 			// Update outbound flight
 			config.DB.Model(&models.BookingSchedule{}).
@@ -860,7 +886,7 @@ func UpdateBooking(c *gin.Context) {
 				Where("session_id = ?", baseReference+"-RTN").
 				Update("scheduled_at", returnTime)
 		}
-		
+
 		c.JSON(http.StatusOK, gin.H{"status": "success", "message": "booking updated"})
 		return
 	}
@@ -912,7 +938,7 @@ func CancelBooking(c *gin.Context) {
 
 	// Clean up the reference
 	reference := strings.TrimSpace(strings.ToUpper(req.Reference))
-	
+
 	// Reject lookups with internal suffixes
 	if strings.HasSuffix(reference, "-OUT") || strings.HasSuffix(reference, "-RTN") {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -930,7 +956,7 @@ func CancelBooking(c *gin.Context) {
 		// Try round trip outbound
 		err = config.DB.Where("session_id = ? AND (LOWER(guest_email) = LOWER(?) OR RIGHT(guest_phone, 4) = ?)",
 			reference+"-OUT", req.Contact, req.Contact).First(&booking).Error
-		
+
 		if err != nil {
 			c.JSON(http.StatusNotFound, gin.H{"error": "booking not found"})
 			return
@@ -940,12 +966,12 @@ func CancelBooking(c *gin.Context) {
 	// Check if round trip
 	if strings.Contains(booking.SessionID, "-OUT") {
 		baseReference := strings.TrimSuffix(booking.SessionID, "-OUT")
-		
+
 		// Cancel both legs
 		config.DB.Model(&models.BookingSchedule{}).
 			Where("session_id IN ?", []string{baseReference + "-OUT", baseReference + "-RTN"}).
 			Update("status", "cancelled")
-		
+
 		c.JSON(http.StatusOK, gin.H{"status": "success", "message": "booking cancelled"})
 		return
 	}
@@ -959,13 +985,11 @@ func CancelBooking(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "booking cancelled"})
 }
 
-
 // POST /v1/bookings/verify-payment
 func VerifyBookingPayment(c *gin.Context) {
 	var req struct {
 		Reference string `json:"reference" binding:"required"`
 		Provider  string `json:"provider" binding:"required,oneof=paystack stripe"`
-		SessionID string `json:"sessionId"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -975,7 +999,7 @@ func VerifyBookingPayment(c *gin.Context) {
 	// ── Check Redis cache first ──
 	cacheKey := "booking_payment:" + req.Reference
 	ctx := context.Background()
-	
+
 	if config.RedisClient != nil {
 		cached, err := config.RedisClient.Get(ctx, cacheKey).Result()
 		if err == nil {
@@ -1009,14 +1033,14 @@ func VerifyBookingPayment(c *gin.Context) {
 		baseReference := strings.TrimSuffix(strings.TrimSuffix(booking.SessionID, "-OUT"), "-RTN")
 		var outboundCheck models.BookingSchedule
 		var returnCheck models.BookingSchedule
-		
+
 		config.DB.Where("session_id = ?", baseReference+"-OUT").First(&outboundCheck)
 		config.DB.Where("session_id = ?", baseReference+"-RTN").First(&returnCheck)
-		
+
 		if outboundCheck.PaymentStatus == "paid" && returnCheck.PaymentStatus == "paid" {
 			// Build combined response HERE (with the check variables)
 			combinedBooking := bookingWithDriverDetails(outboundCheck)
-			
+
 			// Add return leg info
 			combinedBooking["return_flight_number"] = returnCheck.FlightNumber
 			combinedBooking["return_scheduled_at"] = returnCheck.ScheduledAt
@@ -1028,17 +1052,17 @@ func VerifyBookingPayment(c *gin.Context) {
 			combinedBooking["return_dropoff_lng"] = returnCheck.DropoffLng
 			combinedBooking["fare_total"] = outboundCheck.FareTotal + returnCheck.FareTotal
 			combinedBooking["trip_type"] = "both"
-			
+
 			response := gin.H{
 				"status":        "paid",
 				"paymentStatus": "paid",
 				"bookingStatus": "confirmed",
 				"booking":       combinedBooking,
 			}
-			
+
 			// Cache this successful response
 			cacheSuccessfulResponse(cacheKey, response)
-			
+
 			c.JSON(http.StatusOK, response)
 			return
 		}
@@ -1051,302 +1075,90 @@ func VerifyBookingPayment(c *gin.Context) {
 				"bookingStatus": booking.Status,
 				"booking":       bookingWithDriverDetails(booking),
 			}
-			
+
 			// Cache this successful response
 			cacheSuccessfulResponse(cacheKey, response)
-			
+
 			c.JSON(http.StatusOK, response)
 			return
 		}
 	}
 
-	// Verify with provider
+	// ── Resolve the payment intent (server-side source of truth) ──
+	groupRef := strings.TrimSuffix(strings.TrimSuffix(booking.SessionID, "-OUT"), "-RTN")
+
+	var intent models.PaymentIntent
+	if err := config.DB.Where("reference = ? AND provider = ? AND status = 'pending'", groupRef, req.Provider).
+		Order("attempt DESC").First(&intent).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no pending payment for this booking"})
+		return
+	}
+
 	var success bool
+	var paidAmount float64
 	var err error
 
 	switch req.Provider {
 	case "paystack":
-		success, _, _, err = PaystackService.VerifyTransaction(req.Reference)
+		success, _, paidAmount, err = PaystackService.VerifyTransaction(intent.ProviderRef)
 	case "stripe":
-		if req.SessionID == "" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "sessionId required for stripe"})
-			return
-		}
-		success, _, err = StripeService.VerifySession(req.SessionID)
+		success, paidAmount, err = StripeService.VerifySession(intent.ProviderRef)
 	}
 
 	if err != nil {
+		slog.Error("verification failed", "ref", groupRef, "provider_ref", intent.ProviderRef, "error", err)
 		c.JSON(http.StatusBadGateway, gin.H{"error": "verification failed"})
 		return
 	}
 
-	if !success {
-		c.JSON(http.StatusOK, gin.H{
-			"status":        "pending",
-			"paymentStatus": "pending",
-			"bookingStatus": booking.Status,
-			"booking":       bookingWithDriverDetails(booking),
-		})
+	if success && paidAmount+0.01 < intent.ExpectedAmount {
+		slog.Error("underpayment detected",
+			"ref", groupRef,
+			"paid", paidAmount,
+			"expected", intent.ExpectedAmount,
+			"currency", intent.Currency)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "payment amount mismatch"})
+		return
+	}
+	if err := confirmPayment(intent, req.Provider); err != nil {
+		slog.Error("confirm payment failed", "ref", groupRef, "error", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to confirm payment"})
 		return
 	}
 
-	// Use a transaction with row locking to prevent duplicates
-	tx := config.DB.Begin()
-	if tx.Error != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "transaction failed"})
-		return
-	}
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
-		}
-	}()
-
+	// Build the response from fresh rows
 	var response gin.H
-
 	if isRoundTripLeg {
-		// ── Handle ROUND TRIP payment ──
-		baseReference := strings.TrimSuffix(strings.TrimSuffix(booking.SessionID, "-OUT"), "-RTN")
-		
-		// Find and lock both legs
-		var outboundBooking models.BookingSchedule
-		var returnBooking models.BookingSchedule
-		
-		if err := tx.Set("gorm:query_option", "FOR UPDATE").
-			Where("session_id = ?", baseReference+"-OUT").
-			First(&outboundBooking).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "outbound booking not found"})
-			return
-		}
-		
-		if err := tx.Set("gorm:query_option", "FOR UPDATE").
-			Where("session_id = ?", baseReference+"-RTN").
-			First(&returnBooking).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "return booking not found"})
-			return
-		}
+		var freshOut, freshRtn models.BookingSchedule
+		config.DB.Where("session_id = ?", groupRef+"-OUT").First(&freshOut)
+		config.DB.Where("session_id = ?", groupRef+"-RTN").First(&freshRtn)
 
-		// Double-check payment status after acquiring locks
-		if outboundBooking.PaymentStatus == "paid" && returnBooking.PaymentStatus == "paid" {
-			tx.Rollback()
-			combinedBooking := bookingWithDriverDetails(outboundBooking)
-			combinedBooking["return_flight_number"] = returnBooking.FlightNumber
-			combinedBooking["return_scheduled_at"] = returnBooking.ScheduledAt
-			combinedBooking["return_pickup_address"] = returnBooking.PickupAddress
-			combinedBooking["return_pickup_lat"] = returnBooking.PickupLat
-			combinedBooking["return_pickup_lng"] = returnBooking.PickupLng
-			combinedBooking["return_dropoff_address"] = returnBooking.DropoffAddress
-			combinedBooking["return_dropoff_lat"] = returnBooking.DropoffLat
-			combinedBooking["return_dropoff_lng"] = returnBooking.DropoffLng
-			combinedBooking["fare_total"] = outboundBooking.FareTotal + returnBooking.FareTotal
-			combinedBooking["trip_type"] = "both"
-			
-			response = gin.H{
-				"status":        "paid",
-				"paymentStatus": "paid",
-				"bookingStatus": "confirmed",
-				"booking":       combinedBooking,
-			}
-			cacheSuccessfulResponse(cacheKey, response)
-			c.JSON(http.StatusOK, response)
-			return
-		}
+		combined := bookingWithDriverDetails(freshOut)
+		combined["return_flight_number"] = freshRtn.FlightNumber
+		combined["return_scheduled_at"] = freshRtn.ScheduledAt
+		combined["return_pickup_address"] = freshRtn.PickupAddress
+		combined["return_pickup_lat"] = freshRtn.PickupLat
+		combined["return_pickup_lng"] = freshRtn.PickupLng
+		combined["return_dropoff_address"] = freshRtn.DropoffAddress
+		combined["return_dropoff_lat"] = freshRtn.DropoffLat
+		combined["return_dropoff_lng"] = freshRtn.DropoffLng
+		combined["fare_total"] = freshOut.FareTotal + freshRtn.FareTotal
+		combined["trip_type"] = "both"
 
-		// Update both legs
-		updates := map[string]interface{}{
-			"payment_status": "paid",
-			"status":         "confirmed",
-			"driver_status":  "assigned",
-		}
-		
-		if err := tx.Model(&models.BookingSchedule{}).
-			Where("session_id = ?", baseReference+"-OUT").
-			Updates(updates).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to update outbound booking"})
-			return
-		}
-		
-		if err := tx.Model(&models.BookingSchedule{}).
-			Where("session_id = ?", baseReference+"-RTN").
-			Updates(updates).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to update return booking"})
-			return
-		}
-
-		// Create ONE payment record for the total amount
-		var existingPaymentCount int64
-		tx.Model(&models.TripPayment{}).
-			Where("group_ref = ?", baseReference).
-			Count(&existingPaymentCount)
-		
-		if existingPaymentCount == 0 {
-			// Total amount is the sum of both legs
-			totalAmount := outboundBooking.FareTotal + returnBooking.FareTotal
-			
-			var driverIDPtr *string
-			if outboundBooking.DriverID != "" {
-				driverIDPtr = &outboundBooking.DriverID
-			}
-			
-			paymentRecord := models.TripPayment{
-				TripID:      outboundBooking.ID,
-				DriverID:    driverIDPtr,
-				Amount:      totalAmount,
-				Fee:         totalAmount,
-				Method:      req.Provider,
-				Reference:   baseReference,
-				BookingType: "scheduled_ride",
-				Status:      "completed",
-				GroupRef:    baseReference,
-			}
-			
-			if err := tx.Create(&paymentRecord).Error; err != nil {
-				tx.Rollback()
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create payment record"})
-				return
-			}
-		}
-
-		// Commit transaction
-		if err := tx.Commit().Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to commit transaction"})
-			return
-		}
-
-		// Notify driver for both legs (outside transaction)
-		go handlers.NotifyDriver(outboundBooking)
-		go handlers.NotifyDriver(returnBooking)
-		go SendRoundTripBookingConfirmation(&outboundBooking, &returnBooking, emailService)
-
-
-		combinedBooking := bookingWithDriverDetails(outboundBooking)
-		combinedBooking["return_flight_number"] = returnBooking.FlightNumber
-		combinedBooking["return_scheduled_at"] = returnBooking.ScheduledAt
-		combinedBooking["return_pickup_address"] = returnBooking.PickupAddress
-		combinedBooking["return_pickup_lat"] = returnBooking.PickupLat
-		combinedBooking["return_pickup_lng"] = returnBooking.PickupLng
-		combinedBooking["return_dropoff_address"] = returnBooking.DropoffAddress
-		combinedBooking["return_dropoff_lat"] = returnBooking.DropoffLat
-		combinedBooking["return_dropoff_lng"] = returnBooking.DropoffLng
-		combinedBooking["fare_total"] = outboundBooking.FareTotal + returnBooking.FareTotal
-		combinedBooking["trip_type"] = "both"
-		
 		response = gin.H{
-			"status":        "paid",
-			"paymentStatus": "paid",
-			"bookingStatus": "confirmed",
-			"booking":       combinedBooking,
+			"status": "paid", "paymentStatus": "paid",
+			"bookingStatus": "confirmed", "booking": combined,
 		}
-
 	} else {
-		// ── Handle SINGLE LEG payment ──
-		
-		// Lock the booking row to prevent concurrent updates
-		var lockedBooking models.BookingSchedule
-		if err := tx.Set("gorm:query_option", "FOR UPDATE").
-			Where("id = ?", booking.ID).
-			First(&lockedBooking).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to lock booking"})
-			return
-		}
-
-		// Double-check payment status after acquiring lock
-		if lockedBooking.PaymentStatus == "paid" {
-			tx.Rollback()
-			response = gin.H{
-				"status":        "paid",
-				"paymentStatus": lockedBooking.PaymentStatus,
-				"bookingStatus": lockedBooking.Status,
-				"booking":       bookingWithDriverDetails(lockedBooking),
-			}
-			cacheSuccessfulResponse(cacheKey, response)
-			c.JSON(http.StatusOK, response)
-			return
-		}
-
-		// Check if trip_payment already exists
-		var tripPaymentCount int64
-		if err := tx.Model(&models.TripPayment{}).
-			Where("trip_id = ? AND status = 'completed'", booking.ID).
-			Count(&tripPaymentCount).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to check payment record"})
-			return
-		}
-
-		// Update booking status
-		updates := map[string]interface{}{
-			"payment_status": "paid",
-			"status":         "confirmed",
-			"driver_status":  "assigned",
-		}
-		if err := tx.Model(&models.BookingSchedule{}).
-			Where("id = ?", booking.ID).
-			Updates(updates).Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to update booking"})
-			return
-		}
-
-		// Create trip_payment record only if it doesn't exist
-		if tripPaymentCount == 0 {
-			var driverIDPtr *string
-			if booking.DriverID != "" {
-				driverIDPtr = &booking.DriverID
-			}
-			
-			paymentRecord := models.TripPayment{
-				TripID:      booking.ID,
-				DriverID:    driverIDPtr,
-				Amount:      booking.FareTotal,
-				Fee:         booking.FareTotal,
-				Method:      req.Provider,
-				Reference:   booking.SessionID,
-				Status:      "completed",
-				BookingType: getBookingType(booking),
-				GroupRef:    booking.SessionID,
-			}
-			if err := tx.Create(&paymentRecord).Error; err != nil {
-				tx.Rollback()
-				c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create payment record"})
-				return
-			}
-		}
-
-		// Commit transaction
-		if err := tx.Commit().Error; err != nil {
-			tx.Rollback()
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to commit transaction"})
-			return
-		}
-
-		// Calculate commission for partner bookings (outside transaction)
-		if booking.Channel == "partner" {
-			go calculateCommission(booking.ID)
-		}
-
-		// Notify driver (outside transaction)
-		go handlers.NotifyDriver(booking)
-		go SendBookingConfirmation(&booking, emailService)
-
-
+		var fresh models.BookingSchedule
+		config.DB.Where("id = ?", booking.ID).First(&fresh)
 		response = gin.H{
-			"status":        "paid",
-			"paymentStatus": "paid",
-			"bookingStatus": "confirmed",
-			"booking":       bookingWithDriverDetails(booking),
+			"status": "paid", "paymentStatus": "paid",
+			"bookingStatus": "confirmed", "booking": bookingWithDriverDetails(fresh),
 		}
 	}
 
-	// Cache the successful response
 	cacheSuccessfulResponse(cacheKey, response)
-
 	c.JSON(http.StatusOK, response)
 }
 
@@ -1355,29 +1167,28 @@ func cacheSuccessfulResponse(cacheKey string, response gin.H) {
 	if config.RedisClient == nil {
 		return
 	}
-	
+
 	ctx := context.Background()
 	data, err := json.Marshal(response)
 	if err != nil {
 		return
 	}
-	
+
 	// Cache for 24 hours (payment status won't change after success)
 	config.RedisClient.Set(ctx, cacheKey, data, 24*time.Hour)
 }
 
-
 type CreateRentalRequest struct {
-	CarID          string  `json:"carId" binding:"required"`
-	GuestName      string  `json:"guestName" binding:"required,min=2"`
-	GuestPhone     string  `json:"guestPhone" binding:"required,min=9"`
-	GuestEmail     string  `json:"guestEmail" binding:"required,email"`
-	PickupDate     string  `json:"pickupDate" binding:"required"`     // ISO-8601
-	ReturnDate     string  `json:"returnDate" binding:"required"`     // ISO-8601
-	CollectionMethod string `json:"collectionMethod" binding:"required,oneof=hub_pickup delivery"`
-	DeliveryAddress string `json:"deliveryAddress"`                    // Required if delivery
-	PaymentMethod  string  `json:"paymentMethod" binding:"required"`  // paystack, stripe
-	FareTotal      float64 `json:"fareTotal" binding:"required"`      // From frontend
+	CarID            string  `json:"carId" binding:"required"`
+	GuestName        string  `json:"guestName" binding:"required,min=2"`
+	GuestPhone       string  `json:"guestPhone" binding:"required,min=9"`
+	GuestEmail       string  `json:"guestEmail" binding:"required,email"`
+	PickupDate       string  `json:"pickupDate" binding:"required"` // ISO-8601
+	ReturnDate       string  `json:"returnDate" binding:"required"` // ISO-8601
+	CollectionMethod string  `json:"collectionMethod" binding:"required,oneof=hub_pickup delivery"`
+	DeliveryAddress  string  `json:"deliveryAddress"`                                        // Required if delivery
+	PaymentMethod    string  `json:"paymentMethod" binding:"required,oneof=paystack stripe"` // paystack, stripe
+	FareTotal        float64 `json:"fareTotal" binding:"required"`                           // From frontend
 }
 
 func CreateRental(c *gin.Context) {
@@ -1435,24 +1246,25 @@ func CreateRental(c *gin.Context) {
 	}
 
 	booking := models.BookingSchedule{
-		SessionID:      reference,
-		ServiceType:    "rental",
-		Channel:        "direct",
-		GuestName:      req.GuestName,
-		GuestPhone:     req.GuestPhone,
-		GuestEmail:     req.GuestEmail,
-		TripType:       "rental",
-		TierID:         car.ID,          // Store rental car ID here
-		RentalDays:     rentalDays,
-		DeliveryOption: req.CollectionMethod,
-		FareTotal:      fareTotal,
-		PaymentMode:    req.PaymentMethod,
-		PaymentStatus:  "pending",
-		Status:         "pending",
-		ScheduledAt:    &pickupTime,
+		SessionID:         reference,
+		ServiceType:       "rental",
+		Channel:           "direct",
+		GuestName:         req.GuestName,
+		GuestPhone:        req.GuestPhone,
+		GuestEmail:        req.GuestEmail,
+		TripType:          "rental",
+		TierID:            car.ID, // Store rental car ID here
+		RentalDays:        rentalDays,
+		DeliveryOption:    req.CollectionMethod,
+		ProcessingFee:     0, // ADD THIS
+		FareTotal:         fareTotal,
+		PaymentMode:       req.PaymentMethod,
+		PaymentStatus:     "pending",
+		Status:            "pending",
+		ScheduledAt:       &pickupTime,
 		ReturnScheduledAt: &returnTime,
-		PickupAddress:  pickupAddress,
-		DropoffAddress: "Axis Hub", // return to hub
+		PickupAddress:     pickupAddress,
+		DropoffAddress:    "Axis Hub", // return to hub
 	}
 
 	if err := config.DB.Create(&booking).Error; err != nil {
@@ -1460,44 +1272,24 @@ func CreateRental(c *gin.Context) {
 		return
 	}
 
-	// Generate payment link (same as ride booking)
-	var paymentURL string
-	var stripeSessionID string
-
-	if req.PaymentMethod == "paystack" {
-		resp, err := PaystackService.GeneratePaymentLink(services.PaymentLinkRequest{
-			Amount:      fareTotal,
-			Email:       req.GuestEmail,
-			Description: "Axis Rental - " + reference,
-			Reference:   reference,
-			Metadata: map[string]interface{}{
-				"type":       "rental_payment",
-				"booking_id": booking.ID,
-				"reference":  reference,
-			},
-			CallbackURL: os.Getenv("APP_URL_MAIN") + "/rentals?ref=" + reference + "&provider=paystack",
-		})
-		if err == nil {
-			paymentURL = resp.PaymentURL
-		}
-	} else {
-		resp, err := StripeService.GeneratePaymentLink(
-			fareTotal,
-			"USD",
-			req.GuestEmail,
-			"Axis Rental - "+reference,
-			reference,
-			map[string]string{
-				"booking_id": fmt.Sprintf("%d", booking.ID),
-				"reference":  reference,
-			},
-			os.Getenv("APP_URL_MAIN") + "/rentals?ref=" + reference + "&provider=stripe",
-			os.Getenv("APP_URL_MAIN") + "/rentals?cancelled=1",
-		)
-		if err == nil {
-			paymentURL = resp.PaymentURL
-			stripeSessionID = resp.SessionID
-		}
+	res, err := createPaymentIntent(
+		reference,
+		req.PaymentMethod,
+		req.GuestEmail,
+		"Axis Rental - "+reference,
+		fareTotal,
+		os.Getenv("APP_URL_MAIN")+"/rentals?ref="+reference+"&provider="+req.PaymentMethod,
+		os.Getenv("APP_URL_MAIN")+"/rentals?cancelled=1",
+		map[string]interface{}{
+			"type":       "rental_payment",
+			"booking_id": booking.ID,
+		},
+	)
+	if err != nil {
+		config.DB.Delete(&booking)
+		slog.Error("payment intent failed", "ref", reference, "error", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
+		return
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
@@ -1505,9 +1297,9 @@ func CreateRental(c *gin.Context) {
 		"data": gin.H{
 			"id":                booking.ID,
 			"reference":         reference,
-			"paymentUrl":        paymentURL,
+			"paymentUrl":        res.PaymentURL,
 			"provider":          req.PaymentMethod,
-			"stripe_session_id": stripeSessionID,
+			"stripe_session_id": res.StripeSessionID,
 			"status":            "pending",
 			"paymentStatus":     "pending",
 			"fareTotal":         fareTotal,
@@ -1532,17 +1324,17 @@ func generateBookingReference() string {
 }
 
 func getBookingType(booking models.BookingSchedule) string {
-    switch booking.ServiceType {
-    case "rental":
-        return "rental"
-    case "ride":
-        if booking.ScheduledAt != nil {
-            return "scheduled_ride"
-        }
-        return "quick_ride"
-    default:
-        return "quick_ride"
-    }
+	switch booking.ServiceType {
+	case "rental":
+		return "rental"
+	case "ride":
+		if booking.ScheduledAt != nil {
+			return "scheduled_ride"
+		}
+		return "quick_ride"
+	default:
+		return "quick_ride"
+	}
 }
 
 // Add this function at the bottom of your booking.go file
@@ -1559,7 +1351,7 @@ func getDriverDetails(driverID string) gin.H {
 		Email     string `db:"email" json:"email"`
 		AvatarURL string `db:"avatar_url" json:"avatar_url"` // Changed from avatar to avatar_url
 	}
-	
+
 	// Get driver basic info with correct column names
 	err := config.DB.Raw(`
 		SELECT id, 
@@ -1570,19 +1362,19 @@ func getDriverDetails(driverID string) gin.H {
 		       COALESCE(avatar_url, '') as avatar_url
 		FROM drivers WHERE id = ?
 	`, driverID).Scan(&driver).Error
-	
+
 	if err != nil {
 		slog.Error("Failed to fetch driver", "error", err, "driver_id", driverID)
 		return nil
 	}
-	
+
 	if driver.ID == "" {
 		slog.Warn("Driver not found", "driver_id", driverID)
 		return nil
 	}
-	
+
 	slog.Info("Driver found", "driver", driver)
-	
+
 	// Get driver's vehicle info with correct column names
 	var vehicle struct {
 		CarMake     string `db:"car_make" json:"car_make"`
@@ -1592,7 +1384,7 @@ func getDriverDetails(driverID string) gin.H {
 		PlateNumber string `db:"plate_number" json:"plate_number"`
 		ImageURL    string `db:"image_url" json:"image_url"`
 	}
-	
+
 	err = config.DB.Raw(`
 		SELECT COALESCE(car_make, '') as car_make,
 		       COALESCE(car_model, '') as car_model,
@@ -1604,11 +1396,11 @@ func getDriverDetails(driverID string) gin.H {
 		WHERE driver_id = ? AND is_active = 1
 		LIMIT 1
 	`, driverID).Scan(&vehicle).Error
-	
+
 	if err != nil {
 		slog.Warn("Failed to fetch vehicle", "error", err)
 	}
-	
+
 	result := gin.H{
 		"id":         driver.ID,
 		"first_name": driver.FirstName,
@@ -1617,7 +1409,7 @@ func getDriverDetails(driverID string) gin.H {
 		"email":      driver.Email,
 		"avatar_url": driver.AvatarURL,
 	}
-	
+
 	// Add vehicle info if found
 	if vehicle.CarMake != "" || vehicle.CarModel != "" || vehicle.PlateNumber != "" {
 		result["vehicle"] = gin.H{
@@ -1629,7 +1421,7 @@ func getDriverDetails(driverID string) gin.H {
 			"image_url":    vehicle.ImageURL,
 		}
 	}
-	
+
 	return result
 }
 
@@ -1641,73 +1433,83 @@ func bookingWithDriverDetails(booking models.BookingSchedule) gin.H {
 		sessionID = strings.TrimSuffix(sessionID, "-RTN")
 	}
 	bookingJSON := gin.H{
-		"id":                 booking.ID,
-		"session_id":         sessionID,
-		"driver_id":          booking.DriverID,
-		"driver_status":      booking.DriverStatus,
-		"service_type":       booking.ServiceType,
-		"channel":            booking.Channel,
-		"guest_name":         booking.GuestName,
-		"guest_phone":        booking.GuestPhone,
-		"guest_email":        booking.GuestEmail,
-		"trip_type":          booking.TripType,
-		"airport":            booking.Airport,
-		"track_flight":       booking.TrackFlight,
-		"flight_number":      booking.FlightNumber,
-		"scheduled_at":       booking.ScheduledAt,
-		"return_flight_number": booking.ReturnFlightNumber,
-		"return_scheduled_at":  booking.ReturnScheduledAt,
-		"pickup_address":     booking.PickupAddress,
-		"dropoff_address":    booking.DropoffAddress,
-		"pickup_lat":         booking.PickupLat,
-		"pickup_lng":         booking.PickupLng,
-		"dropoff_lat":        booking.DropoffLat,
-		"dropoff_lng":        booking.DropoffLng,
+		"id":                     booking.ID,
+		"session_id":             sessionID,
+		"driver_id":              booking.DriverID,
+		"driver_status":          booking.DriverStatus,
+		"service_type":           booking.ServiceType,
+		"channel":                booking.Channel,
+		"guest_name":             booking.GuestName,
+		"guest_phone":            booking.GuestPhone,
+		"guest_email":            booking.GuestEmail,
+		"trip_type":              booking.TripType,
+		"airport":                booking.Airport,
+		"track_flight":           booking.TrackFlight,
+		"flight_number":          booking.FlightNumber,
+		"scheduled_at":           booking.ScheduledAt,
+		"return_flight_number":   booking.ReturnFlightNumber,
+		"return_scheduled_at":    booking.ReturnScheduledAt,
+		"pickup_address":         booking.PickupAddress,
+		"dropoff_address":        booking.DropoffAddress,
+		"pickup_lat":             booking.PickupLat,
+		"pickup_lng":             booking.PickupLng,
+		"dropoff_lat":            booking.DropoffLat,
+		"dropoff_lng":            booking.DropoffLng,
 		"return_pickup_address":  booking.ReturnPickupAddress,
 		"return_pickup_lat":      booking.ReturnPickupLat,
 		"return_pickup_lng":      booking.ReturnPickupLng,
 		"return_dropoff_address": booking.ReturnDropoffAddress,
 		"return_dropoff_lat":     booking.ReturnDropoffLat,
 		"return_dropoff_lng":     booking.ReturnDropoffLng,
-		"distance_km":        booking.DistanceKm,
-		"fare_total":         booking.FareTotal,
-		"passengers":         booking.Passengers,
-		"luggage":            booking.Luggage,
-		"tier_id":            booking.TierID,
-		"payment_mode":       booking.PaymentMode,
-		"payment_status":     booking.PaymentStatus,
-		"status":             booking.Status,
-		"notes":              booking.Notes,
-		"created_at":         booking.CreatedAt,
-		"updated_at":         booking.UpdatedAt,
-		"driver":             getDriverDetails(booking.DriverID),
+		"distance_km":            booking.DistanceKm,
+		"fare_total":             booking.FareTotal,
+		"passengers":             booking.Passengers,
+		"luggage":                booking.Luggage,
+		"tier_id":                booking.TierID,
+		"payment_mode":           booking.PaymentMode,
+		"payment_status":         booking.PaymentStatus,
+		"status":                 booking.Status,
+		"notes":                  booking.Notes,
+		"created_at":             booking.CreatedAt,
+		"updated_at":             booking.UpdatedAt,
+		"processing_fee":         booking.ProcessingFee,
+		"protocol_fee":           booking.ProtocolFee,
+		"driver":                 getDriverDetails(booking.DriverID),
 	}
-	
 
 	//log driver details
 	return bookingJSON
 }
 
 // After successful payment verification:
-func SendBookingConfirmation(booking *models.BookingSchedule, emailService *services.EmailService) {	if emailService != nil {
+func SendBookingConfirmation(booking *models.BookingSchedule, emailService *services.EmailService) {
+	if emailService != nil {
 		// Get driver details
 		driverName := ""
 		driverPhone := ""
 		carModel := ""
 		plateNumber := ""
-		
+
 		if booking.DriverID != "" {
 			driverDetails := getDriverDetails(booking.DriverID)
 			if driverDetails != nil {
-				if v, ok := driverDetails["first_name"].(string); ok { driverName = v }
-				if v, ok := driverDetails["phone"].(string); ok { driverPhone = v }
+				if v, ok := driverDetails["first_name"].(string); ok {
+					driverName = v
+				}
+				if v, ok := driverDetails["phone"].(string); ok {
+					driverPhone = v
+				}
 				if vehicle, ok := driverDetails["vehicle"].(gin.H); ok {
-					if v, ok := vehicle["car_model"].(string); ok { carModel = v }
-					if v, ok := vehicle["plate_number"].(string); ok { plateNumber = v }
+					if v, ok := vehicle["car_model"].(string); ok {
+						carModel = v
+					}
+					if v, ok := vehicle["plate_number"].(string); ok {
+						plateNumber = v
+					}
 				}
 			}
 		}
-		
+
 		emailService.SendGuestBookingConfirmation(
 			booking.GuestEmail,
 			booking.GuestName,
@@ -1739,50 +1541,397 @@ func SendRoundTripBookingConfirmation(outbound, returnBooking *models.BookingSch
 	if emailService == nil {
 		return
 	}
-	
+
 	// Get driver details from outbound
 	driverName := ""
 	driverPhone := ""
 	carModel := ""
 	plateNumber := ""
-	
+
 	if outbound.DriverID != "" {
 		driverDetails := getDriverDetails(outbound.DriverID)
 		if driverDetails != nil {
-			if v, ok := driverDetails["first_name"].(string); ok { driverName = v }
-			if v, ok := driverDetails["phone"].(string); ok { driverPhone = v }
+			if v, ok := driverDetails["first_name"].(string); ok {
+				driverName = v
+			}
+			if v, ok := driverDetails["phone"].(string); ok {
+				driverPhone = v
+			}
 			if vehicle, ok := driverDetails["vehicle"].(gin.H); ok {
-				if v, ok := vehicle["car_model"].(string); ok { carModel = v }
-				if v, ok := vehicle["plate_number"].(string); ok { plateNumber = v }
+				if v, ok := vehicle["car_model"].(string); ok {
+					carModel = v
+				}
+				if v, ok := vehicle["plate_number"].(string); ok {
+					plateNumber = v
+				}
 			}
 		}
 	}
-	
+
 	// Clean parent reference
 	parentRef := strings.TrimSuffix(outbound.SessionID, "-OUT")
-	
+
 	emailService.SendGuestBookingConfirmation(
 		outbound.GuestEmail,
 		outbound.GuestName,
-		parentRef,  // Use parent reference without -OUT
+		parentRef, // Use parent reference without -OUT
 		"both",
 		outbound.Airport,
 		outbound.PickupAddress,
 		outbound.DropoffAddress,
 		outbound.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM"),
-		returnBooking.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM"),  // Return time
+		returnBooking.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM"), // Return time
 		outbound.FlightNumber,
-		returnBooking.FlightNumber,  // Return flight
+		returnBooking.FlightNumber, // Return flight
 		fmt.Sprintf("%d", outbound.Passengers),
 		fmt.Sprintf("%d", outbound.Luggage),
 		outbound.TierID,
-		fmt.Sprintf("%.2f", outbound.FareTotal + returnBooking.FareTotal),  // Combined fare
+		fmt.Sprintf("%.2f", outbound.FareTotal+returnBooking.FareTotal), // Combined fare
 		outbound.PaymentMode,
 		driverName,
 		driverPhone,
 		carModel,
 		plateNumber,
-		true,  // Has return
+		true, // Has return
 		outbound.DriverID != "",
 	)
+}
+
+type fareInput struct {
+	AirportID            string
+	TripType             string
+	MainLat, MainLng     float64
+	ReturnLat, ReturnLng float64
+	Passengers           int
+	Protocol             bool
+}
+
+type fareResult struct {
+	Total       float64
+	BaseFare    float64
+	ExtrasTotal float64
+	PlatformFee float64
+	ProtocolFee float64
+	DistanceKm  float64
+}
+
+func computeFare(in fareInput) (fareResult, error) {
+	var airport struct{ Lat, Lng float64 }
+	if err := config.DB.Raw(`SELECT lat, lng FROM airports WHERE id = ? AND is_active = 1`, in.AirportID).Scan(&airport).Error; err != nil {
+		return fareResult{}, err
+	}
+	if airport.Lat == 0 && airport.Lng == 0 {
+		return fareResult{}, fmt.Errorf("invalid airport ID")
+	}
+
+	var cfg struct {
+		BaseFare    float64 `gorm:"column:base_fare"`
+		PricePerKm  float64 `gorm:"column:price_per_km"`
+		MinimumFare float64 `gorm:"column:minimum_fare"`
+	}
+	config.DB.Raw(`
+		SELECT
+			MAX(CASE WHEN config_key = 'base_fare' THEN CAST(config_value AS DECIMAL(10,2)) END) as base_fare,
+			MAX(CASE WHEN config_key = 'price_per_km' THEN CAST(config_value AS DECIMAL(10,2)) END) as price_per_km,
+			MAX(CASE WHEN config_key = 'minimum_fare' THEN CAST(config_value AS DECIMAL(10,2)) END) as minimum_fare
+		FROM app_config
+		WHERE config_key IN ('base_fare','price_per_km','minimum_fare')
+	`).Scan(&cfg)
+
+	if cfg.PricePerKm == 0 {
+		return fareResult{}, fmt.Errorf("fare config missing")
+	}
+
+	if math.Abs(in.MainLat) > 90 || math.Abs(in.MainLng) > 180 ||
+		math.Abs(in.ReturnLat) > 90 || math.Abs(in.ReturnLng) > 180 {
+		return fareResult{}, fmt.Errorf("invalid coordinates")
+	}
+
+	const maxLegKm = 800.0
+	var distanceKm float64
+	switch in.TripType {
+	case "pickup":
+		distanceKm = haversine(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
+		if distanceKm > maxLegKm {
+			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", distanceKm)
+		}
+	case "dropoff":
+		distanceKm = haversine(in.MainLat, in.MainLng, airport.Lat, airport.Lng)
+		if distanceKm > maxLegKm {
+			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", distanceKm)
+		}
+	case "both":
+		leg1 := haversine(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
+		rLat, rLng := in.MainLat, in.MainLng
+		if in.ReturnLat != 0 && in.ReturnLng != 0 {
+			rLat, rLng = in.ReturnLat, in.ReturnLng
+		}
+		leg2 := haversine(rLat, rLng, airport.Lat, airport.Lng)
+		if leg1 > maxLegKm || leg2 > maxLegKm {
+			return fareResult{}, fmt.Errorf("distance exceeds service area")
+		}
+		distanceKm = leg1 + leg2
+	default:
+		return fareResult{}, fmt.Errorf("invalid trip type")
+	}
+
+	distanceKm = math.Round(distanceKm*10) / 10
+
+	const platformFee = 28.0
+	protocolFee := 0.0
+	if in.Protocol {
+		protocolFee = float64(in.Passengers) * 500
+	}
+	extras := platformFee + protocolFee
+
+	base := cfg.BaseFare + (distanceKm * cfg.PricePerKm)
+	if base < cfg.MinimumFare {
+		base = cfg.MinimumFare
+	}
+	base = math.Round(base*100) / 100
+
+	return fareResult{
+		Total:       math.Round(base + extras), // must match estimate rounding
+		BaseFare:    base,
+		ExtrasTotal: extras,
+		PlatformFee: platformFee,
+		ProtocolFee: protocolFee,
+		DistanceKm:  distanceKm,
+	}, nil
+}
+
+func computeRentalFare(carID, collectionMethod string, pickup, ret time.Time) (float64, int, error) {
+	var car models.RentalCar
+	if err := config.DB.Where("id = ? AND is_active = 1", carID).First(&car).Error; err != nil {
+		return 0, 0, fmt.Errorf("invalid car")
+	}
+	days := int(math.Ceil(ret.Sub(pickup).Hours() / 24))
+	total := car.RentPerDay * float64(days)
+	if collectionMethod == "delivery" {
+		var fee float64
+		config.DB.Raw(`SELECT CAST(config_value AS DECIMAL(10,2)) FROM app_config WHERE config_key = 'delivery_fee'`).Scan(&fee)
+		total += fee
+	}
+	return math.Round(total*100) / 100, days, nil
+}
+
+type intentResult struct {
+	PaymentURL      string
+	ProviderRef     string
+	StripeSessionID string
+}
+
+func createPaymentIntent(groupRef, provider, email, description string, fareGHS float64, callbackURL, cancelURL string, metadata map[string]interface{}) (*intentResult, error) {
+
+	var attempt int64
+	config.DB.Model(&models.PaymentIntent{}).Where("reference = ?", groupRef).Count(&attempt)
+	attempt++
+
+	attemptRef := fmt.Sprintf("%s-P%d", groupRef, attempt)
+
+	intent := models.PaymentIntent{
+		Reference:    groupRef,
+		Provider:     provider,
+		Attempt:      int(attempt),
+		FareTotalGHS: fareGHS,
+		Status:       "pending",
+	}
+	out := &intentResult{}
+
+	if provider == "paystack" {
+		metadata["reference"] = groupRef
+		resp, err := PaystackService.GeneratePaymentLink(services.PaymentLinkRequest{
+			Amount:      fareGHS,
+			Email:       email,
+			Description: description,
+			Reference:   attemptRef,
+			Metadata:    metadata,
+			CallbackURL: callbackURL,
+		})
+		if err != nil {
+			return nil, err
+		}
+		out.PaymentURL = resp.PaymentURL
+		out.ProviderRef = attemptRef
+		intent.ProviderRef = attemptRef
+		intent.ExpectedAmount = math.Round(fareGHS*100) / 100
+		intent.Currency = "GHS"
+	} else {
+		strMeta := map[string]string{"reference": groupRef}
+		resp, err := StripeService.GeneratePaymentLink(
+			fareGHS, "USD", email, description, attemptRef,
+			strMeta, callbackURL, cancelURL,
+		)
+		if err != nil {
+			return nil, err
+		}
+		out.PaymentURL = resp.PaymentURL
+		out.ProviderRef = resp.SessionID
+		out.StripeSessionID = resp.SessionID
+		intent.ProviderRef = resp.SessionID
+		intent.ExpectedAmount = resp.ChargedAmount
+		intent.Currency = resp.ChargedCurrency
+	}
+
+	if err := config.DB.Create(&intent).Error; err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// confirmPayment marks a booking (or both round-trip legs) paid, records the
+// trip payment, and fires notifications. Safe to call twice — it no-ops if
+// already paid.
+func confirmPayment(intent models.PaymentIntent, provider string) error {
+	groupRef := intent.Reference
+
+	// Locate the booking(s)
+	var isRoundTrip bool
+	var single models.BookingSchedule
+	if err := config.DB.Where("session_id = ?", groupRef).First(&single).Error; err != nil {
+		var out models.BookingSchedule
+		if err := config.DB.Where("session_id = ?", groupRef+"-OUT").First(&out).Error; err != nil {
+			return fmt.Errorf("booking not found for %s", groupRef)
+		}
+		isRoundTrip = true
+	}
+
+	tx := config.DB.Begin()
+	if tx.Error != nil {
+		return tx.Error
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
+	updates := map[string]interface{}{
+		"payment_status": "paid",
+		"status":         "confirmed",
+		"driver_status":  "assigned",
+	}
+
+	if isRoundTrip {
+		var outB, rtnB models.BookingSchedule
+		if err := tx.Set("gorm:query_option", "FOR UPDATE").
+			Where("session_id = ?", groupRef+"-OUT").First(&outB).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+		if err := tx.Set("gorm:query_option", "FOR UPDATE").
+			Where("session_id = ?", groupRef+"-RTN").First(&rtnB).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+
+		if outB.PaymentStatus == "paid" && rtnB.PaymentStatus == "paid" {
+			tx.Rollback()
+			return nil // already done
+		}
+
+		if err := tx.Model(&models.BookingSchedule{}).
+			Where("session_id IN ?", []string{groupRef + "-OUT", groupRef + "-RTN"}).
+			Updates(updates).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+
+		if err := tx.Model(&models.PaymentIntent{}).
+			Where("id = ?", intent.ID).Update("status", "paid").Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+
+		var n int64
+		tx.Model(&models.TripPayment{}).Where("group_ref = ?", groupRef).Count(&n)
+		if n == 0 {
+			var driverPtr *string
+			if outB.DriverID != "" {
+				driverPtr = &outB.DriverID
+			}
+			if err := tx.Create(&models.TripPayment{
+				TripID:      outB.ID,
+				DriverID:    driverPtr,
+				Amount:      outB.FareTotal + rtnB.FareTotal,
+				Fee:         outB.ProcessingFee + rtnB.ProcessingFee,
+				Method:      provider,
+				Reference:   groupRef,
+				BookingType: "scheduled_ride",
+				Status:      "completed",
+				GroupRef:    groupRef,
+			}).Error; err != nil {
+				tx.Rollback()
+				return err
+			}
+		}
+
+		if err := tx.Commit().Error; err != nil {
+			return err
+		}
+
+		go handlers.NotifyDriver(outB)
+		go handlers.NotifyDriver(rtnB)
+		go SendRoundTripBookingConfirmation(&outB, &rtnB, emailService)
+		return nil
+	}
+
+	// Single leg
+	var b models.BookingSchedule
+	if err := tx.Set("gorm:query_option", "FOR UPDATE").
+		Where("id = ?", single.ID).First(&b).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	if b.PaymentStatus == "paid" {
+		tx.Rollback()
+		return nil
+	}
+
+	if err := tx.Model(&models.BookingSchedule{}).
+		Where("id = ?", b.ID).Updates(updates).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	if err := tx.Model(&models.PaymentIntent{}).
+		Where("id = ?", intent.ID).Update("status", "paid").Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	var n int64
+	tx.Model(&models.TripPayment{}).
+		Where("trip_id = ? AND status = 'completed'", b.ID).Count(&n)
+	if n == 0 {
+		var driverPtr *string
+		if b.DriverID != "" {
+			driverPtr = &b.DriverID
+		}
+		if err := tx.Create(&models.TripPayment{
+			TripID:      b.ID,
+			DriverID:    driverPtr,
+			Amount:      b.FareTotal,
+			Fee:         b.ProcessingFee,
+			Method:      provider,
+			Reference:   b.SessionID,
+			Status:      "completed",
+			BookingType: getBookingType(b),
+			GroupRef:    b.SessionID,
+		}).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		return err
+	}
+
+	if b.Channel == "partner" {
+		go calculateCommission(b.ID)
+	}
+	go handlers.NotifyDriver(b)
+	go SendBookingConfirmation(&b, emailService)
+	return nil
 }

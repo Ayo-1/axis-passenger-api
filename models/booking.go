@@ -6,8 +6,8 @@ type Booking struct {
 	ID             uint      `gorm:"primaryKey" json:"id"`
 	SessionID      string    `gorm:"index;size:255" json:"session_id"`
 	DriverID       string    `gorm:"index;size:36" json:"driver_id"`
-	RiderID    string `json:"rider_id"`
-    RiderEmail string `json:"rider_email"`
+	RiderID        string    `json:"rider_id"`
+	RiderEmail     string    `json:"rider_email"`
 	PickupAddress  string    `json:"pickup_address"`
 	DropoffAddress string    `json:"dropoff_address"`
 	PickupLat      float64   `json:"pickup_lat"`
@@ -24,16 +24,16 @@ type Booking struct {
 }
 
 type BookingSchedule struct {
-	ID               uint       `gorm:"primaryKey" json:"id"`
-	SessionID        string     `gorm:"index;size:255" json:"session_id"`
-	DriverID         string     `gorm:"index;size:36" json:"driver_id"`
-	DriverStatus     string     `gorm:"size:20;default:pending" json:"driver_status"`
-	DriverNotifiedAt *time.Time `json:"driver_notified_at"`
-	DriverAcceptedAt *time.Time `json:"driver_accepted_at"`
-	CancellationReason string   `gorm:"size:255" json:"cancellation_reason"`
-	HotelID          *string    `gorm:"size:36" json:"hotel_id"`
-	RiderID          *string    `gorm:"size:36" json:"rider_id"`
-	RiderEmail       *string    `gorm:"size:255" json:"rider_email"`
+	ID                 uint       `gorm:"primaryKey" json:"id"`
+	SessionID          string     `gorm:"index;size:255" json:"session_id"`
+	DriverID           string     `gorm:"index;size:36" json:"driver_id"`
+	DriverStatus       string     `gorm:"size:20;default:pending" json:"driver_status"`
+	DriverNotifiedAt   *time.Time `json:"driver_notified_at"`
+	DriverAcceptedAt   *time.Time `json:"driver_accepted_at"`
+	CancellationReason string     `gorm:"size:255" json:"cancellation_reason"`
+	HotelID            *string    `gorm:"size:36" json:"hotel_id"`
+	RiderID            *string    `gorm:"size:36" json:"rider_id"`
+	RiderEmail         *string    `gorm:"size:255" json:"rider_email"`
 
 	ServiceType        string     `gorm:"size:20;default:ride" json:"service_type"`
 	Channel            string     `gorm:"size:20;default:direct" json:"channel"`
@@ -95,23 +95,22 @@ type BookingSchedule struct {
 }
 
 type RentalCar struct {
-	ID          string  `gorm:"primaryKey" json:"id"`
-	PartnerID   string  `json:"partner_id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	ImageURL    string  `json:"image_url"`
-	RentPerDay  float64 `json:"rent_per_day"`
-	Passengers  int     `json:"passengers"`
-	Luggage     int     `json:"luggage"`
-	IsActive    bool    `json:"is_active"`
+	ID          string    `gorm:"primaryKey" json:"id"`
+	PartnerID   string    `json:"partner_id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	ImageURL    string    `json:"image_url"`
+	RentPerDay  float64   `json:"rent_per_day"`
+	Passengers  int       `json:"passengers"`
+	Luggage     int       `json:"luggage"`
+	IsActive    bool      `json:"is_active"`
 	CreatedAt   time.Time `json:"created_at"`
 }
-
 
 type TripPayment struct {
 	ID          uint      `gorm:"primaryKey" json:"id"`
 	TripID      uint      `gorm:"index" json:"trip_id"`
-	DriverID    *string   `gorm:"index;size:36" json:"driver_id"`  // Pointer for nullable
+	DriverID    *string   `gorm:"index;size:36" json:"driver_id"` // Pointer for nullable
 	RiderEmail  string    `gorm:"size:255" json:"rider_email"`
 	Amount      float64   `json:"amount"`
 	Fee         float64   `json:"fee"`
@@ -119,12 +118,26 @@ type TripPayment struct {
 	Reference   string    `gorm:"size:255" json:"reference"`
 	Status      string    `gorm:"size:20" json:"status"`
 	BookingType string    `gorm:"size:20;default:'quick_ride'" json:"booking_type"` // "quick_ride", "scheduled_ride", "rental"
-	GroupRef    string    `gorm:"size:255;index" json:"group_ref"` // Links both legs (parent reference)
+	GroupRef    string    `gorm:"size:255;index" json:"group_ref"`                  // Links both legs (parent reference)
 	CreatedAt   time.Time `json:"created_at"`
+}
+
+type PaymentIntent struct {
+	ID             uint   `gorm:"primaryKey"`
+	Reference      string `gorm:"index;size:64"`        // AX-123456 (group ref)
+	Provider       string `gorm:"size:16"`              // paystack | stripe
+	ProviderRef    string `gorm:"uniqueIndex;size:255"` // attempt ref / stripe session id
+	Attempt        int
+	ExpectedAmount float64 // in Currency, exactly what provider was told
+	Currency       string  `gorm:"size:8"`
+	FareTotalGHS   float64 // your own denomination, for reconciliation
+	Status         string  `gorm:"index;size:16"` // pending | paid | failed
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
 }
 
 func (TripPayment) TableName() string {
 	return "trip_payments"
 }
-func (Booking) TableName() string { return "bookings" }
+func (Booking) TableName() string         { return "bookings" }
 func (BookingSchedule) TableName() string { return "bookings" }

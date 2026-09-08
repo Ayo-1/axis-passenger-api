@@ -6,12 +6,14 @@ import (
 	"goapi/handlers/web"
 	"goapi/middleware"
 	"log"
+	"log/slog"
 	"os"
 	"time"
 
+	"goapi/services"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"goapi/services"
 )
 
 func main() {
@@ -33,6 +35,40 @@ func main() {
 	stripeSvc := services.NewStripeService(os.Getenv("STRIPE_SECRET_KEY"))
 
 	web.InitPaymentServices(paystackSvc, stripeSvc)
+
+	web.StartPaymentReconciler()
+	// Booking cleanup: expire dead intents, then stale pending bookings
+	go func() {
+		slog.Info("booking cleanup worker started")
+		ticker := time.NewTicker(10 * time.Minute)
+		defer ticker.Stop()
+		for range ticker.C {
+			config.DB.Exec(`
+				UPDATE payment_intents SET status = 'expired', updated_at = NOW()
+				WHERE status = 'pending' AND created_at < ?
+			`, time.Now().Add(-24*time.Hour))
+
+			res := config.DB.Exec(`
+				UPDATE bookings b
+				SET b.status = 'expired', b.updated_at = NOW()
+				WHERE b.status = 'pending'
+				  AND b.payment_status = 'pending'
+				  AND b.created_at < ?
+				  AND NOT EXISTS (
+				    SELECT 1 FROM payment_intents pi
+				    WHERE pi.reference = SUBSTRING_INDEX(SUBSTRING_INDEX(b.session_id, '-OUT', 1), '-RTN', 1)
+				      AND pi.status = 'paid'
+				  )
+			`, time.Now().Add(-2*time.Hour))
+			if res.Error != nil {
+				slog.Error("expire stale bookings", "error", res.Error)
+				continue
+			}
+			if res.RowsAffected > 0 {
+				slog.Info("expired stale pending bookings", "count", res.RowsAffected)
+			}
+		}
+	}()
 
 	// Initialize Firebase
 	if err := handlers.InitFirebase(); err != nil {
@@ -82,9 +118,6 @@ func main() {
 	estimate.Use(middleware.RateLimit(10, time.Minute))
 	estimate.POST("/estimate", handlers.GetEstimate)
 
-
-
-
 	// Web routes
 	webRoutes := r.Group("/v1/app")
 	webRoutes.Use(middleware.RateLimit(30, time.Minute))
@@ -102,14 +135,11 @@ func main() {
 		webRoutes.POST("/bookings/receipt/token", web.GetReceiptByToken)
 		webRoutes.GET("/pay/details", web.GetGuestPaymentDetails)
 		webRoutes.POST("/pay/create-link", web.CreateGuestPaymentLink)
-		
 
 		webRoutes.POST("/rentals", web.CreateRental)
-		
+
 	}
 
-	
-	
 	hotelGroup := r.Group("/v1/app/hotels")
 
 	// Public hotel routes
@@ -138,8 +168,6 @@ func main() {
 		protectedHotel.POST("/bookings/status", web.UpdatePartnerBookingStatus)
 		protectedHotel.POST("/rentals", web.BookRentalForGuest)
 
-
-		
 	}
 
 	port := os.Getenv("PORT")

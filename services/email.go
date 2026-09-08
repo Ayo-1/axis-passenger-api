@@ -610,18 +610,17 @@ func (e *EmailService) SendDriverCancellationEmail(toEmail, guestName, reference
 	return nil
 }
 
-
 // ---------------------------------------------------------------------------
 // Partner payment link email (to the guest)
 // ---------------------------------------------------------------------------
 
 type PartnerPaymentLinkEmailData struct {
 	EmailHeader
-	GuestName    string
-	Reference    string
-	PaymentURL   string
-	FareTotal    string
-	HotelName    string
+	GuestName  string
+	Reference  string
+	PaymentURL string
+	FareTotal  string
+	HotelName  string
 }
 
 const partnerPaymentLinkBody = `
@@ -705,27 +704,28 @@ func (e *EmailService) SendPartnerPaymentLinkEmail(
 
 type GuestBookingConfirmationData struct {
 	EmailHeader
-	Reference       string
-	GuestName       string
-	TripType        string
-	Airport         string
-	PickupAddress   string
-	DropoffAddress  string
-	DateTime        string
-	ReturnDateTime  string
-	FlightNumber    string
-	ReturnFlight    string
-	Passengers      string
-	Luggage         string
-	VehicleTier     string
-	FareTotal       string
-	PaymentMethod   string
-	DriverName      string
-	DriverPhone     string
-	CarModel        string
-	PlateNumber     string
-	HasReturn       bool
-	HasDriver       bool
+	Reference      string
+	GuestName      string
+	TripType       string
+	Airport        string
+	PickupAddress  string
+	DropoffAddress string
+	DateTime       string
+	ReturnDateTime string
+	FlightNumber   string
+	ReturnFlight   string
+	Passengers     string
+	Luggage        string
+	VehicleTier    string
+	FareTotal      string
+	PaymentMethod  string
+	DriverName     string
+	DriverPhone    string
+	CarModel       string
+	PlateNumber    string
+	HasReturn      bool
+	HasDriver      bool
+	ManageURL      string
 }
 
 const guestBookingConfirmationBody = `
@@ -887,27 +887,28 @@ func (e *EmailService) SendGuestBookingConfirmation(
 			HeaderTitle: "Your ride is secured.",
 			Subtitle:    "Here are your booking details:",
 		},
-		Reference:       reference,
-		GuestName:       guestName,
-		TripType:        tripType,
-		Airport:         airport,
-		PickupAddress:   pickupAddress,
-		DropoffAddress:  dropoffAddress,
-		DateTime:        dateTime,
-		ReturnDateTime:  returnDateTime,
-		FlightNumber:    flightNumber,
-		ReturnFlight:    returnFlight,
-		Passengers:      passengers,
-		Luggage:         luggage,
-		VehicleTier:     vehicleTier,
-		FareTotal:       fareTotal,
-		PaymentMethod:   paymentMethod,
-		DriverName:      driverName,
-		DriverPhone:     driverPhone,
-		CarModel:        carModel,
-		PlateNumber:     plateNumber,
-		HasReturn:       hasReturn,
-		HasDriver:       hasDriver,
+		Reference:      reference,
+		GuestName:      guestName,
+		TripType:       tripType,
+		Airport:        airport,
+		PickupAddress:  pickupAddress,
+		DropoffAddress: dropoffAddress,
+		DateTime:       dateTime,
+		ReturnDateTime: returnDateTime,
+		FlightNumber:   flightNumber,
+		ReturnFlight:   returnFlight,
+		Passengers:     passengers,
+		Luggage:        luggage,
+		VehicleTier:    vehicleTier,
+		FareTotal:      fareTotal,
+		PaymentMethod:  paymentMethod,
+		DriverName:     driverName,
+		DriverPhone:    driverPhone,
+		CarModel:       carModel,
+		PlateNumber:    plateNumber,
+		HasReturn:      hasReturn,
+		HasDriver:      hasDriver,
+		ManageURL:      os.Getenv("APP_URL_MAIN") + "/manage?ref=" + reference,
 	}
 
 	htmlContent, err := renderEmail(guestBookingConfirmationBody, data)

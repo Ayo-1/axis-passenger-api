@@ -1,18 +1,19 @@
 package web
 
 import (
-	"math"
 	"crypto/rand"
 	"crypto/rsa"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
+	"log/slog"
+	"math"
 	"math/big"
 	"net/http"
 	"os"
 	"time"
-	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -75,7 +76,7 @@ func ApplyHotel(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to submit application"})
 		return
 	}
-	//send 
+	//send
 	if emailService != nil {
 		go func() {
 			if err := emailService.SendHotelApplicationConfirmation(
@@ -107,7 +108,6 @@ func ApplyHotel(c *gin.Context) {
 	})
 }
 
-
 type HotelLoginRequest struct {
 	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required"`
@@ -134,7 +134,7 @@ func LoginHotel(c *gin.Context) {
 	// Check hotel status
 	var hotel models.Hotel
 	config.DB.Where("id = ?", member.HotelID).First(&hotel)
-	
+
 	if hotel.Status != "active" {
 		c.JSON(http.StatusForbidden, gin.H{"error": "hotel not approved yet"})
 		return
@@ -158,7 +158,6 @@ func LoginHotel(c *gin.Context) {
 	})
 }
 
-
 func GoogleLoginHotel(c *gin.Context) {
 	var req struct {
 		IDToken string `json:"id_token" binding:"required"`
@@ -175,7 +174,6 @@ func GoogleLoginHotel(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Google token"})
 		return
 	}
-	
 
 	// Find hotel member by email
 	var member models.HotelMember
@@ -313,7 +311,6 @@ func verifyGoogleIDToken(idToken string) (email, googleID, name, picture string,
 	return email, googleID, name, picture, nil
 }
 
-
 type HotelSetupRequest struct {
 	PropertyName      string `json:"propertyName" binding:"required"`
 	City              string `json:"city" binding:"required"`
@@ -352,7 +349,6 @@ func SetupHotel(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "Property setup complete"})
 }
 
-
 func HotelDashboard(c *gin.Context) {
 	hotelID := c.GetString("hotel_id")
 
@@ -376,6 +372,12 @@ func HotelDashboard(c *gin.Context) {
 		WHERE hotel_id = ? AND status = 'pending'
 	`, hotelID).Scan(&pendingCommission)
 
+	var processingCommission float64
+	config.DB.Raw(`
+		SELECT COALESCE(SUM(amount), 0) FROM commissions 
+		WHERE hotel_id = ? AND status = 'processing'
+	`, hotelID).Scan(&processingCommission)
+
 	var availableCommission float64
 	config.DB.Raw(`
 		SELECT COALESCE(SUM(amount), 0) FROM commissions 
@@ -390,16 +392,15 @@ func HotelDashboard(c *gin.Context) {
 		Find(&recentBookings)
 
 	c.JSON(http.StatusOK, gin.H{
-		"activeBookings":     activeBookings,
-		"completedBookings":  completedBookings,
-		"pendingCommission":  pendingCommission,
-		"availableCommission": availableCommission,
-		"commissionRate":     hotel.CommissionRate,
-		"recentBookings":     recentBookings,
+		"activeBookings":       activeBookings,
+		"completedBookings":    completedBookings,
+		"pendingCommission":    pendingCommission,
+		"processingCommission": processingCommission,
+		"availableCommission":  availableCommission,
+		"commissionRate":       hotel.CommissionRate,
+		"recentBookings":       recentBookings,
 	})
 }
-
-
 
 func BookForGuest(c *gin.Context) {
 	hotelID := c.GetString("hotel_id")
@@ -419,10 +420,67 @@ func BookForGuest(c *gin.Context) {
 		return
 	}
 
+	var tier models.VehicleTier
+	if err := config.DB.Raw(`
+		SELECT id, passengers, luggage FROM vehicle_tiers WHERE id = ? AND is_active = 1
+	`, req.TierID).Scan(&tier).Error; err != nil || tier.ID == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid tier ID"})
+		return
+	}
+	if req.Passengers > tier.Passengers {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "too many passengers for this vehicle"})
+		return
+	}
+	if req.Luggage > tier.Luggage {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "too much luggage for this vehicle"})
+		return
+	}
+
+	scheduledTime, err := time.Parse(time.RFC3339, req.ScheduledAt)
+	if err != nil || scheduledTime.Before(time.Now().Add(55*time.Minute)) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "scheduledAt must be at least 55 minutes in the future"})
+		return
+	}
+
+	if req.TripType == "both" {
+		returnTime, rerr := time.Parse(time.RFC3339, req.ReturnScheduledAt)
+		if rerr != nil || returnTime.Before(scheduledTime.Add(3*time.Hour)) {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "returnScheduledAt must be at least 3 hours after scheduledAt"})
+			return
+		}
+	}
+
+	if req.DriverID != "" {
+		var driverConflicts int64
+		config.DB.Model(&models.BookingSchedule{}).
+			Where("driver_id = ? AND status IN ('confirmed','pending') AND scheduled_at BETWEEN ? AND ?",
+				req.DriverID, scheduledTime.Add(-2*time.Hour), scheduledTime.Add(2*time.Hour)).
+			Count(&driverConflicts)
+		if driverConflicts > 0 {
+			c.JSON(http.StatusConflict, gin.H{"error": "driver no longer available for this time"})
+			return
+		}
+	}
+
+	fare, err := computeFare(fareInput{
+		AirportID:  req.AirportID,
+		TripType:   req.TripType,
+		MainLat:    req.MainLocationLat,
+		MainLng:    req.MainLocationLng,
+		ReturnLat:  req.ReturnLocationLat,
+		ReturnLng:  req.ReturnLocationLng,
+		Passengers: req.Passengers,
+		Protocol:   req.Protocol,
+	})
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to price this trip"})
+		return
+	}
+	req.FareTotal = fare.Total
+
 	var booking *models.BookingSchedule
 
-	booking = createHotelBooking(req, hotelID, req.PaymentMethod, "pending", "pending")
-	
+	booking = createHotelBooking(req, hotelID, req.PaymentMethod, "pending", "pending", fare.PlatformFee, fare.ProtocolFee)
 
 	if booking == nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create booking"})
@@ -473,13 +531,13 @@ func BookForGuest(c *gin.Context) {
 			"paymentSelectionUrl": paymentSelectionURL,
 			"status":              "pending",
 			"paymentStatus":       "pending",
-			"fareTotal":           req.FareTotal,
+			"fareTotal":           booking.FareTotal,
 			"currency":            "GHS",
 		},
 	})
 }
 
-func createHotelBooking(req CreateBookingRequest, hotelID, paymentMode, paymentStatus, bookingStatus string) *models.BookingSchedule {
+func createHotelBooking(req CreateBookingRequest, hotelID, paymentMode, paymentStatus, bookingStatus string, processingFee, protocolFee float64) *models.BookingSchedule {
 
 	// Validate airport exists + get coords
 	var airportCoords struct {
@@ -487,7 +545,7 @@ func createHotelBooking(req CreateBookingRequest, hotelID, paymentMode, paymentS
 		Lng float64
 	}
 	if err := config.DB.Raw(`SELECT lat, lng FROM airports WHERE id = ? AND is_active = 1`, req.AirportID).Scan(&airportCoords).Error; err != nil {
-		
+
 		return nil
 	}
 	if airportCoords.Lat == 0 && airportCoords.Lng == 0 {
@@ -552,40 +610,42 @@ func createHotelBooking(req CreateBookingRequest, hotelID, paymentMode, paymentS
 	hotelIDPtr := &hotelID
 
 	booking := models.BookingSchedule{
-		SessionID:           reference,
-		HotelID:             hotelIDPtr,
-		Channel:             "partner",
-		DriverID:            req.DriverID,
-		ServiceType:         req.ServiceType,
-		GuestName:           req.GuestName,
-		GuestPhone:          req.GuestPhone,
-		GuestEmail:          req.GuestEmail,
-		TripType:            req.TripType,
-		Airport:             req.Airport,
-		PickupAddress:       pickupLabel,
-		PickupLat:           pickupLat,
-		PickupLng:           pickupLng,
-		DropoffAddress:      dropoffLabel,
-		DropoffLat:          dropoffLat,
-		DropoffLng:          dropoffLng,
-		TrackFlight:         req.TrackFlight,
-		FlightNumber:        req.FlightNumber,
-		ScheduledAt:   parseTime(req.ScheduledAt),
-		ReturnFlightNumber:  req.ReturnFlightNumber,
-		ReturnScheduledAt: parseTimePtr(req.ReturnScheduledAt),
-		ReturnPickupAddress: returnPickupAddress,
-		ReturnPickupLat:     returnPickupLat,
-		ReturnPickupLng:     returnPickupLng,
+		SessionID:            reference,
+		HotelID:              hotelIDPtr,
+		Channel:              "partner",
+		DriverID:             req.DriverID,
+		ServiceType:          req.ServiceType,
+		GuestName:            req.GuestName,
+		GuestPhone:           req.GuestPhone,
+		GuestEmail:           req.GuestEmail,
+		TripType:             req.TripType,
+		Airport:              req.Airport,
+		PickupAddress:        pickupLabel,
+		PickupLat:            pickupLat,
+		PickupLng:            pickupLng,
+		DropoffAddress:       dropoffLabel,
+		DropoffLat:           dropoffLat,
+		DropoffLng:           dropoffLng,
+		TrackFlight:          req.TrackFlight,
+		FlightNumber:         req.FlightNumber,
+		ScheduledAt:          parseTime(req.ScheduledAt),
+		ReturnFlightNumber:   req.ReturnFlightNumber,
+		ReturnScheduledAt:    parseTimePtr(req.ReturnScheduledAt),
+		ReturnPickupAddress:  returnPickupAddress,
+		ReturnPickupLat:      returnPickupLat,
+		ReturnPickupLng:      returnPickupLng,
 		ReturnDropoffAddress: returnDropoffAddress,
-		ReturnDropoffLat:    returnDropoffLat,
-		ReturnDropoffLng:    returnDropoffLng,
-		Passengers:          req.Passengers,
-		Luggage:             req.Luggage,
-		TierID:              req.TierID,
-		FareTotal:           req.FareTotal,
-		PaymentMode:         req.PaymentMethod,
-		PaymentStatus:       "pending",
-		Status:              "pending",
+		ReturnDropoffLat:     returnDropoffLat,
+		ReturnDropoffLng:     returnDropoffLng,
+		Passengers:           req.Passengers,
+		Luggage:              req.Luggage,
+		TierID:               req.TierID,
+		FareTotal:            req.FareTotal,
+		ProcessingFee:        processingFee,
+		ProtocolFee:          protocolFee,
+		PaymentMode:          req.PaymentMethod,
+		PaymentStatus:        "pending",
+		Status:               "pending",
 	}
 
 	if err := config.DB.Create(&booking).Error; err != nil {
@@ -612,25 +672,25 @@ func createHotelRentalBooking(req CreateBookingRequest, hotelID, paymentMode, pa
 	hotelIDPtr := &hotelID
 
 	booking := models.BookingSchedule{
-		SessionID:      reference,
-		HotelID:        hotelIDPtr,
-		Channel:        "partner",
-		ServiceType:    "rental",
-		GuestName:      req.GuestName,
-		GuestPhone:     req.GuestPhone,
-		GuestEmail:     req.GuestEmail,
-		TripType:       "rental",
-		TierID:         car.ID,
-		RentalDays:     req.RentalDays,
-		DeliveryOption: req.CollectionMethod,
-		PickupAddress:  pickupAddress,
-		DropoffAddress: "Axis Hub",
-		ScheduledAt:    parseTime(req.ScheduledAt),
+		SessionID:         reference,
+		HotelID:           hotelIDPtr,
+		Channel:           "partner",
+		ServiceType:       "rental",
+		GuestName:         req.GuestName,
+		GuestPhone:        req.GuestPhone,
+		GuestEmail:        req.GuestEmail,
+		TripType:          "rental",
+		TierID:            car.ID,
+		RentalDays:        req.RentalDays,
+		DeliveryOption:    req.CollectionMethod,
+		PickupAddress:     pickupAddress,
+		DropoffAddress:    "Axis Hub",
+		ScheduledAt:       parseTime(req.ScheduledAt),
 		ReturnScheduledAt: parseTimePtr(req.ReturnScheduledAt),
-		FareTotal:      req.FareTotal,
-		PaymentMode:    paymentMode,
-		PaymentStatus:  paymentStatus,
-		Status:         bookingStatus,
+		FareTotal:         req.FareTotal,
+		PaymentMode:       paymentMode,
+		PaymentStatus:     paymentStatus,
+		Status:            bookingStatus,
 	}
 
 	if err := config.DB.Create(&booking).Error; err != nil {
@@ -745,12 +805,12 @@ func BookRentalForGuest(c *gin.Context) {
 	if req.PaymentMode == "house_account" {
 		booking.PaymentStatus = "unpaid"
 		booking.Status = "confirmed"
-		
+
 		if err := config.DB.Create(&booking).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create rental booking"})
 			return
 		}
-		
+
 		c.JSON(http.StatusCreated, gin.H{
 			"status": "success",
 			"data": gin.H{
@@ -820,6 +880,7 @@ func BookRentalForGuest(c *gin.Context) {
 		},
 	})
 }
+
 // Create actual payment link with token validation
 func CreateGuestPaymentLink(c *gin.Context) {
 	var req struct {
@@ -864,63 +925,37 @@ func CreateGuestPaymentLink(c *gin.Context) {
 		callbackURL = os.Getenv("APP_URL_MAIN") + "/book?ref=" + booking.SessionID + "&provider=" + req.Provider
 	}
 
-	// Generate actual payment link
-	var paymentURL string
-	var stripeSessionID string
-
-	if req.Provider == "paystack" {
-		resp, err := PaystackService.GeneratePaymentLink(services.PaymentLinkRequest{
-			Amount:      booking.FareTotal,
-			Email:       booking.GuestEmail,
-			Description: "Axis Booking - " + booking.SessionID,
-			Reference:   booking.SessionID,
-			Metadata: map[string]interface{}{
-				"type":       "booking_payment",
-				"booking_id": booking.ID,
-				"reference":  booking.SessionID,
-				"hotel_id":   booking.HotelID,
-			},
-			CallbackURL: callbackURL,
-		})
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
-			return
-		}
-		paymentURL = resp.PaymentURL
+	var cancelURL string
+	if booking.ServiceType == "rental" {
+		cancelURL = os.Getenv("APP_URL_MAIN") + "/rentals?cancelled=1"
 	} else {
-		var cancelURL string
-		if booking.ServiceType == "rental" {
-			cancelURL = os.Getenv("APP_URL_MAIN") + "/rentals?cancelled=1"
-		} else {
-			cancelURL = os.Getenv("APP_URL_MAIN") + "/book?cancelled=1"
-		}
-		
-		resp, err := StripeService.GeneratePaymentLink(
-			booking.FareTotal,
-			"USD",
-			booking.GuestEmail,
-			"Axis Booking - "+booking.SessionID,
-			booking.SessionID,
-			map[string]string{
-				"booking_id": fmt.Sprintf("%d", booking.ID),
-				"reference":  booking.SessionID,
-			},
-			callbackURL,
-			cancelURL,
-		)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
-			return
-		}
-		paymentURL = resp.PaymentURL
-		stripeSessionID = resp.SessionID
+		cancelURL = os.Getenv("APP_URL_MAIN") + "/book?cancelled=1"
+	}
+
+	res, err := createPaymentIntent(
+		booking.SessionID,
+		req.Provider,
+		booking.GuestEmail,
+		"Axis Booking - "+booking.SessionID,
+		booking.FareTotal,
+		callbackURL,
+		cancelURL,
+		map[string]interface{}{
+			"type":       "booking_payment",
+			"booking_id": booking.ID,
+		},
+	)
+	if err != nil {
+		slog.Error("payment intent failed", "ref", booking.SessionID, "error", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"status":           "success",
-		"paymentUrl":       paymentURL,
-		"provider":         req.Provider,
-		"stripe_session_id": stripeSessionID,
+		"status":            "success",
+		"paymentUrl":        res.PaymentURL,
+		"provider":          req.Provider,
+		"stripe_session_id": res.StripeSessionID,
 	})
 }
 
@@ -943,8 +978,12 @@ func parseTimePtr(s string) *time.Time {
 	return &t
 }
 
-
 func calculateCommission(bookingID uint) {
+	var existing int64
+	config.DB.Model(&models.Commission{}).Where("booking_id = ?", bookingID).Count(&existing)
+	if existing > 0 {
+		return
+	}
 	var booking models.BookingSchedule
 	config.DB.Where("id = ?", bookingID).First(&booking)
 
@@ -964,20 +1003,20 @@ func calculateCommission(bookingID uint) {
 		Rate:        hotel.CommissionRate,
 		BaseAmount:  booking.FareTotal,
 		Amount:      commissionAmount,
-		Status:      "pending",  
-		AvailableAt: nil,        
+		Status:      "pending",
+		AvailableAt: nil,
 	}
 
 	config.DB.Create(&commission)
 }
 
 type RequestPayoutRequest struct {
-	Amount          float64 `json:"amount" binding:"required"`
-	Method          string  `json:"method" binding:"required,oneof=momo bank"`
-	Destination     string  `json:"destination" binding:"required"`
-	AccountName     string  `json:"account_name" binding:"required"`
-	BankName        string  `json:"bank_name,omitempty"`     // For bank transfers
-	Network         string  `json:"network,omitempty"`       // For momo (MTN, Vodafone, AT)
+	Amount      float64 `json:"amount" binding:"required"`
+	Method      string  `json:"method" binding:"required,oneof=momo bank"`
+	Destination string  `json:"destination" binding:"required"`
+	AccountName string  `json:"account_name" binding:"required"`
+	BankName    string  `json:"bank_name,omitempty"` // For bank transfers
+	Network     string  `json:"network,omitempty"`   // For momo (MTN, Vodafone, AT)
 }
 
 func RequestPayout(c *gin.Context) {
@@ -1020,27 +1059,42 @@ func RequestPayout(c *gin.Context) {
 
 	now := time.Now()
 	payout := models.Payout{
-		ID:           uuid.New().String(),
-		HotelID:      hotelID,
-		Amount:       req.Amount,
-		Method:       req.Method,
-		Destination:  req.Destination,
-		AccountName:  req.AccountName,
-		BankName:     req.BankName,
-		Network:      req.Network,
-		Status:       "requested",
+		ID:          uuid.New().String(),
+		HotelID:     hotelID,
+		Amount:      req.Amount,
+		Method:      req.Method,
+		Destination: req.Destination,
+		AccountName: req.AccountName,
+		BankName:    req.BankName,
+		Network:     req.Network,
+		Status:      "requested",
 		RequestedAt: &now,
 	}
 
-	config.DB.Create(&payout)
+	var available []models.Commission
+	config.DB.Where("hotel_id = ? AND status = 'available'", hotelID).
+		Order("created_at ASC").Find(&available)
 
-	// Mark commissions as "pending" (being withdrawn)
-	config.DB.Exec(`
-		UPDATE commissions SET status = 'pending' 
-		WHERE hotel_id = ? AND status = 'available' 
-		ORDER BY created_at ASC 
-		LIMIT ?
-	`, hotelID, int(req.Amount))
+	remaining := req.Amount
+	var toMark []string
+	for _, com := range available {
+		if remaining <= 0.009 {
+			break
+		}
+		toMark = append(toMark, com.ID)
+		remaining -= com.Amount
+	}
+
+	if remaining > 0.009 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "insufficient available balance"})
+		return
+	}
+
+	config.DB.Model(&models.Commission{}).
+		Where("id IN ?", toMark).
+		Update("status", "processing")
+
+	config.DB.Create(&payout)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "success",
@@ -1048,7 +1102,6 @@ func RequestPayout(c *gin.Context) {
 		"payout":  payout,
 	})
 }
-
 
 // GET /v1/hotels/bookings
 func ListHotelBookings(c *gin.Context) {
@@ -1068,13 +1121,13 @@ func ListHotelBookings(c *gin.Context) {
 // GET /v1/hotels/earnings
 func HotelEarnings(c *gin.Context) {
 	hotelID := c.GetString("hotel_id")
-	
+
 	var commissions []models.Commission
 	config.DB.Where("hotel_id = ?", hotelID).Order("created_at DESC").Find(&commissions)
 
 	var payouts []models.Payout
 	config.DB.Where("hotel_id = ?", hotelID).Order("requested_at DESC").Find(&payouts)
-	
+
 	// Pending = paid but ride not completed yet
 	var totalPending float64
 	config.DB.Raw(`
@@ -1088,6 +1141,12 @@ func HotelEarnings(c *gin.Context) {
 		SELECT COALESCE(SUM(amount), 0) FROM commissions 
 		WHERE hotel_id = ? AND status = 'available'
 	`, hotelID).Scan(&totalAvailable)
+
+	var processing float64
+	config.DB.Raw(`
+		SELECT COALESCE(SUM(amount), 0) FROM commissions 
+		WHERE hotel_id = ? AND status = 'processing'
+	`, hotelID).Scan(&processing)
 
 	// Paid = already withdrawn
 	var totalPaid float64
@@ -1103,10 +1162,11 @@ func HotelEarnings(c *gin.Context) {
 		"totalPending":   totalPending,
 		"totalAvailable": totalAvailable,
 		"totalPaid":      totalPaid,
+		"processing":     processing,
 	})
 }
 
-//admin
+// admin
 func ApproveHotel(c *gin.Context) {
 	hotelID := c.Param("id")
 
@@ -1175,27 +1235,27 @@ func HotelMe(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"member": gin.H{
-			"id":        member.ID,
-			"email":     member.Email,
-			"role":      member.Role,
+			"id":         member.ID,
+			"email":      member.Email,
+			"role":       member.Role,
 			"firstLogin": member.FirstLoginAt == nil,
 		},
 		"hotel": gin.H{
-			"id":                   hotel.ID,
-			"name":                 hotel.Name,
-			"city":                 hotel.City,
-			"contactName":          hotel.ContactName,
-			"contactEmail":         hotel.ContactEmail,
-			"contactPhone":         hotel.ContactPhone,
-			"frontDeskContact":     hotel.FrontDeskContact,
+			"id":                    hotel.ID,
+			"name":                  hotel.Name,
+			"city":                  hotel.City,
+			"contactName":           hotel.ContactName,
+			"contactEmail":          hotel.ContactEmail,
+			"contactPhone":          hotel.ContactPhone,
+			"frontDeskContact":      hotel.FrontDeskContact,
 			"roomsMonthlyTransfers": hotel.RoomsMonthlyTransfers,
-			"preferredModel":       hotel.PreferredModel,
-			"commissionRate":       hotel.CommissionRate,
-			"houseAccountEnabled":  hotel.HouseAccountEnabled,
-			"payoutMethod":         hotel.PayoutMethod,
-			"payoutDestination":    hotel.PayoutDestination,
-			"status":               hotel.Status,
-			"isSetupComplete":      isSetupComplete,
+			"preferredModel":        hotel.PreferredModel,
+			"commissionRate":        hotel.CommissionRate,
+			"houseAccountEnabled":   hotel.HouseAccountEnabled,
+			"payoutMethod":          hotel.PayoutMethod,
+			"payoutDestination":     hotel.PayoutDestination,
+			"status":                hotel.Status,
+			"isSetupComplete":       isSetupComplete,
 		},
 	})
 }
@@ -1233,12 +1293,17 @@ func UpdatePartnerBookingStatus(c *gin.Context) {
 	config.DB.Model(&booking).Updates(updates)
 
 	if req.Status == "completed" {
-		go calculateCommission(booking.ID)
+		now := time.Now()
+		config.DB.Model(&models.Commission{}).
+			Where("booking_id = ? AND status = 'pending'", booking.ID).
+			Updates(map[string]interface{}{
+				"status":       "available",
+				"available_at": &now,
+			})
 	}
 
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
-
 
 // handlers/web/hotel.go
 
@@ -1283,7 +1348,6 @@ type PartnerRentalFields struct {
 	CollectionMethod string `json:"collectionMethod"` // hub_pickup | delivery
 	DeliveryAddress  string `json:"deliveryAddress"`
 }
-
 
 func generateHotelJWT(memberID, hotelID, role string) string {
 	claims := jwt.MapClaims{

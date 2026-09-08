@@ -19,8 +19,10 @@ func NewStripeService(secretKey string) *StripeService {
 }
 
 type StripePaymentLinkResponse struct {
-	PaymentURL string `json:"payment_url"`
-	SessionID  string `json:"session_id"`
+	PaymentURL      string  `json:"payment_url"`
+	SessionID       string  `json:"session_id"`
+	ChargedAmount   float64 `json:"charged_amount"`
+	ChargedCurrency string  `json:"charged_currency"`
 }
 
 func (s *StripeService) GeneratePaymentLink(ghsAmount float64, targetCurrency, email, description, reference string, metadata map[string]string, successURL, cancelURL string) (*StripePaymentLinkResponse, error) {
@@ -72,8 +74,10 @@ func (s *StripeService) GeneratePaymentLink(ghsAmount float64, targetCurrency, e
 	}
 
 	return &StripePaymentLinkResponse{
-		PaymentURL: sess.URL,
-		SessionID:  sess.ID,
+		PaymentURL:      sess.URL,
+		SessionID:       sess.ID,
+		ChargedAmount:   float64(unitAmount) / 100,
+		ChargedCurrency: strings.ToUpper(targetCurrency),
 	}, nil
 }
 
