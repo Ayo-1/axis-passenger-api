@@ -130,30 +130,43 @@ func CreateEstimate(c *gin.Context) {
 	}
 
 	// Calculate distance based on trip type
+	// Calculate distance based on trip type (real driving distance, cached)
 	var distanceKm float64
 
 	switch req.TripType {
 	case "pickup":
-		// Airport → destination
-		distanceKm = haversine(airport.Lat, airport.Lng, req.MainLocationLat, req.MainLocationLng)
+		km, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, req.MainLocationLat, req.MainLocationLng)
+		if err != nil {
+			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
+			return
+		}
+		distanceKm = km
 
 	case "dropoff":
-		// Pickup point → Airport
-		distanceKm = haversine(req.MainLocationLat, req.MainLocationLng, airport.Lat, airport.Lng)
+		km, err := services.DrivingDistanceKm(req.MainLocationLat, req.MainLocationLng, airport.Lat, airport.Lng)
+		if err != nil {
+			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
+			return
+		}
+		distanceKm = km
 
 	case "both":
-		// Leg 1: Airport → destination
-		leg1 := haversine(airport.Lat, airport.Lng, req.MainLocationLat, req.MainLocationLng)
-
-		// Leg 2: Return point (or same destination) → Airport
+		leg1, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, req.MainLocationLat, req.MainLocationLng)
+		if err != nil {
+			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
+			return
+		}
 		returnLat := req.MainLocationLat
 		returnLng := req.MainLocationLng
 		if req.ReturnLocationLat != 0 && req.ReturnLocationLng != 0 {
 			returnLat = req.ReturnLocationLat
 			returnLng = req.ReturnLocationLng
 		}
-		leg2 := haversine(returnLat, returnLng, airport.Lat, airport.Lng)
-
+		leg2, err := services.DrivingDistanceKm(returnLat, returnLng, airport.Lat, airport.Lng)
+		if err != nil {
+			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
+			return
+		}
 		distanceKm = leg1 + leg2
 	}
 
@@ -243,17 +256,6 @@ func CreateEstimate(c *gin.Context) {
 		AvailableDrivers: availableCount,
 		ProcessingFee:    platformFee,
 	})
-}
-
-func haversine(lat1, lng1, lat2, lng2 float64) float64 {
-	const earthRadiusKm = 6371.0
-	dLat := (lat2 - lat1) * math.Pi / 180
-	dLng := (lng2 - lng1) * math.Pi / 180
-	a := math.Sin(dLat/2)*math.Sin(dLat/2) +
-		math.Cos(lat1*math.Pi/180)*math.Cos(lat2*math.Pi/180)*
-			math.Sin(dLng/2)*math.Sin(dLng/2)
-	c := 2 * math.Atan2(math.Sqrt(a), math.Sqrt(1-a))
-	return earthRadiusKm * c
 }
 
 // ── Change Driver ────────────────────────────────────────────
@@ -1654,22 +1656,36 @@ func computeFare(in fareInput) (fareResult, error) {
 	var distanceKm float64
 	switch in.TripType {
 	case "pickup":
-		distanceKm = haversine(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
-		if distanceKm > maxLegKm {
-			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", distanceKm)
+		km, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
+		if err != nil {
+			return fareResult{}, fmt.Errorf("could not calculate route distance")
 		}
+		if km > maxLegKm {
+			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", km)
+		}
+		distanceKm = km
 	case "dropoff":
-		distanceKm = haversine(in.MainLat, in.MainLng, airport.Lat, airport.Lng)
-		if distanceKm > maxLegKm {
-			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", distanceKm)
+		km, err := services.DrivingDistanceKm(in.MainLat, in.MainLng, airport.Lat, airport.Lng)
+		if err != nil {
+			return fareResult{}, fmt.Errorf("could not calculate route distance")
 		}
+		if km > maxLegKm {
+			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", km)
+		}
+		distanceKm = km
 	case "both":
-		leg1 := haversine(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
+		leg1, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
+		if err != nil {
+			return fareResult{}, fmt.Errorf("could not calculate route distance")
+		}
 		rLat, rLng := in.MainLat, in.MainLng
 		if in.ReturnLat != 0 && in.ReturnLng != 0 {
 			rLat, rLng = in.ReturnLat, in.ReturnLng
 		}
-		leg2 := haversine(rLat, rLng, airport.Lat, airport.Lng)
+		leg2, err := services.DrivingDistanceKm(rLat, rLng, airport.Lat, airport.Lng)
+		if err != nil {
+			return fareResult{}, fmt.Errorf("could not calculate route distance")
+		}
 		if leg1 > maxLegKm || leg2 > maxLegKm {
 			return fareResult{}, fmt.Errorf("distance exceeds service area")
 		}

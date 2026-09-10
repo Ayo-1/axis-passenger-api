@@ -14,7 +14,7 @@ import (
 	"goapi/models"
 )
 
-const configCacheKey = "app_config_v2.5"
+const configCacheKey = "app_config_v2.6"
 const configCacheTTL = 30 * time.Minute
 
 func GetAppConfig(c *gin.Context) {

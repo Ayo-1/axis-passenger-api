@@ -1,16 +1,13 @@
 package handlers
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
-	"log"
 	"math"
 	"net/http"
-	"os"
 	"time"
+
 	"goapi/config"
-    "goapi/models"
+	"goapi/models"
+	"goapi/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,9 +16,6 @@ const (
 	baseFare        = 10.0
 	pricePerKm      = 6.3
 	minimumBaseFare = 18.0
-	// Kotoka International Airport — from Google Maps
-	airportLat = 5.6052
-	airportLng = -0.1718
 )
 
 type EstimateRequest struct {
@@ -30,28 +24,9 @@ type EstimateRequest struct {
 	DropoffLat     float64 `json:"dropoff_lat" binding:"required"`
 	DropoffLng     float64 `json:"dropoff_lng" binding:"required"`
 	DropoffAddress string  `json:"dropoff_address"`
-
-	// New fields
-	PickupLat     float64 `json:"pickup_lat" binding:"required"`
-	PickupLng     float64 `json:"pickup_lng" binding:"required"`
-	PickupAddress string  `json:"pickup_address"` // e.g. "Kotoka International Airport, Accra"
-}
-
-type mapsResponse struct {
-	Rows []struct {
-		Elements []struct {
-			Status   string `json:"status"`
-			Distance struct {
-				Value int    `json:"value"`
-				Text  string `json:"text"`
-			} `json:"distance"`
-			Duration struct {
-				Value int    `json:"value"`
-				Text  string `json:"text"`
-			} `json:"duration"`
-		} `json:"elements"`
-	} `json:"rows"`
-	Status string `json:"status"`
+	PickupLat      float64 `json:"pickup_lat" binding:"required"`
+	PickupLng      float64 `json:"pickup_lng" binding:"required"`
+	PickupAddress  string  `json:"pickup_address"`
 }
 
 func GetEstimate(c *gin.Context) {
@@ -61,7 +36,6 @@ func GetEstimate(c *gin.Context) {
 		return
 	}
 
-	// Basic coordinate sanity check
 	if req.DropoffLat < -90 || req.DropoffLat > 90 || req.DropoffLng < -180 || req.DropoffLng > 180 ||
 		req.PickupLat < -90 || req.PickupLat > 90 || req.PickupLng < -180 || req.PickupLng > 180 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid coordinates"})
@@ -77,36 +51,13 @@ func GetEstimate(c *gin.Context) {
 		return
 	}
 
-	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY")
-	mapsURL := fmt.Sprintf(
-		"https://maps.googleapis.com/maps/api/distancematrix/json?origins=%f,%f&destinations=%f,%f&key=%s&units=metric",
-		req.PickupLat, req.PickupLng,   // ← use the chosen airport
-		req.DropoffLat, req.DropoffLng,
-		apiKey,
-	)
-
-	resp, err := http.Get(mapsURL)
+	route, err := services.GetRouteInfo(req.PickupLat, req.PickupLng, req.DropoffLat, req.DropoffLng)
 	if err != nil {
-		log.Println("Maps error:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not calculate distance"})
-		return
-	}
-	defer resp.Body.Close()
-
-	body, _ := io.ReadAll(resp.Body)
-	var mapsResp mapsResponse
-	json.Unmarshal(body, &mapsResp)
-
-	if mapsResp.Status != "OK" ||
-		len(mapsResp.Rows) == 0 ||
-		mapsResp.Rows[0].Elements[0].Status != "OK" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Could not calculate route"})
 		return
 	}
 
-	el := mapsResp.Rows[0].Elements[0]
-	distanceKm := float64(el.Distance.Value) / 1000.0
-	calculated := baseFare + (distanceKm * pricePerKm)
+	calculated := baseFare + (route.DistanceKm * pricePerKm)
 	fare := math.Max(minimumBaseFare, calculated)
 
 	pickupLabel := req.PickupAddress
@@ -117,11 +68,11 @@ func GetEstimate(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"estimate": gin.H{
 		"session_id":    req.SessionID,
 		"driver_id":     req.DriverID,
-		"pickup":        pickupLabel,          // ← correct airport name
+		"pickup":        pickupLabel,
 		"dropoff":       req.DropoffAddress,
-		"distance_km":   math.Round(distanceKm*10) / 10,
-		"distance_text": el.Distance.Text,
-		"duration_text": el.Duration.Text,
+		"distance_km":   math.Round(route.DistanceKm*10) / 10,
+		"distance_text": route.DistanceText,
+		"duration_text": route.DurationText,
 		"fare_low":      math.Round(fare*0.92*10) / 10,
 		"fare_high":     math.Round(fare*1.15*10) / 10,
 		"currency":      "GHC",
