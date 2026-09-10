@@ -11,7 +11,6 @@ import (
 )
 
 var adminSMSService *services.SMSService
-var EmailService *services.EmailService
 
 func InitAdminSMS() {
 	provider := os.Getenv("SMS_PROVIDER")
@@ -60,9 +59,9 @@ func NotifyAdminNewBooking(booking models.BookingSchedule) {
 	}
 
 	// ── 1. Send email ──
-	if adminEmail != "" && EmailService != nil {
+	if adminEmail != "" && emailService != nil {
 		go func() {
-			err := EmailService.SendAdminNewBookingNotification(
+			err := emailService.SendAdminNewBookingNotification(
 				adminEmail,
 				booking.SessionID,
 				booking.GuestName,

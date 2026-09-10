@@ -2869,3 +2869,23 @@
 2026/09/10 12:22:19 main.go:43: INFO booking cleanup worker started
 2026/09/10 12:22:19 google.go:46: Firebase initialized successfully
 2026/09/10 12:22:19 main.go:179: Go API running on :8081
+2026/09/10 12:26:17 booking.go:1379: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/10 12:26:17 booking.go:1379: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/10 12:26:17 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/10 12:26:17 booking.go:1379: INFO Driver found driver="{ID:d1aeb66f-90c7-11f1-b287-06db06437209 FirstName:Acheampong LastName:Kofi Ofosu-Appiah Phone:244221036 Email:kofiache77@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/10 12:26:17 notification.go:235: [NOTIFY] ❌ Push failed for booking #178: The registration token is not a valid FCM registration token
+2026/09/10 12:26:17 email.go:931: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/10 12:26:17 email.go:530: Scheduled ride notification sent to kofiache77@gmail.com
+2026/09/10 12:26:17 notification.go:257: [NOTIFY] ✅ Email sent for booking #178 to kofiache77@gmail.com
+2026/09/10 12:26:18 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
+2026/09/10 12:26:18 admin_notifier.go:112: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/10 12:38:53 logger.go:21: === API Started ===
+2026/09/10 12:38:53 db.go:32: Database connected
+2026/09/10 12:38:53 db.go:42: Migration done
+2026/09/10 12:38:53 redis.go:23: Connected to Redis
+2026/09/10 12:38:53 notification.go:42: ✅ FCM initialized
+2026/09/10 12:38:53 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/10 12:38:53 reconcile.go:13: INFO payment reconciler started
+2026/09/10 12:38:53 main.go:43: INFO booking cleanup worker started
+2026/09/10 12:38:53 google.go:46: Firebase initialized successfully
+2026/09/10 12:38:53 main.go:179: Go API running on :8081
