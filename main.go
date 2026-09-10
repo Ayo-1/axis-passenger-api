@@ -30,6 +30,7 @@ func main() {
 	handlers.InitFCM() // Add this line
 	handlers.InitEmailService()
 	web.InitEmailService()
+	handlers.InitAdminSMS()
 
 	paystackSvc := services.NewPaystackService(os.Getenv("PAYSTACK_SECRET_KEY"))
 	stripeSvc := services.NewStripeService(os.Getenv("STRIPE_SECRET_KEY"))

@@ -931,3 +931,120 @@ func (e *EmailService) SendGuestBookingConfirmation(
 	log.Printf("Booking confirmation sent to %s", toEmail)
 	return nil
 }
+
+type AdminNewBookingData struct {
+	EmailHeader
+	Reference      string
+	GuestName      string
+	GuestPhone     string
+	GuestEmail     string
+	TripLabel      string
+	Airport        string
+	PickupAddress  string
+	DropoffAddress string
+	ScheduledTime  string
+	FlightNumber   string
+	Passengers     string
+	Luggage        string
+	FareTotal      string
+	PaymentMode    string
+	Channel        string
+}
+
+const adminNewBookingBody = `
+{{define "body"}}
+<div class="card">
+  <p class="label">New booking received</p>
+  <p class="code">{{.Reference}}</p>
+  <div class="divider"></div>
+
+  <p class="label">Guest</p>
+  <p class="value">{{.GuestName}}</p>
+  <p class="value">{{.GuestPhone}} · {{.GuestEmail}}</p>
+
+  <div class="divider"></div>
+
+  <p class="label">Trip</p>
+  <p class="value">{{.TripLabel}} — {{.Airport}}</p>
+
+  <div class="stop">
+    <p class="stop-time">Pickup</p>
+    <p class="stop-addr">{{.PickupAddress}}</p>
+  </div>
+  <div class="stop" style="margin-bottom:16px;">
+    <p class="stop-time">Drop-off</p>
+    <p class="stop-addr">{{.DropoffAddress}}</p>
+  </div>
+
+  <p class="label">When</p>
+  <p class="value">{{.ScheduledTime}}</p>
+
+  {{if .FlightNumber}}
+  <p class="label">Flight</p>
+  <p class="value">{{.FlightNumber}}</p>
+  {{end}}
+
+  <p class="label">Passengers / Bags</p>
+  <p class="value">{{.Passengers}} / {{.Luggage}}</p>
+
+  <div class="divider"></div>
+
+  <p class="label">Fare</p>
+  <p class="value">GHS {{.FareTotal}}</p>
+
+  <p class="label">Payment</p>
+  <p class="value">{{.PaymentMode}} · Channel: {{.Channel}}</p>
+</div>
+{{end}}
+`
+
+func (e *EmailService) SendAdminNewBookingNotification(
+	toEmail, reference, guestName, guestPhone, guestEmail,
+	tripLabel, airport, pickup, dropoff, scheduledTime,
+	flightNumber, passengers, luggage, fareTotal, paymentMode, channel string,
+) error {
+	if e.client == nil {
+		log.Printf("Would send admin notification for %s (email disabled)", reference)
+		return nil
+	}
+
+	brand := DefaultBrand()
+	data := AdminNewBookingData{
+		EmailHeader: EmailHeader{
+			Brand:       brand,
+			Eyebrow:     "Internal · Bookings",
+			HeaderTitle: "New booking received",
+			Subtitle:    "A guest just booked through the " + channel + " channel.",
+		},
+		Reference:      reference,
+		GuestName:      guestName,
+		GuestPhone:     guestPhone,
+		GuestEmail:     guestEmail,
+		TripLabel:      tripLabel,
+		Airport:        airport,
+		PickupAddress:  pickup,
+		DropoffAddress: dropoff,
+		ScheduledTime:  scheduledTime,
+		FlightNumber:   flightNumber,
+		Passengers:     passengers,
+		Luggage:        luggage,
+		FareTotal:      fareTotal,
+		PaymentMode:    paymentMode,
+		Channel:        channel,
+	}
+
+	html, err := renderEmail(adminNewBookingBody, data)
+	if err != nil {
+		return err
+	}
+
+	params := &resend.SendEmailRequest{
+		From:    os.Getenv("EMAIL_FROM"),
+		To:      []string{toEmail},
+		Subject: fmt.Sprintf("New booking %s — %s", reference, guestName),
+		Html:    html,
+	}
+
+	_, err = e.client.Emails.Send(params)
+	return err
+}

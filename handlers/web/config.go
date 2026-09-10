@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 	"goapi/models"
 )
 
-const configCacheKey = "app_config_v2"
+const configCacheKey = "app_config_v2.3"
 const configCacheTTL = 30 * time.Minute
 
 func GetAppConfig(c *gin.Context) {
@@ -52,15 +53,31 @@ func buildConfigFromDB() models.AppConfigResponse {
 		ORDER BY name
 	`).Scan(&airports)
 
-	var tiers []models.VehicleTier
-	config.DB.Raw(`
-		SELECT id, name, code, image, passengers, luggage, description 
+	var tierRows []models.VehicleTierRow
+	if err := config.DB.Raw(`
+		SELECT id, name, code, image, passengers, luggage, description, is_active 
 		FROM vehicle_tiers 
 		WHERE is_active = 1
 		ORDER BY passengers
-	`).Scan(&tiers)
+	`).Scan(&tierRows).Error; err != nil {
+		slog.Error("scan vehicle_tiers", "error", err)
+	}
 
-	var rentalCars []models.RentalCarConfig  // ADD THIS
+	tiers := make([]models.VehicleTier, 0, len(tierRows))
+	for _, r := range tierRows {
+		tiers = append(tiers, models.VehicleTier{
+			ID:          r.ID,
+			Name:        r.Name,
+			Code:        r.Code,
+			Image:       r.Image,
+			Passengers:  r.Passengers,
+			Luggage:     r.Luggage,
+			Description: r.Description,
+			IsActive:    r.IsActive.Bool, // false if null/0, true if 1
+		})
+	}
+
+	var rentalCars []models.RentalCarConfig // ADD THIS
 	config.DB.Raw(`
 		SELECT id, name, description, image_url, rent_per_day, passengers, luggage
 		FROM rental_cars 
@@ -80,7 +97,7 @@ func buildConfigFromDB() models.AppConfigResponse {
 	return models.AppConfigResponse{
 		Airports:             airports,
 		VehicleTiers:         tiers,
-		RentalCars:           rentalCars,  // ADD THIS
+		RentalCars:           rentalCars, // ADD THIS
 		DeliveryFee:          parseFloat(configMap["delivery_fee"], 150.00),
 		ProcessingFeePercent: parseFloat(configMap["processing_fee_percent"], 3.5),
 		BaseFare:             parseFloat(configMap["base_fare"], 10.00),
@@ -104,4 +121,22 @@ func parseFloat(val string, fallback float64) float64 {
 		return result
 	}
 	return fallback
+}
+
+func toBool(v interface{}) bool {
+	switch x := v.(type) {
+	case nil:
+		return false
+	case bool:
+		return x
+	case int64:
+		return x != 0
+	case int:
+		return x != 0
+	case []byte:
+		return len(x) > 0 && x[0] != '0'
+	case string:
+		return x == "1" || x == "true"
+	}
+	return false
 }

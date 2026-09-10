@@ -572,6 +572,7 @@ func CreateBooking(c *gin.Context) {
 			PaymentStatus:  "pending",
 			Status:         "pending",
 			Notes:          req.Notes,
+			DistanceKm:     fare.DistanceKm,
 		}
 
 		if err := config.DB.Create(&outboundBooking).Error; err != nil {
@@ -609,6 +610,7 @@ func CreateBooking(c *gin.Context) {
 			PaymentStatus:  "pending",
 			Status:         "pending",
 			Notes:          req.Notes,
+			DistanceKm:     fare.DistanceKm,
 		}
 
 		if err := config.DB.Create(&returnBooking).Error; err != nil {
@@ -689,6 +691,7 @@ func CreateBooking(c *gin.Context) {
 			PaymentStatus:  "pending",
 			Status:         "pending",
 			Notes:          req.Notes,
+			DistanceKm:     fare.DistanceKm,
 		}
 
 		if err := config.DB.Create(&booking).Error; err != nil {
@@ -1873,6 +1876,7 @@ func confirmPayment(intent models.PaymentIntent, provider string) error {
 		go handlers.NotifyDriver(outB)
 		go handlers.NotifyDriver(rtnB)
 		go SendRoundTripBookingConfirmation(&outB, &rtnB, emailService)
+		go handlers.NotifyAdminNewBooking(outB)
 		return nil
 	}
 
@@ -1933,5 +1937,6 @@ func confirmPayment(intent models.PaymentIntent, provider string) error {
 	}
 	go handlers.NotifyDriver(b)
 	go SendBookingConfirmation(&b, emailService)
+	go handlers.NotifyAdminNewBooking(b)
 	return nil
 }
