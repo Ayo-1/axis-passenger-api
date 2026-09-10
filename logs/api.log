@@ -2859,3 +2859,13 @@
 2026/09/10 12:18:56 main.go:43: INFO booking cleanup worker started
 2026/09/10 12:18:56 google.go:46: Firebase initialized successfully
 2026/09/10 12:18:56 main.go:179: Go API running on :8081
+2026/09/10 12:22:19 logger.go:21: === API Started ===
+2026/09/10 12:22:19 db.go:32: Database connected
+2026/09/10 12:22:19 db.go:42: Migration done
+2026/09/10 12:22:19 redis.go:23: Connected to Redis
+2026/09/10 12:22:19 notification.go:42: ✅ FCM initialized
+2026/09/10 12:22:19 admin_notifier.go:38: ✅ Admin SMS service initialized
+2026/09/10 12:22:19 reconcile.go:13: INFO payment reconciler started
+2026/09/10 12:22:19 main.go:43: INFO booking cleanup worker started
+2026/09/10 12:22:19 google.go:46: Firebase initialized successfully
+2026/09/10 12:22:19 main.go:179: Go API running on :8081

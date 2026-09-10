@@ -14,7 +14,7 @@ import (
 	"goapi/models"
 )
 
-const configCacheKey = "app_config_v2.3"
+const configCacheKey = "app_config_v2.5"
 const configCacheTTL = 30 * time.Minute
 
 func GetAppConfig(c *gin.Context) {
@@ -57,7 +57,6 @@ func buildConfigFromDB() models.AppConfigResponse {
 	if err := config.DB.Raw(`
 		SELECT id, name, code, image, passengers, luggage, description, is_active 
 		FROM vehicle_tiers 
-		WHERE is_active = 1
 		ORDER BY passengers
 	`).Scan(&tierRows).Error; err != nil {
 		slog.Error("scan vehicle_tiers", "error", err)
