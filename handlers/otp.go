@@ -21,7 +21,7 @@ import (
 // Email service
 var emailService *services.EmailService
 
-// OTP storage (in production, use Redis)
+// OTP storage (in production, use Redis) todo 
 var otpStore = make(map[string]OTPData)
 
 func InitEmailService() {
