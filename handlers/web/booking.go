@@ -1116,7 +1116,18 @@ func VerifyBookingPayment(c *gin.Context) {
 		return
 	}
 
-	if success && paidAmount+0.01 < intent.ExpectedAmount {
+	// ── Gate: nothing past this point runs unless Paystack says the charge succeeded ──
+	if !success {
+		c.JSON(http.StatusOK, gin.H{
+			"status":        "pending",
+			"paymentStatus": "pending",
+			"bookingStatus": booking.Status,
+			"booking":       bookingWithDriverDetails(booking),
+		})
+		return
+	}
+
+	if paidAmount+0.01 < intent.ExpectedAmount {
 		slog.Error("underpayment detected",
 			"ref", groupRef,
 			"paid", paidAmount,
@@ -1125,6 +1136,7 @@ func VerifyBookingPayment(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "payment amount mismatch"})
 		return
 	}
+
 	if err := confirmPayment(intent, req.Provider); err != nil {
 		slog.Error("confirm payment failed", "ref", groupRef, "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to confirm payment"})

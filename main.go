@@ -159,7 +159,10 @@ func main() {
 		publicHotel.POST("/apply", web.ApplyHotel)
 		publicHotel.POST("/auth/login", web.LoginHotel)
 		publicHotel.POST("/auth/google", web.GoogleLoginHotel)
-
+		publicHotel.POST("/auth/forgot", web.ForgotHotelPassword)
+		publicHotel.GET("/auth/reset/validate", web.ValidateHotelPasswordToken)
+		publicHotel.POST("/auth/reset", web.ResetHotelPassword)
+		
 	}
 	// Protected hotel routes
 	protectedHotel := hotelGroup.Group("/")

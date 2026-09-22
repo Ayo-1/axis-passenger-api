@@ -3070,3 +3070,92 @@
 2026/09/22 13:23:19 main.go:44: INFO booking cleanup worker started
 2026/09/22 13:23:19 google.go:46: Firebase initialized successfully
 2026/09/22 13:23:19 main.go:188: Go API running on :8081
+2026/09/22 18:39:29 logger.go:21: === API Started ===
+2026/09/22 18:39:29 db.go:32: Database connected
+2026/09/22 18:39:29 db.go:42: Migration done
+2026/09/22 18:39:29 redis.go:23: Connected to Redis
+2026/09/22 18:39:29 notification.go:42: ✅ FCM initialized
+2026/09/22 18:39:29 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 18:39:29 reconcile.go:13: INFO payment reconciler started
+2026/09/22 18:39:29 main.go:44: INFO booking cleanup worker started
+2026/09/22 18:39:29 google.go:46: Firebase initialized successfully
+2026/09/22 18:39:29 main.go:188: Go API running on :8081
+2026/09/22 18:40:27 logger.go:21: === API Started ===
+2026/09/22 18:40:27 db.go:32: Database connected
+2026/09/22 18:40:27 db.go:42: Migration done
+2026/09/22 18:40:27 redis.go:23: Connected to Redis
+2026/09/22 18:40:27 notification.go:42: ✅ FCM initialized
+2026/09/22 18:40:27 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 18:40:27 reconcile.go:13: INFO payment reconciler started
+2026/09/22 18:40:27 main.go:44: INFO booking cleanup worker started
+2026/09/22 18:40:27 google.go:46: Firebase initialized successfully
+2026/09/22 18:40:27 main.go:188: Go API running on :8081
+2026/09/22 18:43:52 logger.go:21: === API Started ===
+2026/09/22 18:43:52 db.go:32: Database connected
+2026/09/22 18:43:52 db.go:42: Migration done
+2026/09/22 18:43:52 redis.go:23: Connected to Redis
+2026/09/22 18:43:52 notification.go:42: ✅ FCM initialized
+2026/09/22 18:43:52 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 18:43:52 reconcile.go:13: INFO payment reconciler started
+2026/09/22 18:43:52 main.go:44: INFO booking cleanup worker started
+2026/09/22 18:43:52 google.go:46: Firebase initialized successfully
+2026/09/22 18:43:52 main.go:188: Go API running on :8081
+2026/09/22 18:44:33 logger.go:21: === API Started ===
+2026/09/22 18:44:33 db.go:32: Database connected
+2026/09/22 18:44:33 db.go:42: Migration done
+2026/09/22 18:44:33 redis.go:23: Connected to Redis
+2026/09/22 18:44:33 notification.go:42: ✅ FCM initialized
+2026/09/22 18:44:33 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 18:44:33 reconcile.go:13: INFO payment reconciler started
+2026/09/22 18:44:33 main.go:44: INFO booking cleanup worker started
+2026/09/22 18:44:33 google.go:46: Firebase initialized successfully
+2026/09/22 18:44:33 main.go:191: Go API running on :8081
+2026/09/22 18:54:18 hotel.go:202: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/22 18:57:00 email.go:697: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/22 18:57:37 paystack.go:113: [PAYSTACK VERIFY] ref=AX-141181100-P1 http=200 status=true data.status="abandoned" amount=109.00 GHS
+2026/09/22 18:57:37 booking.go:1381: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 18:57:37 booking.go:1381: INFO Driver found driver="{ID:6c732d57-d3e6-4931-8d50-4e7d1f5a91d1 FirstName:John LastName:Ayew Phone:550877222 Email:tempmail@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 18:57:37 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/22 18:57:37 notification.go:240: [NOTIFY] ⚠️ No device token for driver John
+2026/09/22 18:57:38 admin_notifier.go:85: [ADMIN] ✅ Email sent for booking AX-141181100
+2026/09/22 18:57:38 email.go:931: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/22 18:57:38 email.go:530: Scheduled ride notification sent to tempmail@gmail.com
+2026/09/22 18:57:38 notification.go:257: [NOTIFY] ✅ Email sent for booking #181 to tempmail@gmail.com
+2026/09/22 18:57:42 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
+2026/09/22 18:57:42 admin_notifier.go:111: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/22 19:15:43 logger.go:21: === API Started ===
+2026/09/22 19:15:43 db.go:32: Database connected
+2026/09/22 19:15:43 db.go:42: Migration done
+2026/09/22 19:15:43 redis.go:23: Connected to Redis
+2026/09/22 19:15:43 notification.go:42: ✅ FCM initialized
+2026/09/22 19:15:43 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 19:15:43 main.go:44: INFO booking cleanup worker started
+2026/09/22 19:15:43 reconcile.go:13: INFO payment reconciler started
+2026/09/22 19:15:43 google.go:46: Firebase initialized successfully
+2026/09/22 19:15:43 main.go:191: Go API running on :8081
+2026/09/22 19:17:03 email.go:697: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/22 19:17:34 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="abandoned" amount=122.00 GHS
+2026/09/22 19:17:34 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:40 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="ongoing" amount=122.00 GHS
+2026/09/22 19:17:40 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:41 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="ongoing" amount=122.00 GHS
+2026/09/22 19:17:41 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:44 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="ongoing" amount=122.00 GHS
+2026/09/22 19:17:44 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:48 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="ongoing" amount=122.00 GHS
+2026/09/22 19:17:48 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:51 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="ongoing" amount=122.00 GHS
+2026/09/22 19:17:51 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:55 paystack.go:113: [PAYSTACK VERIFY] ref=AX-869769131-P1 http=200 status=true data.status="success" amount=122.00 GHS
+2026/09/22 19:17:55 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:55 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:17:55 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/22 19:17:55 admin_notifier.go:85: [ADMIN] ✅ Email sent for booking AX-869769131
+2026/09/22 19:17:55 email.go:931: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/22 19:17:55 notification.go:237: [NOTIFY] ✅ Push sent for booking #182, MessageID: projects/axis-dd584/messages/0:1790104675695365%c6ccaea8c6ccaea8
+2026/09/22 19:17:55 email.go:530: Scheduled ride notification sent to tempmail@yahoo.com
+2026/09/22 19:17:55 notification.go:257: [NOTIFY] ✅ Email sent for booking #182 to tempmail@yahoo.com
+2026/09/22 19:17:57 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
+2026/09/22 19:17:57 admin_notifier.go:111: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/22 19:18:10 booking.go:1393: INFO Driver found driver="{ID:eba25e11-7fd2-4e8c-af59-30dd46d34062 FirstName:Test LastName:User Phone:540998223 Email:tempmail@yahoo.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/22 19:27:36 email_hotel_password.go:126: Hotel invite password link sent to dev.ayomide@gmail.com

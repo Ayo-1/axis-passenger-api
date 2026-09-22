@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
+	"net/url"
 	"io"
 	"net/http"
 	"time"
@@ -77,26 +79,49 @@ func (s *PaystackService) GeneratePaymentLink(req PaymentLinkRequest) (*PaymentL
 }
 
 func (s *PaystackService) VerifyTransaction(reference string) (bool, string, float64, error) {
-	resp, err := s.get(fmt.Sprintf("/transaction/verify/%s", reference))
+	req, err := http.NewRequest("GET", "https://api.paystack.co/transaction/verify/"+url.PathEscape(reference), nil)
 	if err != nil {
 		return false, "", 0, err
 	}
+	req.Header.Set("Authorization", "Bearer "+s.secretKey)
 
-	var result struct {
-		Status bool `json:"status"`
-		Data   struct {
-			Status string  `json:"status"`
-			Amount float64 `json:"amount"`
+	res, err := s.client.Do(req)
+	if err != nil {
+		return false, "", 0, err
+	}
+	defer res.Body.Close()
+
+	var apiResp struct {
+		Status  bool   `json:"status"`
+		Message string `json:"message"`
+		Data    struct {
+			Status   string  `json:"status"`
+			Amount   float64 `json:"amount"`   // in pesewas
+			Currency string  `json:"currency"`
 		} `json:"data"`
 	}
-	json.Unmarshal(resp, &result)
-
-	if !result.Status {
-		return false, "", 0, fmt.Errorf("verification failed")
+	if err := json.NewDecoder(res.Body).Decode(&apiResp); err != nil {
+		return false, "", 0, err
 	}
 
-	amount := result.Data.Amount / 100
-	return result.Data.Status == "success", result.Data.Status, amount, nil
+	// Paystack returns HTTP 200 with status:false for unknown references
+	if !apiResp.Status {
+		return false, "", 0, nil
+	}
+
+	// Log what Paystack actually said so this can never silently lie again
+	log.Printf("[PAYSTACK VERIFY] ref=%s http=%d status=%v data.status=%q amount=%.2f %s",
+		reference, res.StatusCode, apiResp.Status, apiResp.Data.Status,
+		apiResp.Data.Amount/100, apiResp.Data.Currency)
+
+	// Only "success" is paid. "pending", "abandoned", "failed", "reversed" are NOT paid.
+	if apiResp.Data.Status != "success" {
+		return false, apiResp.Data.Status, 0, nil
+	}
+
+	// Paystack amounts are in pesewas — convert to GHS
+	amount := apiResp.Data.Amount / 100
+	return true, "success", amount, nil
 }
 
 func (s *PaystackService) get(path string) ([]byte, error) {

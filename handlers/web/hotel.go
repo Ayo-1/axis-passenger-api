@@ -43,7 +43,12 @@ var emailService *services.EmailService
 
 func InitEmailService() {
 	emailService = services.NewEmailService()
+
+	SendHotelPasswordLink = func(to, hotelName, link, purpose string) error {
+		return emailService.SendHotelPasswordLinkEmail(to, hotelName, link, purpose)
+	}
 }
+
 
 func ApplyHotel(c *gin.Context) {
 	var req models.HotelApplication
@@ -126,6 +131,13 @@ func LoginHotel(c *gin.Context) {
 		return
 	}
 
+	if member.PasswordHash == "" {
+		c.JSON(http.StatusForbidden, gin.H{
+			"error": "This account has no password yet. Use “Forgot password?” to set one, or sign in with Google.",
+			"code":  "password_not_set",
+		})
+		return
+	}
 	if err := bcrypt.CompareHashAndPassword([]byte(member.PasswordHash), []byte(req.Password)); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 		return
@@ -312,13 +324,16 @@ func verifyGoogleIDToken(idToken string) (email, googleID, name, picture string,
 }
 
 type HotelSetupRequest struct {
-	PropertyName      string `json:"propertyName" binding:"required"`
-	City              string `json:"city" binding:"required"`
-	FrontDeskContact  string `json:"frontDeskContact" binding:"required"`
-	ContactPhone      string `json:"contactPhone" binding:"required"`
-	PayoutMethod      string `json:"payoutMethod" binding:"required,oneof=bank_transfer momo"`
-	PayoutDestination string `json:"payoutDestination" binding:"required"`
-	HouseAccount      bool   `json:"houseAccount"`
+    PropertyName      string `json:"propertyName" binding:"required"`
+    City              string `json:"city" binding:"required"`
+    FrontDeskContact  string `json:"frontDeskContact" binding:"required"`
+    ContactPhone      string `json:"contactPhone" binding:"required"`
+    PayoutMethod      string `json:"payoutMethod" binding:"required,oneof=bank momo bank_transfer"`
+    PayoutDestination string `json:"payoutDestination" binding:"required"`
+    PayoutAccountName string `json:"payoutAccountName" binding:"required"`
+    PayoutBankName    string `json:"payoutBankName"`
+    PayoutNetwork     string `json:"payoutNetwork"`
+    HouseAccount      bool   `json:"houseAccount"`
 }
 
 func SetupHotel(c *gin.Context) {
@@ -330,6 +345,18 @@ func SetupHotel(c *gin.Context) {
 		return
 	}
 
+	if req.PayoutMethod == "bank_transfer" {
+		req.PayoutMethod = "bank"
+	}
+	if req.PayoutMethod == "bank" && req.PayoutBankName == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "payoutBankName is required for bank transfers"})
+		return
+	}
+	if req.PayoutMethod == "momo" && req.PayoutNetwork == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "payoutNetwork is required for mobile money"})
+		return
+	}
+
 	updates := map[string]interface{}{
 		"name":                  req.PropertyName,
 		"city":                  req.City,
@@ -337,6 +364,9 @@ func SetupHotel(c *gin.Context) {
 		"contact_phone":         req.ContactPhone,
 		"payout_method":         req.PayoutMethod,
 		"payout_destination":    req.PayoutDestination,
+		"payout_account_name": req.PayoutAccountName,
+		"payout_bank_name":    req.PayoutBankName,
+		"payout_network":      req.PayoutNetwork,
 		"house_account_enabled": req.HouseAccount,
 	}
 
@@ -1258,6 +1288,10 @@ func HotelMe(c *gin.Context) {
 			"payoutDestination":     hotel.PayoutDestination,
 			"status":                hotel.Status,
 			"isSetupComplete":       isSetupComplete,
+			"payoutAccountName": hotel.PayoutAccountName,
+			"payoutBankName":    hotel.PayoutBankName,
+			"payoutNetwork":     hotel.PayoutNetwork,
+			"hasPassword":       member.PasswordHash != "",
 		},
 	})
 }

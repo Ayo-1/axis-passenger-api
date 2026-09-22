@@ -27,6 +27,9 @@ type Hotel struct {
 	HouseAccountEnabled   bool    `json:"house_account_enabled"`
 	PayoutMethod          string  `json:"payout_method"`
 	PayoutDestination     string  `json:"payout_destination"`
+	PayoutAccountName string `gorm:"size:120" json:"payoutAccountName"`
+	PayoutBankName    string `gorm:"size:120" json:"payoutBankName"`
+	PayoutNetwork     string `gorm:"size:32"  json:"payoutNetwork"`
 	Status                string  `json:"status"`
 	CreatedAt             time.Time `json:"created_at"`
 	UpdatedAt             time.Time `json:"updated_at"`
@@ -83,6 +86,18 @@ type PartnerPaymentToken struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+
+type HotelPasswordToken struct {
+	ID        string     `gorm:"primaryKey;size:36" json:"id"`
+	MemberID  string     `gorm:"size:36;index" json:"memberId"`
+	TokenHash string     `gorm:"size:64;uniqueIndex" json:"-"`
+	Purpose   string     `gorm:"size:16" json:"purpose"` // invite | reset
+	ExpiresAt time.Time  `json:"expiresAt"`
+	UsedAt    *time.Time `json:"usedAt"`
+	CreatedAt time.Time  `json:"createdAt"`
+}
+
+func (HotelPasswordToken) TableName() string { return "hotel_password_tokens" }
 func (PartnerPaymentToken) TableName() string {
 	return "partner_payment_tokens"
 }
