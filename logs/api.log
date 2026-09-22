@@ -2980,3 +2980,93 @@
 2026/09/10 21:05:36 main.go:43: INFO booking cleanup worker started
 2026/09/10 21:05:36 google.go:46: Firebase initialized successfully
 2026/09/10 21:05:36 main.go:179: Go API running on :8081
+2026/09/11 06:14:59 logger.go:21: === API Started ===
+2026/09/11 06:14:59 db.go:32: Database connected
+2026/09/11 06:15:00 db.go:42: Migration done
+2026/09/11 06:15:00 redis.go:23: Connected to Redis
+2026/09/11 06:15:00 notification.go:42: ✅ FCM initialized
+2026/09/11 06:15:00 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/11 06:15:00 google.go:46: Firebase initialized successfully
+2026/09/11 06:15:00 main.go:43: INFO booking cleanup worker started
+2026/09/11 06:15:00 reconcile.go:13: INFO payment reconciler started
+2026/09/11 06:15:00 main.go:179: Go API running on :8081
+2026/09/22 12:56:44 logger.go:21: === API Started ===
+2026/09/22 12:56:44 db.go:32: Database connected
+2026/09/22 12:56:44 db.go:42: Migration done
+2026/09/22 12:56:44 redis.go:23: Connected to Redis
+2026/09/22 12:56:44 notification.go:42: ✅ FCM initialized
+2026/09/22 12:56:44 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 12:56:44 reconcile.go:13: INFO payment reconciler started
+2026/09/22 12:56:44 main.go:43: INFO booking cleanup worker started
+2026/09/22 12:56:44 google.go:46: Firebase initialized successfully
+2026/09/22 12:56:44 main.go:179: Go API running on :8081
+2026/09/22 12:57:08 logger.go:21: === API Started ===
+2026/09/22 12:57:08 db.go:32: Database connected
+2026/09/22 12:57:08 db.go:42: Migration done
+2026/09/22 12:57:08 redis.go:23: Connected to Redis
+2026/09/22 12:57:08 notification.go:42: ✅ FCM initialized
+2026/09/22 12:57:08 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 12:57:08 reconcile.go:13: INFO payment reconciler started
+2026/09/22 12:57:08 main.go:43: INFO booking cleanup worker started
+2026/09/22 12:57:08 google.go:46: Firebase initialized successfully
+2026/09/22 12:57:08 main.go:179: Go API running on :8081
+2026/09/22 12:57:30 logger.go:21: === API Started ===
+2026/09/22 12:57:30 db.go:32: Database connected
+2026/09/22 12:57:30 db.go:42: Migration done
+2026/09/22 12:57:30 redis.go:23: Connected to Redis
+2026/09/22 12:57:30 notification.go:42: ✅ FCM initialized
+2026/09/22 12:57:30 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 12:57:30 reconcile.go:13: INFO payment reconciler started
+2026/09/22 12:57:30 main.go:43: INFO booking cleanup worker started
+2026/09/22 12:57:30 google.go:46: Firebase initialized successfully
+2026/09/22 12:57:30 main.go:179: Go API running on :8081
+2026/09/22 13:01:59 logger.go:21: === API Started ===
+2026/09/22 13:01:59 db.go:32: Database connected
+2026/09/22 13:01:59 db.go:42: Migration done
+2026/09/22 13:01:59 redis.go:23: Connected to Redis
+2026/09/22 13:01:59 notification.go:42: ✅ FCM initialized
+2026/09/22 13:01:59 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 13:01:59 reconcile.go:13: INFO payment reconciler started
+2026/09/22 13:01:59 main.go:44: INFO booking cleanup worker started
+2026/09/22 13:01:59 google.go:46: Firebase initialized successfully
+2026/09/22 13:01:59 main.go:186: Go API running on :8081
+2026/09/22 13:05:28 booking.go:1381: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/22 13:05:28 booking.go:1381: INFO Driver found driver="{ID:8ffc08b2-91a5-11f1-b287-06db06437209 FirstName:Moh LastName:Mdee Phone:550880112 Email:moh@example.com AvatarURL:}"
+2026/09/22 13:05:29 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/22 13:05:29 notification.go:235: [NOTIFY] ❌ Push failed for booking #180: The registration token is not a valid FCM registration token
+2026/09/22 13:05:29 email.go:931: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/22 13:05:29 admin_notifier.go:85: [ADMIN] ✅ Email sent for booking AX-284316135
+2026/09/22 13:05:29 email.go:526: Failed to send scheduled ride notification to moh@example.com: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/22 13:05:29 notification.go:255: [NOTIFY] ❌ Email failed for booking #180: [ERROR]: Invalid `to` field. Please use our testing email address instead of domains like `example.com`. See our documentation for more information.
+2026/09/22 13:05:33 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
+2026/09/22 13:05:33 admin_notifier.go:111: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/22 13:07:59 logger.go:21: === API Started ===
+2026/09/22 13:07:59 db.go:32: Database connected
+2026/09/22 13:07:59 db.go:42: Migration done
+2026/09/22 13:07:59 redis.go:23: Connected to Redis
+2026/09/22 13:07:59 notification.go:42: ✅ FCM initialized
+2026/09/22 13:07:59 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 13:07:59 reconcile.go:13: INFO payment reconciler started
+2026/09/22 13:07:59 main.go:44: INFO booking cleanup worker started
+2026/09/22 13:07:59 google.go:46: Firebase initialized successfully
+2026/09/22 13:07:59 main.go:186: Go API running on :8081
+2026/09/22 13:09:02 logger.go:21: === API Started ===
+2026/09/22 13:09:02 db.go:32: Database connected
+2026/09/22 13:09:02 db.go:42: Migration done
+2026/09/22 13:09:02 redis.go:23: Connected to Redis
+2026/09/22 13:09:02 notification.go:42: ✅ FCM initialized
+2026/09/22 13:09:02 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 13:09:02 google.go:46: Firebase initialized successfully
+2026/09/22 13:09:02 main.go:188: Go API running on :8081
+2026/09/22 13:09:02 main.go:44: INFO booking cleanup worker started
+2026/09/22 13:09:02 reconcile.go:13: INFO payment reconciler started
+2026/09/22 13:23:19 logger.go:21: === API Started ===
+2026/09/22 13:23:19 db.go:32: Database connected
+2026/09/22 13:23:19 db.go:42: Migration done
+2026/09/22 13:23:19 redis.go:23: Connected to Redis
+2026/09/22 13:23:19 notification.go:42: ✅ FCM initialized
+2026/09/22 13:23:19 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/22 13:23:19 reconcile.go:13: INFO payment reconciler started
+2026/09/22 13:23:19 main.go:44: INFO booking cleanup worker started
+2026/09/22 13:23:19 google.go:46: Firebase initialized successfully
+2026/09/22 13:23:19 main.go:188: Go API running on :8081

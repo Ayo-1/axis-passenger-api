@@ -478,6 +478,7 @@ func BookForGuest(c *gin.Context) {
 	}
 	req.FareTotal = fare.Total
 
+
 	var booking *models.BookingSchedule
 
 	booking = createHotelBooking(req, hotelID, req.PaymentMethod, "pending", "pending", fare.PlatformFee, fare.ProtocolFee)
@@ -769,6 +770,7 @@ func BookRentalForGuest(c *gin.Context) {
 		fareTotal += deliveryFee
 	}
 
+
 	reference := generateBookingReference()
 
 	pickupAddress := "Axis Hub"
@@ -994,7 +996,7 @@ func calculateCommission(bookingID uint) {
 	var hotel models.Hotel
 	config.DB.Where("id = ?", *booking.HotelID).First(&hotel)
 
-	commissionAmount := booking.FareTotal * hotel.CommissionRate
+	commissionAmount := math.Round(booking.FareTotal*hotel.CommissionRate*100) / 100
 
 	commission := models.Commission{
 		ID:          uuid.New().String(),

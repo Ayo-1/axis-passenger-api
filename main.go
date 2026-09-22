@@ -5,6 +5,7 @@ import (
 	"goapi/handlers"
 	"goapi/handlers/web"
 	"goapi/middleware"
+	"goapi/places"
 	"log"
 	"log/slog"
 	"os"
@@ -138,6 +139,14 @@ func main() {
 		webRoutes.POST("/pay/create-link", web.CreateGuestPaymentLink)
 
 		webRoutes.POST("/rentals", web.CreateRental)
+
+		if _, err := places.Register(webRoutes, config.RedisClient, places.Config{
+			APIKey:     os.Getenv("GOOGLE_MAPS_API_KEY"),
+			Countries:  []string{"gh"},
+			RatePerMinute: 120,
+		}); err != nil {
+			log.Printf("Warning: places proxy disabled: %v", err)
+		}
 
 	}
 
