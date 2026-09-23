@@ -44,6 +44,8 @@ type BookingSchedule struct {
 	TripType           string     `gorm:"size:20;default:pickup" json:"trip_type"`
 	Airport            string     `gorm:"size:100" json:"airport"`
 	TrackFlight        bool       `json:"track_flight"`
+	Airline 		   string `gorm:"size:80" json:"airline"`
+	ReturnAirline 		string `gorm:"size:80" json:"return_airline"`
 	FlightNumber       string     `gorm:"size:20" json:"flight_number"`
 	ReturnFlightNumber string     `gorm:"size:20" json:"return_flight_number"`
 	ScheduledAt        *time.Time `json:"scheduled_at"`

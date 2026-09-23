@@ -91,6 +91,7 @@ func receiptPayload(b *models.BookingSchedule) gin.H {
 		"returnLabel":        b.ReturnPickupAddress,
 		"returnLat":          b.ReturnPickupLat,
 		"returnLng":          b.ReturnPickupLng,
+		"airline": 			  b.Airline,
 		"flightNumber":       b.FlightNumber,
 		"scheduledAt":        b.ScheduledAt,
 		"returnFlightNumber": b.ReturnFlightNumber,

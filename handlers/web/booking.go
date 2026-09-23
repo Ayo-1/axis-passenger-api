@@ -328,6 +328,8 @@ type CreateBookingRequest struct {
 	ReturnLocationLng   float64 `json:"returnLocationLng"`
 	TrackFlight         bool    `json:"track_flight"`
 	FlightNumber        string  `json:"flightNumber"`
+	Airline       		string `json:"airline"`
+	ReturnAirline		string `json:"returnAirline"`
 	ScheduledAt         string  `json:"scheduledAt" binding:"required"`
 	ReturnFlightNumber  string  `json:"returnFlightNumber"`
 	ReturnScheduledAt   string  `json:"returnScheduledAt"`
@@ -562,6 +564,7 @@ func CreateBooking(c *gin.Context) {
 			DropoffLat:     dropoffLat,
 			DropoffLng:     dropoffLng,
 			TrackFlight:    req.TrackFlight,
+			Airline: 		strings.TrimSpace(req.Airline),
 			FlightNumber:   req.FlightNumber,
 			ScheduledAt:    &scheduledTime,
 			Passengers:     req.Passengers,
@@ -600,6 +603,7 @@ func CreateBooking(c *gin.Context) {
 			DropoffLat:     returnDropoffLat,
 			DropoffLng:     returnDropoffLng,
 			TrackFlight:    req.TrackFlight,
+			Airline: 		strings.TrimSpace(req.ReturnAirline),
 			FlightNumber:   req.ReturnFlightNumber,
 			ScheduledAt:    returnTime,
 			Passengers:     req.Passengers,
@@ -681,6 +685,7 @@ func CreateBooking(c *gin.Context) {
 			DropoffLat:     dropoffLat,
 			DropoffLng:     dropoffLng,
 			TrackFlight:    req.TrackFlight,
+			Airline: strings.TrimSpace(req.Airline),
 			FlightNumber:   req.FlightNumber,
 			ScheduledAt:    &scheduledTime,
 			Passengers:     req.Passengers,
@@ -796,6 +801,7 @@ func LookupBooking(c *gin.Context) {
 		// Add return leg info to the SAME payload
 		if returnBooking.ID != 0 {
 			combinedPayload["returnFlightNumber"] = returnBooking.FlightNumber
+			combinedPayload["returnAirline"] = returnBooking.Airline
 			combinedPayload["returnScheduledAt"] = returnBooking.ScheduledAt
 			combinedPayload["returnPickupAddress"] = returnBooking.PickupAddress
 			combinedPayload["returnPickupLat"] = returnBooking.PickupLat
@@ -822,6 +828,8 @@ func LookupBooking(c *gin.Context) {
 type UpdateBookingRequest struct {
 	Reference          string `json:"reference" binding:"required"`
 	Contact            string `json:"contact" binding:"required"`
+	Airline       	   *string `json:"airline"`
+	ReturnAirline 	   *string `json:"returnAirline"`
 	FlightNumber       string `json:"flightNumber"`
 	ScheduledAt        string `json:"scheduledAt"`
 	ReturnFlightNumber string `json:"returnFlightNumber"`
@@ -866,6 +874,18 @@ func UpdateBooking(c *gin.Context) {
 				Where("session_id = ?", baseReference+"-OUT").
 				Update("flight_number", req.FlightNumber)
 		}
+
+		if req.Airline != nil {
+			config.DB.Model(&models.BookingSchedule{}).
+				Where("session_id = ?", baseReference+"-OUT").
+				Update("airline", strings.TrimSpace(*req.Airline))
+		}
+		if req.ReturnAirline != nil {
+			config.DB.Model(&models.BookingSchedule{}).
+				Where("session_id = ?", baseReference+"-RTN").
+				Update("airline", strings.TrimSpace(*req.ReturnAirline))
+		}
+
 		if req.ScheduledAt != "" {
 			scheduledTime, err := time.Parse(time.RFC3339, req.ScheduledAt)
 			if err != nil || scheduledTime.Before(time.Now().Add(55*time.Minute)) {
@@ -913,6 +933,15 @@ func UpdateBooking(c *gin.Context) {
 	if req.ReturnFlightNumber != "" {
 		updates["return_flight_number"] = req.ReturnFlightNumber
 	}
+
+	if req.Airline != nil {
+		updates["airline"] = strings.TrimSpace(*req.Airline)
+	}
+
+	if req.ReturnAirline != nil {
+		updates["return_airline"] = strings.TrimSpace(*req.ReturnAirline)
+	}
+	
 	if req.ReturnScheduledAt != "" {
 		returnTime, err := time.Parse(time.RFC3339, req.ReturnScheduledAt)
 		if err != nil {
@@ -1048,6 +1077,7 @@ func VerifyBookingPayment(c *gin.Context) {
 
 			// Add return leg info
 			combinedBooking["return_flight_number"] = returnCheck.FlightNumber
+			combinedBooking["return_airline"] = returnCheck.Airline
 			combinedBooking["return_scheduled_at"] = returnCheck.ScheduledAt
 			combinedBooking["return_pickup_address"] = returnCheck.PickupAddress
 			combinedBooking["return_pickup_lat"] = returnCheck.PickupLat
@@ -1152,6 +1182,7 @@ func VerifyBookingPayment(c *gin.Context) {
 
 		combined := bookingWithDriverDetails(freshOut)
 		combined["return_flight_number"] = freshRtn.FlightNumber
+		combined["return_airline"] = freshRtn.Airline
 		combined["return_scheduled_at"] = freshRtn.ScheduledAt
 		combined["return_pickup_address"] = freshRtn.PickupAddress
 		combined["return_pickup_lat"] = freshRtn.PickupLat
@@ -1462,6 +1493,8 @@ func bookingWithDriverDetails(booking models.BookingSchedule) gin.H {
 		"trip_type":              booking.TripType,
 		"airport":                booking.Airport,
 		"track_flight":           booking.TrackFlight,
+		"airline":                booking.Airline,
+		"return_airline": 		 booking.ReturnAirline,
 		"flight_number":          booking.FlightNumber,
 		"scheduled_at":           booking.ScheduledAt,
 		"return_flight_number":   booking.ReturnFlightNumber,
@@ -1537,7 +1570,7 @@ func SendBookingConfirmation(booking *models.BookingSchedule, emailService *serv
 			booking.DropoffAddress,
 			booking.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM"),
 			"",
-			booking.FlightNumber,
+			booking.Airline + " " + booking.FlightNumber,
 			booking.ReturnFlightNumber,
 			fmt.Sprintf("%d", booking.Passengers),
 			fmt.Sprintf("%d", booking.Luggage),
@@ -1598,7 +1631,7 @@ func SendRoundTripBookingConfirmation(outbound, returnBooking *models.BookingSch
 		outbound.DropoffAddress,
 		outbound.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM"),
 		returnBooking.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM"), // Return time
-		outbound.FlightNumber,
+		outbound.Airline + " " + outbound.FlightNumber,
 		returnBooking.FlightNumber, // Return flight
 		fmt.Sprintf("%d", outbound.Passengers),
 		fmt.Sprintf("%d", outbound.Luggage),

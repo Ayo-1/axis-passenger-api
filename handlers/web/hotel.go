@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -658,6 +659,7 @@ func createHotelBooking(req CreateBookingRequest, hotelID, paymentMode, paymentS
 		DropoffLat:           dropoffLat,
 		DropoffLng:           dropoffLng,
 		TrackFlight:          req.TrackFlight,
+		Airline: 			  strings.TrimSpace(req.Airline),
 		FlightNumber:         req.FlightNumber,
 		ScheduledAt:          parseTime(req.ScheduledAt),
 		ReturnFlightNumber:   req.ReturnFlightNumber,
