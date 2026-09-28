@@ -445,6 +445,11 @@ func BookForGuest(c *gin.Context) {
 	req.Channel = "partner"
 	req.HotelID = hotelID
 
+	if !validHotelPaymentMode(req.PaymentMode, false) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "paymentMode must be guest_link or hotel_pay"})
+		return
+	}
+
 	var hotel models.Hotel
 	if err := config.DB.Where("id = ? AND status = 'active'", hotelID).First(&hotel).Error; err != nil {
 		c.JSON(http.StatusForbidden, gin.H{"error": "hotel not active"})
@@ -519,47 +524,39 @@ func BookForGuest(c *gin.Context) {
 		return
 	}
 
-	// Generate secure payment token
-	tokenBytes := make([]byte, 32)
-	rand.Read(tokenBytes)
-	token := base64.RawURLEncoding.EncodeToString(tokenBytes)
-
-	// Store token with expiry (24 hours)
-	paymentToken := models.PartnerPaymentToken{
-		ID:        uuid.New().String(),
-		BookingID: booking.ID,
-		Token:     token,
-		ExpiresAt: time.Now().Add(24 * time.Hour),
+	if req.PaymentMode == "hotel_pay" {
+		res, err := startHotelPayment(booking, hotel, c.GetString("member_id"), req.PaymentMethod)
+		if err != nil {
+			slog.Error("hotel payment intent failed", "ref", booking.SessionID, "error", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "booking created but failed to generate payment link"})
+			return
+		}
+		c.JSON(http.StatusCreated, gin.H{
+			"status": "success",
+			"data": gin.H{
+				"id":                booking.ID,
+				"reference":         booking.SessionID,
+				"payer":             "hotel",
+				"paymentUrl":        res.PaymentURL,
+				"provider":          req.PaymentMethod,
+				"stripe_session_id": res.StripeSessionID,
+				"status":            "pending",
+				"paymentStatus":     "pending",
+				"fareTotal":         booking.FareTotal,
+				"currency":          "GHS",
+			},
+		})
+		return
 	}
-	if err := config.DB.Create(&paymentToken).Error; err != nil {
-		// Don't fail the whole booking if token creation fails
-		log.Printf("Failed to create payment token: %v", err)
-	}
 
-	// Generate payment selection link with token
-	paymentSelectionURL := os.Getenv("APP_URL_MAIN") + "/pay?token=" + token
-
-	// Send email to guest with secure payment link
-	if emailService != nil {
-		go func() {
-			err := emailService.SendPartnerPaymentLinkEmail(
-				booking.GuestEmail,
-				booking.GuestName,
-				booking.SessionID,
-				paymentSelectionURL,
-				fmt.Sprintf("%.2f", booking.FareTotal),
-			)
-			if err != nil {
-				log.Printf("Failed to send payment link email: %v", err)
-			}
-		}()
-	}
+	paymentSelectionURL := sendGuestPaymentLink(booking, hotel)
 
 	c.JSON(http.StatusCreated, gin.H{
 		"status": "success",
 		"data": gin.H{
 			"id":                  booking.ID,
 			"reference":           booking.SessionID,
+			"payer":               "guest",
 			"paymentSelectionUrl": paymentSelectionURL,
 			"status":              "pending",
 			"paymentStatus":       "pending",
@@ -746,7 +743,7 @@ type CreatePartnerRentalRequest struct {
 	PaymentMethod    string  `json:"paymentMethod" binding:"required"`
 	FareTotal        float64 `json:"fareTotal" binding:"required"`
 	RoomNumber       string  `json:"roomNumber"`
-	PaymentMode      string  `json:"paymentMode"` // "guest_link" or "house_account"
+	PaymentMode      string  `json:"paymentMode"` // "guest_link" (default), "hotel_pay" or "house_account"
 }
 
 func BookRentalForGuest(c *gin.Context) {
@@ -755,6 +752,14 @@ func BookRentalForGuest(c *gin.Context) {
 	var req CreatePartnerRentalRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	if !validHotelPaymentMode(req.PaymentMode, true) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "paymentMode must be guest_link, hotel_pay or house_account"})
+		return
+	}
+	if req.PaymentMode == "hotel_pay" && req.PaymentMethod != "paystack" && req.PaymentMethod != "stripe" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "paymentMethod must be paystack or stripe"})
 		return
 	}
 
@@ -866,7 +871,93 @@ func BookRentalForGuest(c *gin.Context) {
 		return
 	}
 
-	// Generate secure payment token
+	if req.PaymentMode == "hotel_pay" {
+		res, err := startHotelPayment(&booking, hotel, c.GetString("member_id"), req.PaymentMethod)
+		if err != nil {
+			slog.Error("hotel payment intent failed", "ref", booking.SessionID, "error", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "booking created but failed to generate payment link"})
+			return
+		}
+		c.JSON(http.StatusCreated, gin.H{
+			"status": "success",
+			"data": gin.H{
+				"id":                booking.ID,
+				"reference":         reference,
+				"payer":             "hotel",
+				"paymentUrl":        res.PaymentURL,
+				"provider":          req.PaymentMethod,
+				"stripe_session_id": res.StripeSessionID,
+				"status":            "pending",
+				"paymentStatus":     "pending",
+				"fareTotal":         fareTotal,
+				"rentalDays":        rentalDays,
+				"currency":          "GHS",
+			},
+		})
+		return
+	}
+
+	paymentSelectionURL := sendGuestPaymentLink(&booking, hotel)
+
+	c.JSON(http.StatusCreated, gin.H{
+		"status": "success",
+		"data": gin.H{
+			"id":                  booking.ID,
+			"reference":           reference,
+			"payer":               "guest",
+			"paymentSelectionUrl": paymentSelectionURL,
+			"status":              "pending",
+			"paymentStatus":       "pending",
+			"fareTotal":           fareTotal,
+			"rentalDays":          rentalDays,
+			"currency":            "GHS",
+		},
+	})
+}
+
+// ── Hotel payments ───────────────────────────────────────────
+//
+// paymentMode on hotel bookings:
+//   guest_link    (default) the guest gets an email with the amount and a pay link
+//   hotel_pay     the hotel pays now; once paid the hotel gets a receipt and the
+//                 guest gets a confirmation without the amount
+//   house_account (rentals only) confirmed now, settled when marked completed
+
+func validHotelPaymentMode(mode string, allowHouseAccount bool) bool {
+	switch mode {
+	case "", "guest_link", "hotel_pay":
+		return true
+	case "house_account":
+		return allowHouseAccount
+	}
+	return false
+}
+
+// bookingPaymentURLs returns the provider callback and cancel URLs. Hotel
+// payments use HOTEL_PAYMENT_CALLBACK_URL when it is set (the hotel dashboard).
+func bookingPaymentURLs(booking *models.BookingSchedule, provider string, forHotel bool) (callbackURL, cancelURL string) {
+	base := os.Getenv("APP_URL_MAIN")
+	page := "/book"
+	if booking.ServiceType == "rental" {
+		page = "/rentals"
+	}
+	callbackURL = base + page + "?ref=" + booking.SessionID + "&provider=" + provider
+	cancelURL = base + page + "?cancelled=1"
+
+	if hotelURL := os.Getenv("HOTEL_PAYMENT_CALLBACK_URL"); forHotel && hotelURL != "" {
+		sep := "?"
+		if strings.Contains(hotelURL, "?") {
+			sep = "&"
+		}
+		callbackURL = hotelURL + sep + "ref=" + booking.SessionID + "&provider=" + provider
+		cancelURL = hotelURL + sep + "ref=" + booking.SessionID + "&cancelled=1"
+	}
+	return callbackURL, cancelURL
+}
+
+// sendGuestPaymentLink creates a 24h payment token and emails the guest a link
+// showing the amount. Returns the link.
+func sendGuestPaymentLink(booking *models.BookingSchedule, hotel models.Hotel) string {
 	tokenBytes := make([]byte, 32)
 	rand.Read(tokenBytes)
 	token := base64.RawURLEncoding.EncodeToString(tokenBytes)
@@ -878,41 +969,185 @@ func BookRentalForGuest(c *gin.Context) {
 		ExpiresAt: time.Now().Add(24 * time.Hour),
 	}
 	if err := config.DB.Create(&paymentToken).Error; err != nil {
+		// Don't fail the whole booking if token creation fails
 		log.Printf("Failed to create payment token: %v", err)
 	}
 
-	// Generate payment selection link
 	paymentSelectionURL := os.Getenv("APP_URL_MAIN") + "/pay?token=" + token
 
-	// Send email to guest
 	if emailService != nil {
+		b := *booking
 		go func() {
-			err := emailService.SendPartnerPaymentLinkEmail(
-				booking.GuestEmail,
-				booking.GuestName,
-				booking.SessionID,
+			if err := emailService.SendPartnerPaymentLinkEmail(
+				b.GuestEmail,
+				b.GuestName,
+				b.SessionID,
 				paymentSelectionURL,
-				fmt.Sprintf("%.2f", booking.FareTotal),
-			)
-			if err != nil {
+				fmt.Sprintf("%.2f", b.FareTotal),
+				hotel.Name,
+			); err != nil {
 				log.Printf("Failed to send payment link email: %v", err)
 			}
 		}()
 	}
+	return paymentSelectionURL
+}
 
-	c.JSON(http.StatusCreated, gin.H{
-		"status": "success",
-		"data": gin.H{
-			"id":                  booking.ID,
-			"reference":           reference,
-			"paymentSelectionUrl": paymentSelectionURL,
-			"status":              "pending",
-			"paymentStatus":       "pending",
-			"fareTotal":           fareTotal,
-			"rentalDays":          rentalDays,
-			"currency":            "GHS",
+// startHotelPayment creates a payment link for the hotel to pay for the booking.
+// Any guest payment link is revoked so the guest can't start a second payment.
+func startHotelPayment(booking *models.BookingSchedule, hotel models.Hotel, memberID, provider string) (*intentResult, error) {
+	payerEmail := hotel.ContactEmail
+	if memberID != "" {
+		var member models.HotelMember
+		if err := config.DB.Where("id = ? AND hotel_id = ?", memberID, hotel.ID).First(&member).Error; err == nil && member.Email != "" {
+			payerEmail = member.Email
+		}
+	}
+	if payerEmail == "" {
+		return nil, fmt.Errorf("hotel has no email for the payment receipt")
+	}
+
+	config.DB.Where("booking_id = ?", booking.ID).Delete(&models.PartnerPaymentToken{})
+
+	callbackURL, cancelURL := bookingPaymentURLs(booking, provider, true)
+	return createPaymentIntentAs(
+		"hotel",
+		booking.SessionID,
+		provider,
+		payerEmail,
+		fmt.Sprintf("Axis Booking - %s (%s)", booking.SessionID, hotel.Name),
+		booking.FareTotal,
+		callbackURL,
+		cancelURL,
+		map[string]interface{}{
+			"type":       "booking_payment",
+			"booking_id": booking.ID,
+			"payer":      "hotel",
 		},
+	)
+}
+
+// POST /v1/app/hotels/bookings/pay  {bookingId, provider}
+// Lets the hotel pay for one of its pending bookings, e.g. when the guest
+// hasn't paid their link.
+func PayForGuestBooking(c *gin.Context) {
+	hotelID := c.GetString("hotel_id")
+
+	var req struct {
+		BookingID uint   `json:"bookingId" binding:"required"`
+		Provider  string `json:"provider" binding:"required,oneof=paystack stripe"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	var hotel models.Hotel
+	if err := config.DB.Where("id = ? AND status = 'active'", hotelID).First(&hotel).Error; err != nil {
+		c.JSON(http.StatusForbidden, gin.H{"error": "hotel not active"})
+		return
+	}
+
+	var booking models.BookingSchedule
+	if err := config.DB.Where("id = ? AND hotel_id = ?", req.BookingID, hotelID).First(&booking).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "booking not found"})
+		return
+	}
+	if booking.PaymentStatus == "paid" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "booking already paid"})
+		return
+	}
+	if booking.Status != "pending" {
+		c.JSON(http.StatusGone, gin.H{"error": "this booking is no longer awaiting payment"})
+		return
+	}
+
+	// Warn the dashboard if the guest has already opened a checkout.
+	var guestPending int64
+	config.DB.Model(&models.PaymentIntent{}).
+		Where("reference = ? AND status = 'pending' AND payer <> 'hotel'", booking.SessionID).
+		Count(&guestPending)
+
+	res, err := startHotelPayment(&booking, hotel, c.GetString("member_id"), req.Provider)
+	if err != nil {
+		slog.Error("hotel payment intent failed", "ref", booking.SessionID, "error", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":              "success",
+		"reference":           booking.SessionID,
+		"paymentUrl":          res.PaymentURL,
+		"provider":            req.Provider,
+		"stripe_session_id":   res.StripeSessionID,
+		"guestPaymentStarted": guestPending > 0,
 	})
+}
+
+// sendHotelPaidEmails: receipt with the amount to the hotel, confirmation
+// without the amount to the guest.
+func sendHotelPaidEmails(b models.BookingSchedule, intent models.PaymentIntent, provider string) {
+	if emailService == nil {
+		return
+	}
+
+	var hotel models.Hotel
+	if b.HotelID != nil {
+		config.DB.Where("id = ?", *b.HotelID).First(&hotel)
+	}
+	hotelName := hotel.Name
+	if hotelName == "" {
+		hotelName = "Your hotel"
+	}
+
+	sendBookingConfirmationPaidBy(&b, emailService, hotelName)
+
+	var to []string
+	for _, e := range []string{intent.PayerEmail, hotel.ContactEmail} {
+		e = strings.TrimSpace(e)
+		if e != "" && (len(to) == 0 || !strings.EqualFold(to[0], e)) {
+			to = append(to, e)
+		}
+	}
+
+	service := map[string]string{
+		"pickup":  "Airport pickup",
+		"dropoff": "Airport drop-off",
+		"both":    "Airport round trip",
+	}[b.TripType]
+	if b.ServiceType == "rental" {
+		service = fmt.Sprintf("Car rental (%d day(s))", b.RentalDays)
+	}
+	if service == "" {
+		service = b.TripType
+	}
+	dateTime := ""
+	if b.ScheduledAt != nil {
+		dateTime = b.ScheduledAt.Format("Mon, Jan 2 at 3:04 PM")
+	}
+	providerLabel := map[string]string{
+		"paystack": "Mobile Money / Card (Paystack)",
+		"stripe":   "Card (Stripe)",
+	}[provider]
+	if providerLabel == "" {
+		providerLabel = provider
+	}
+
+	if err := emailService.SendHotelPaymentReceipt(to, services.HotelPaymentReceiptData{
+		HotelName:      hotelName,
+		Reference:      b.SessionID,
+		GuestName:      b.GuestName,
+		Service:        service,
+		DateTime:       dateTime,
+		PickupAddress:  b.PickupAddress,
+		DropoffAddress: b.DropoffAddress,
+		Amount:         fmt.Sprintf("%.2f", b.FareTotal),
+		Provider:       providerLabel,
+		PaidAt:         time.Now().Format("Jan 2, 2006 · 3:04 PM"),
+	}); err != nil {
+		log.Printf("Failed to send hotel payment receipt for %s: %v", b.SessionID, err)
+	}
 }
 
 // Create actual payment link with token validation
@@ -950,21 +1185,12 @@ func CreateGuestPaymentLink(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "booking already paid"})
 		return
 	}
-
-	// ── Determine callback URL based on service type ──
-	var callbackURL string
-	if booking.ServiceType == "rental" {
-		callbackURL = os.Getenv("APP_URL_MAIN") + "/rentals?ref=" + booking.SessionID + "&provider=" + req.Provider
-	} else {
-		callbackURL = os.Getenv("APP_URL_MAIN") + "/book?ref=" + booking.SessionID + "&provider=" + req.Provider
+	if booking.Status != "pending" {
+		c.JSON(http.StatusGone, gin.H{"error": "this booking is no longer awaiting payment"})
+		return
 	}
 
-	var cancelURL string
-	if booking.ServiceType == "rental" {
-		cancelURL = os.Getenv("APP_URL_MAIN") + "/rentals?cancelled=1"
-	} else {
-		cancelURL = os.Getenv("APP_URL_MAIN") + "/book?cancelled=1"
-	}
+	callbackURL, cancelURL := bookingPaymentURLs(&booking, req.Provider, false)
 
 	res, err := createPaymentIntent(
 		booking.SessionID,

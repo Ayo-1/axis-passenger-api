@@ -655,8 +655,11 @@ const partnerPaymentLinkBody = `
 
 // SendPartnerPaymentLinkEmail emails the guest a payment selection link.
 func (e *EmailService) SendPartnerPaymentLinkEmail(
-	toEmail, guestName, reference, paymentURL, fareTotal string,
+	toEmail, guestName, reference, paymentURL, fareTotal, hotelName string,
 ) error {
+	if hotelName == "" {
+		hotelName = "Your hotel"
+	}
 	if e.client == nil {
 		log.Printf("Would send partner payment link to %s (email disabled)", toEmail)
 		return nil
@@ -674,7 +677,7 @@ func (e *EmailService) SendPartnerPaymentLinkEmail(
 		Reference:  reference,
 		PaymentURL: paymentURL,
 		FareTotal:  fareTotal,
-		HotelName:  "Your Hotel",
+		HotelName:  hotelName,
 	}
 
 	htmlContent, err := renderEmail(partnerPaymentLinkBody, data)
@@ -726,6 +729,7 @@ type GuestBookingConfirmationData struct {
 	HasReturn      bool
 	HasDriver      bool
 	ManageURL      string
+	PaidBy         string // hotel name when the hotel paid; hides the fare
 }
 
 const guestBookingConfirmationBody = `
@@ -743,7 +747,7 @@ const guestBookingConfirmationBody = `
   <div class="divider"></div>
 
   <p>Hello {{.GuestName}},</p>
-  <p>Your airport transfer is confirmed and paid in full.</p>
+  {{if .PaidBy}}<p>Your booking is confirmed. {{.PaidBy}} has taken care of the payment, so there's nothing for you to pay.</p>{{else}}<p>Your airport transfer is confirmed and paid in full.</p>{{end}}
 
   <div class="divider"></div>
 
@@ -832,16 +836,23 @@ const guestBookingConfirmationBody = `
       </td>
       <td width="4%"></td>
       <td width="48%">
+        {{if .PaidBy}}
+        <p class="label">Payment</p>
+        <p class="value">Paid by {{.PaidBy}}</p>
+        {{else}}
         <p class="label">Total Paid</p>
         <p class="value">GHS {{.FareTotal}}</p>
+        {{end}}
       </td>
     </tr>
+    {{if not .PaidBy}}
     <tr>
       <td colspan="3">
         <p class="label">Payment Method</p>
         <p class="value" style="margin-bottom:0;">{{.PaymentMethod}}</p>
       </td>
     </tr>
+    {{end}}
   </table>
 </div>
 
@@ -873,6 +884,7 @@ func (e *EmailService) SendGuestBookingConfirmation(
 	vehicleTier, fareTotal, paymentMethod,
 	driverName, driverPhone, carModel, plateNumber string,
 	hasReturn, hasDriver bool,
+	paidBy string,
 ) error {
 	if e.client == nil {
 		log.Printf("Would send booking confirmation to %s (email disabled)", toEmail)
@@ -909,6 +921,7 @@ func (e *EmailService) SendGuestBookingConfirmation(
 		HasReturn:      hasReturn,
 		HasDriver:      hasDriver,
 		ManageURL:      os.Getenv("APP_URL_MAIN") + "/manage?ref=" + reference,
+		PaidBy:         paidBy,
 	}
 
 	htmlContent, err := renderEmail(guestBookingConfirmationBody, data)
@@ -929,6 +942,122 @@ func (e *EmailService) SendGuestBookingConfirmation(
 	}
 
 	log.Printf("Booking confirmation sent to %s", toEmail)
+	return nil
+}
+
+// ---------------------------------------------------------------------------
+// Hotel payment receipt (to the hotel after it pays for a guest's booking)
+// ---------------------------------------------------------------------------
+
+type HotelPaymentReceiptData struct {
+	EmailHeader
+	HotelName      string
+	Reference      string
+	GuestName      string
+	Service        string
+	DateTime       string
+	PickupAddress  string
+	DropoffAddress string
+	Amount         string
+	Provider       string
+	PaidAt         string
+}
+
+const hotelPaymentReceiptBody = `
+{{define "body"}}
+<div class="card">
+  <table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>
+        <p class="label">Booking Reference</p>
+        <p class="code">{{.Reference}}</p>
+      </td>
+      <td align="right"><span class="badge">&#9679; PAID</span></td>
+    </tr>
+  </table>
+  <div class="divider"></div>
+
+  <p>Hello {{.HotelName}},</p>
+  <p>Thanks for your payment. The booking for <strong>{{.GuestName}}</strong> is confirmed and the guest has been emailed their booking details (without the amount).</p>
+
+  <div class="divider"></div>
+
+  <p class="label">Service</p>
+  <p class="value">{{.Service}}</p>
+  <p class="label">Date &amp; Time</p>
+  <p class="value">{{.DateTime}}</p>
+
+  <div class="stop">
+    <span class="dot dot-pickup"></span>
+    <p class="stop-time">Pickup</p>
+    <p class="stop-addr">{{.PickupAddress}}</p>
+  </div>
+  <div class="stop">
+    <span class="dot dot-drop"></span>
+    <p class="stop-time">Drop-off</p>
+    <p class="stop-addr">{{.DropoffAddress}}</p>
+  </div>
+
+  <div class="divider"></div>
+  <table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="48%">
+        <p class="label">Amount Paid</p>
+        <p class="value">GHS {{.Amount}}</p>
+      </td>
+      <td width="4%"></td>
+      <td width="48%">
+        <p class="label">Paid With</p>
+        <p class="value">{{.Provider}}</p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <p class="label">Paid On</p>
+        <p class="value" style="margin-bottom:0;">{{.PaidAt}}</p>
+      </td>
+    </tr>
+  </table>
+</div>
+{{end}}
+`
+
+// SendHotelPaymentReceipt emails the hotel a receipt for a booking it paid for.
+func (e *EmailService) SendHotelPaymentReceipt(to []string, data HotelPaymentReceiptData) error {
+	if len(to) == 0 {
+		return nil
+	}
+	if e.client == nil {
+		log.Printf("Would send hotel payment receipt to %v (email disabled)", to)
+		return nil
+	}
+
+	brand := DefaultBrand()
+	data.EmailHeader = EmailHeader{
+		Brand:       brand,
+		Eyebrow:     "Payment received",
+		HeaderTitle: "Booking paid and confirmed",
+		Subtitle:    "Here is your receipt.",
+	}
+
+	htmlContent, err := renderEmail(hotelPaymentReceiptBody, data)
+	if err != nil {
+		return err
+	}
+
+	params := &resend.SendEmailRequest{
+		From:    os.Getenv("EMAIL_FROM"),
+		To:      to,
+		Subject: fmt.Sprintf("Receipt for booking %s — %s", data.Reference, brand.AppName),
+		Html:    htmlContent,
+	}
+
+	if _, err := e.client.Emails.Send(params); err != nil {
+		log.Printf("Failed to send hotel payment receipt to %v: %v", to, err)
+		return err
+	}
+
+	log.Printf("Hotel payment receipt sent to %v", to)
 	return nil
 }
 

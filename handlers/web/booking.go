@@ -1533,6 +1533,12 @@ func bookingWithDriverDetails(booking models.BookingSchedule) gin.H {
 
 // After successful payment verification:
 func SendBookingConfirmation(booking *models.BookingSchedule, emailService *services.EmailService) {
+	sendBookingConfirmationPaidBy(booking, emailService, "")
+}
+
+// sendBookingConfirmationPaidBy sends the guest confirmation; a non-empty
+// paidBy (the hotel name) hides the fare.
+func sendBookingConfirmationPaidBy(booking *models.BookingSchedule, emailService *services.EmailService, paidBy string) {
 	if emailService != nil {
 		// Get driver details
 		driverName := ""
@@ -1583,6 +1589,7 @@ func SendBookingConfirmation(booking *models.BookingSchedule, emailService *serv
 			plateNumber,
 			booking.TripType == "both",
 			booking.DriverID != "",
+			paidBy,
 		)
 	}
 }
@@ -1644,6 +1651,7 @@ func SendRoundTripBookingConfirmation(outbound, returnBooking *models.BookingSch
 		plateNumber,
 		true, // Has return
 		outbound.DriverID != "",
+		"",
 	)
 }
 
@@ -1786,6 +1794,12 @@ type intentResult struct {
 }
 
 func createPaymentIntent(groupRef, provider, email, description string, fareGHS float64, callbackURL, cancelURL string, metadata map[string]interface{}) (*intentResult, error) {
+	return createPaymentIntentAs("guest", groupRef, provider, email, description, fareGHS, callbackURL, cancelURL, metadata)
+}
+
+// createPaymentIntentAs records who is paying (guest | hotel) so confirmPayment
+// knows which emails to send.
+func createPaymentIntentAs(payer, groupRef, provider, email, description string, fareGHS float64, callbackURL, cancelURL string, metadata map[string]interface{}) (*intentResult, error) {
 
 	var attempt int64
 	config.DB.Model(&models.PaymentIntent{}).Where("reference = ?", groupRef).Count(&attempt)
@@ -1799,6 +1813,8 @@ func createPaymentIntent(groupRef, provider, email, description string, fareGHS 
 		Attempt:      int(attempt),
 		FareTotalGHS: fareGHS,
 		Status:       "pending",
+		Payer:        payer,
+		PayerEmail:   email,
 	}
 	out := &intentResult{}
 
@@ -1953,6 +1969,11 @@ func confirmPayment(intent models.PaymentIntent, provider string) error {
 		return nil
 	}
 
+	hotelPaid := intent.Payer == "hotel"
+	if hotelPaid {
+		updates["payment_mode"] = "hotel"
+	}
+
 	if err := tx.Model(&models.BookingSchedule{}).
 		Where("id = ?", b.ID).Updates(updates).Error; err != nil {
 		tx.Rollback()
@@ -1997,7 +2018,12 @@ func confirmPayment(intent models.PaymentIntent, provider string) error {
 		go calculateCommission(b.ID)
 	}
 	go handlers.NotifyDriver(b)
-	go SendBookingConfirmation(&b, emailService)
+	if hotelPaid {
+		b.PaymentMode = "hotel"
+		go sendHotelPaidEmails(b, intent, provider)
+	} else {
+		go SendBookingConfirmation(&b, emailService)
+	}
 	go handlers.NotifyAdminNewBooking(b)
 	return nil
 }

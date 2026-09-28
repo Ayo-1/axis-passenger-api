@@ -3214,3 +3214,37 @@
 2026/09/23 17:10:48 email.go:931: Booking confirmation sent to dev.ayomide@gmail.com
 2026/09/23 17:10:50 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
 2026/09/23 17:10:50 admin_notifier.go:111: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/28 17:21:50 hotel.go:203: Google login: email=dev.ayomide@gmail.com, member.HotelID=eeb9f3d4-d79a-4257-b1e2-095809e4c4be, hotel.Status=active
+2026/09/28 17:22:40 email.go:697: Partner payment link sent to dev.ayomide@gmail.com
+2026/09/28 17:24:19 logger.go:21: === API Started ===
+2026/09/28 17:24:19 db.go:32: Database connected
+2026/09/28 17:24:19 db.go:42: Migration done
+2026/09/28 17:24:19 redis.go:23: Connected to Redis
+2026/09/28 17:24:19 notification.go:42: ✅ FCM initialized
+2026/09/28 17:24:19 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/28 17:24:19 reconcile.go:13: INFO payment reconciler started
+2026/09/28 17:24:19 main.go:44: INFO booking cleanup worker started
+2026/09/28 17:24:19 google.go:46: Firebase initialized successfully
+2026/09/28 17:24:19 main.go:192: Go API running on :8081
+2026/09/28 17:25:38 booking.go:1424: INFO Driver found driver="{ID:b91ef35a-90c8-11f1-b287-06db06437209 FirstName:Juan LastName:Fran Phone:550880118 Email:dev.ayomide+axis@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/28 17:25:38 booking.go:1424: INFO Driver found driver="{ID:b91ef35a-90c8-11f1-b287-06db06437209 FirstName:Juan LastName:Fran Phone:550880118 Email:dev.ayomide+axis@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/28 17:25:38 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/28 17:25:38 booking.go:1424: INFO Driver found driver="{ID:b91ef35a-90c8-11f1-b287-06db06437209 FirstName:Juan LastName:Fran Phone:550880118 Email:dev.ayomide+axis@gmail.com AvatarURL:https://pub-daac3eb7fee34fb0a080788f413304b1.r2.dev/avatar_axis.png}"
+2026/09/28 17:25:38 notification.go:235: [NOTIFY] ❌ Push failed for booking #185: The registration token is not a valid FCM registration token
+2026/09/28 17:25:38 email.go:944: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/28 17:25:38 admin_notifier.go:85: [ADMIN] ✅ Email sent for booking AX-829466583
+2026/09/28 17:25:39 email.go:530: Scheduled ride notification sent to dev.ayomide+axis@gmail.com
+2026/09/28 17:25:39 notification.go:257: [NOTIFY] ✅ Email sent for booking #185 to dev.ayomide+axis@gmail.com
+2026/09/28 17:25:39 email.go:1060: Hotel payment receipt sent to [dev.ayomide@gmail.com]
+2026/09/28 17:25:43 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
+2026/09/28 17:25:43 admin_notifier.go:111: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/28 18:23:38 logger.go:21: === API Started ===
+2026/09/28 18:23:38 db.go:32: Database connected
+2026/09/28 18:23:38 db.go:42: Migration done
+2026/09/28 18:23:38 redis.go:23: Connected to Redis
+2026/09/28 18:23:38 notification.go:42: ✅ FCM initialized
+2026/09/28 18:23:38 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/28 18:23:38 reconcile.go:13: INFO payment reconciler started
+2026/09/28 18:23:38 main.go:44: INFO booking cleanup worker started
+2026/09/28 18:23:38 google.go:46: Firebase initialized successfully
+2026/09/28 18:23:38 main.go:192: Go API running on :8081

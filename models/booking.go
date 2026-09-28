@@ -134,6 +134,8 @@ type PaymentIntent struct {
 	Currency       string  `gorm:"size:8"`
 	FareTotalGHS   float64 // your own denomination, for reconciliation
 	Status         string  `gorm:"index;size:16"` // pending | paid | failed
+	Payer          string  `gorm:"size:10;default:guest"` // guest | hotel
+	PayerEmail     string  `gorm:"size:255"`
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 }

@@ -55,13 +55,13 @@ func main() {
 				SET b.status = 'expired', b.updated_at = NOW()
 				WHERE b.status = 'pending'
 				  AND b.payment_status = 'pending'
-				  AND b.created_at < ?
+				  AND b.created_at < IF(b.channel = 'partner', ?, ?)
 				  AND NOT EXISTS (
 				    SELECT 1 FROM payment_intents pi
 				    WHERE pi.reference = SUBSTRING_INDEX(SUBSTRING_INDEX(b.session_id, '-OUT', 1), '-RTN', 1)
 				      AND pi.status = 'paid'
 				  )
-			`, time.Now().Add(-2*time.Hour))
+			`, time.Now().Add(-24*time.Hour), time.Now().Add(-2*time.Hour)) // hotel guest links last 24h
 			if res.Error != nil {
 				slog.Error("expire stale bookings", "error", res.Error)
 				continue
@@ -179,6 +179,7 @@ func main() {
 		protectedHotel.GET("/earnings", web.HotelEarnings)
 		protectedHotel.POST("/withdraw", web.RequestPayout)
 		protectedHotel.POST("/bookings/status", web.UpdatePartnerBookingStatus)
+		protectedHotel.POST("/bookings/pay", web.PayForGuestBooking)
 		protectedHotel.POST("/rentals", web.BookRentalForGuest)
 
 	}
