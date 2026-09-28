@@ -153,6 +153,7 @@ func main() {
 	hotelGroup := r.Group("/v1/app/hotels")
 
 	// Public hotel routes
+	
 	publicHotel := hotelGroup.Group("/")
 	publicHotel.Use(middleware.RateLimit(30, time.Minute))
 	{
