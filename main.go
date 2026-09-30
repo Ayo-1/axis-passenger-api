@@ -27,6 +27,7 @@ func main() {
 	config.InitLogger() // Add this line
 	config.ConnectDB()
 	config.MigrateDB()
+	web.SeedFareRules()
 	config.InitRedis()
 	handlers.InitFCM() // Add this line
 	handlers.InitEmailService()
@@ -69,6 +70,8 @@ func main() {
 			if res.RowsAffected > 0 {
 				slog.Info("expired stale pending bookings", "count", res.RowsAffected)
 			}
+
+			web.PurgeExpiredRentalKYC()
 		}
 	}()
 
@@ -139,6 +142,7 @@ func main() {
 		webRoutes.POST("/pay/create-link", web.CreateGuestPaymentLink)
 
 		webRoutes.POST("/rentals", web.CreateRental)
+		webRoutes.POST("/rentals/kyc/upload", web.UploadRentalKYC)
 
 		if _, err := places.Register(webRoutes, config.RedisClient, places.Config{
 			APIKey:     os.Getenv("GOOGLE_MAPS_API_KEY"),

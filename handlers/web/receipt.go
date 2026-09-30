@@ -122,6 +122,10 @@ func receiptPayload(b *models.BookingSchedule) gin.H {
 	if b.DriverID != "" {
 		payload["driver"] = getDriverDetails(b.DriverID)
 	}
+
+	if kyc := rentalKYCSummary(b); kyc != nil {
+		payload["kyc"] = kyc
+	}
 	
 	return payload
 }

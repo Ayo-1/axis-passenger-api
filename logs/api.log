@@ -3248,3 +3248,44 @@
 2026/09/28 18:23:38 main.go:44: INFO booking cleanup worker started
 2026/09/28 18:23:38 google.go:46: Firebase initialized successfully
 2026/09/28 18:23:38 main.go:192: Go API running on :8081
+2026/09/29 00:47:47 logger.go:21: === API Started ===
+2026/09/29 00:47:47 db.go:32: Database connected
+2026/09/29 00:47:48 db.go:42: Migration done
+2026/09/29 00:47:48 redis.go:23: Connected to Redis
+2026/09/29 00:47:48 notification.go:42: ✅ FCM initialized
+2026/09/29 00:47:48 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/29 00:47:48 reconcile.go:13: INFO payment reconciler started
+2026/09/29 00:47:48 google.go:46: Firebase initialized successfully
+2026/09/29 00:47:48 main.go:44: INFO booking cleanup worker started
+2026/09/29 00:47:48 main.go:192: Go API running on :8081
+2026/09/29 11:14:29 logger.go:21: === API Started ===
+2026/09/29 11:14:29 db.go:32: Database connected
+2026/09/29 11:14:29 db.go:42: Migration done
+2026/09/29 11:14:29 redis.go:23: Connected to Redis
+2026/09/29 11:14:29 notification.go:42: ✅ FCM initialized
+2026/09/29 11:14:29 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/29 11:14:29 reconcile.go:13: INFO payment reconciler started
+2026/09/29 11:14:29 main.go:44: INFO booking cleanup worker started
+2026/09/29 11:14:29 google.go:46: Firebase initialized successfully
+2026/09/29 11:14:29 main.go:196: Go API running on :8081
+2026/09/29 11:16:43 paystack.go:113: [PAYSTACK VERIFY] ref=AX-310008833-P1 http=200 status=true data.status="abandoned" amount=1650.00 GHS
+2026/09/29 11:16:46 paystack.go:113: [PAYSTACK VERIFY] ref=AX-310008833-P1 http=200 status=true data.status="ongoing" amount=1650.00 GHS
+2026/09/29 11:16:50 paystack.go:113: [PAYSTACK VERIFY] ref=AX-310008833-P1 http=200 status=true data.status="success" amount=1650.00 GHS
+2026/09/29 11:16:50 notification.go:179: [NOTIFY] ✅ Created notification record
+2026/09/29 11:16:50 notification.go:240: [NOTIFY] ⚠️ No device token for driver 
+2026/09/29 11:16:51 email.go:944: Booking confirmation sent to dev.ayomide@gmail.com
+2026/09/29 11:16:51 admin_notifier.go:85: [ADMIN] ✅ Email sent for booking AX-310008833
+2026/09/29 11:16:52 sms.go:83: ERROR arkesel response status=error message="Insufficient balance or invalid coverage!" phone=2348130651605
+2026/09/29 11:16:52 admin_notifier.go:111: [ADMIN] ❌ SMS failed for +2348130651605: SMS send failed: Insufficient balance or invalid coverage!
+2026/09/29 17:24:30 main.go:70: INFO expired stale pending bookings count=1
+2026/09/30 12:12:40 logger.go:21: === API Started ===
+2026/09/30 12:12:40 db.go:32: Database connected
+2026/09/30 12:12:40 db.go:42: Migration done
+2026/09/30 12:12:40 pricing.go:113: INFO seeded fare rules from app_config rows=4 base_fare=40 per_km=6.25 minimum_fare=15
+2026/09/30 12:12:40 redis.go:23: Connected to Redis
+2026/09/30 12:12:40 notification.go:42: ✅ FCM initialized
+2026/09/30 12:12:40 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/09/30 12:12:40 google.go:46: Firebase initialized successfully
+2026/09/30 12:12:40 reconcile.go:13: INFO payment reconciler started
+2026/09/30 12:12:40 main.go:45: INFO booking cleanup worker started
+2026/09/30 12:12:40 main.go:197: Go API running on :8081

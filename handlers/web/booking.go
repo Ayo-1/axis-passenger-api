@@ -3,6 +3,7 @@ package web
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"math"
@@ -67,6 +68,7 @@ type EstimateResponse struct {
 	Driver           *DriverPreview `json:"driver"`
 	ProcessingFee    float64        `json:"processingFee"`
 	AvailableDrivers int            `json:"availableDrivers"`
+	Breakdown        fareBreakdown  `json:"breakdown"`
 }
 
 func CreateEstimate(c *gin.Context) {
@@ -98,110 +100,27 @@ func CreateEstimate(c *gin.Context) {
 		return
 	}
 
-	// Get fare config
-	var fareConfig struct {
-		BaseFare    float64 `gorm:"column:base_fare"`
-		PricePerKm  float64 `gorm:"column:price_per_km"`
-		MinimumFare float64 `gorm:"column:minimum_fare"`
-	}
-	config.DB.Raw(`
-		SELECT 
-			MAX(CASE WHEN config_key = 'base_fare' THEN CAST(config_value AS DECIMAL(10,2)) END) as base_fare,
-			MAX(CASE WHEN config_key = 'price_per_km' THEN CAST(config_value AS DECIMAL(10,2)) END) as price_per_km,
-			MAX(CASE WHEN config_key = 'minimum_fare' THEN CAST(config_value AS DECIMAL(10,2)) END) as minimum_fare
-		FROM app_config
-		WHERE config_key IN ('base_fare', 'price_per_km', 'minimum_fare')
-	`).Scan(&fareConfig)
-
-	// Get airport coordinates
-	var airport struct {
-		Lat float64
-		Lng float64
-	}
-	if err := config.DB.Raw(`SELECT lat, lng FROM airports WHERE id = ? AND is_active = 1`, req.AirportID).Scan(&airport).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "airport not found"})
+	fare, err := computeFare(fareInput{
+		AirportID:  req.AirportID,
+		TierID:     req.TierID,
+		TripType:   req.TripType,
+		MainLat:    req.MainLocationLat,
+		MainLng:    req.MainLocationLng,
+		ReturnLat:  req.ReturnLocationLat,
+		ReturnLng:  req.ReturnLocationLng,
+		Passengers: req.Passengers,
+		Luggage:    req.Luggage,
+		Protocol:   req.Protocol,
+	})
+	if err != nil {
+		slog.Error("estimate: price trip", "error", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "unable to price this trip"})
 		return
 	}
-
-	// Validate airport was actually found
-	if airport.Lat == 0 && airport.Lng == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid airport ID"})
-		return
-	}
-
-	// Calculate distance based on trip type
-	// Calculate distance based on trip type (real driving distance, cached)
-	var distanceKm float64
-
-	switch req.TripType {
-	case "pickup":
-		km, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, req.MainLocationLat, req.MainLocationLng)
-		if err != nil {
-			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
-			return
-		}
-		distanceKm = km
-
-	case "dropoff":
-		km, err := services.DrivingDistanceKm(req.MainLocationLat, req.MainLocationLng, airport.Lat, airport.Lng)
-		if err != nil {
-			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
-			return
-		}
-		distanceKm = km
-
-	case "both":
-		leg1, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, req.MainLocationLat, req.MainLocationLng)
-		if err != nil {
-			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
-			return
-		}
-		returnLat := req.MainLocationLat
-		returnLng := req.MainLocationLng
-		if req.ReturnLocationLat != 0 && req.ReturnLocationLng != 0 {
-			returnLat = req.ReturnLocationLat
-			returnLng = req.ReturnLocationLng
-		}
-		leg2, err := services.DrivingDistanceKm(returnLat, returnLng, airport.Lat, airport.Lng)
-		if err != nil {
-			c.JSON(http.StatusBadGateway, gin.H{"error": "could not calculate route distance"})
-			return
-		}
-		distanceKm = leg1 + leg2
-	}
-
-	// Calculate extras
-	// Round distance to 1 decimal place
-	distanceKm = math.Round(distanceKm*10) / 10
-
-	// Calculate extras
-	extrasTotal := 0.0
-
-	// Platform fee (mandatory)
-	const platformFee = 28.0
-	extrasTotal += platformFee
-
-	// Protocol fee: GHS 500 per person if selected
-	if req.Protocol {
-		extrasTotal += float64(req.Passengers) * 500
-	}
-
-	// Base fare
-	baseFare := fareConfig.BaseFare + (distanceKm * fareConfig.PricePerKm)
-	if baseFare < fareConfig.MinimumFare {
-		baseFare = fareConfig.MinimumFare
-	}
-
-	// Round base fare to 2 decimal places
-	baseFare = math.Round(baseFare*100) / 100
-
-	fareTotal := baseFare + extrasTotal
-
-	// Round final fare to 2 decimal places
-	// fareTotal = math.Round(fareTotal*100) / 100
-
-	// Round to whole number
-	fareTotal = math.Round(fareTotal)
+	fareTotal := fare.Total
+	distanceKm := fare.DistanceKm
+	extrasTotal := fare.ExtrasTotal
+	platformFee := fare.PlatformFee
 
 	// Find available driver
 	var driver DriverPreview
@@ -225,6 +144,7 @@ func CreateEstimate(c *gin.Context) {
 		LIMIT 1
 	`, req.TierID, scheduledTime.Add(-2*time.Hour), scheduledTime.Add(2*time.Hour)).Scan(&driver).Error
 
+	if driver.ID == "" { err = errors.New("no driver") }
 	var availableCount int
 	config.DB.Raw(`
 		SELECT COUNT(*) FROM drivers d
@@ -243,6 +163,7 @@ func CreateEstimate(c *gin.Context) {
 			ProcessingFee:    platformFee,
 			Driver:           nil,
 			AvailableDrivers: 0,
+			Breakdown:        fare.Breakdown,
 		})
 		return
 	}
@@ -255,6 +176,7 @@ func CreateEstimate(c *gin.Context) {
 		Driver:           &driver,
 		AvailableDrivers: availableCount,
 		ProcessingFee:    platformFee,
+		Breakdown:        fare.Breakdown,
 	})
 }
 
@@ -463,12 +385,14 @@ func CreateBooking(c *gin.Context) {
 
 	fare, err := computeFare(fareInput{
 		AirportID:  req.AirportID,
+		TierID:     req.TierID,
 		TripType:   req.TripType,
 		MainLat:    req.MainLocationLat,
 		MainLng:    req.MainLocationLng,
 		ReturnLat:  req.ReturnLocationLat,
 		ReturnLng:  req.ReturnLocationLng,
 		Passengers: req.Passengers,
+		Luggage:    req.Luggage,
 		Protocol:   req.Protocol,
 	})
 	if err != nil {
@@ -1237,6 +1161,7 @@ type CreateRentalRequest struct {
 	DeliveryAddress  string  `json:"deliveryAddress"`                                        // Required if delivery
 	PaymentMethod    string  `json:"paymentMethod" binding:"required,oneof=paystack stripe"` // paystack, stripe
 	FareTotal        float64 `json:"fareTotal" binding:"required"`                           // From frontend
+	Kyc              *KYCInput `json:"kyc"` // required; checked by toModel for a clear error
 }
 
 func CreateRental(c *gin.Context) {
@@ -1263,6 +1188,12 @@ func CreateRental(c *gin.Context) {
 	returnTime, err := time.Parse(time.RFC3339, req.ReturnDate)
 	if err != nil || returnTime.Before(pickupTime.Add(24*time.Hour)) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "returnDate must be at least 24 hours after pickupDate"})
+		return
+	}
+
+	kyc, err := req.Kyc.toModel(pickupTime)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -1315,7 +1246,8 @@ func CreateRental(c *gin.Context) {
 		DropoffAddress:    "Axis Hub", // return to hub
 	}
 
-	if err := config.DB.Create(&booking).Error; err != nil {
+	if err := createRentalWithKYC(&booking, kyc); err != nil {
+		slog.Error("create rental", "ref", reference, "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create rental booking"})
 		return
 	}
@@ -1334,7 +1266,7 @@ func CreateRental(c *gin.Context) {
 		},
 	)
 	if err != nil {
-		config.DB.Delete(&booking)
+		deleteRentalWithKYC(&booking)
 		slog.Error("payment intent failed", "ref", reference, "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate payment link"})
 		return
@@ -1527,6 +1459,10 @@ func bookingWithDriverDetails(booking models.BookingSchedule) gin.H {
 		"driver":                 getDriverDetails(booking.DriverID),
 	}
 
+	if kyc := rentalKYCSummary(&booking); kyc != nil {
+		bookingJSON["kyc"] = kyc
+	}
+
 	//log driver details
 	return bookingJSON
 }
@@ -1655,122 +1591,8 @@ func SendRoundTripBookingConfirmation(outbound, returnBooking *models.BookingSch
 	)
 }
 
-type fareInput struct {
-	AirportID            string
-	TripType             string
-	MainLat, MainLng     float64
-	ReturnLat, ReturnLng float64
-	Passengers           int
-	Protocol             bool
-}
 
-type fareResult struct {
-	Total       float64
-	BaseFare    float64
-	ExtrasTotal float64
-	PlatformFee float64
-	ProtocolFee float64
-	DistanceKm  float64
-}
 
-func computeFare(in fareInput) (fareResult, error) {
-	var airport struct{ Lat, Lng float64 }
-	if err := config.DB.Raw(`SELECT lat, lng FROM airports WHERE id = ? AND is_active = 1`, in.AirportID).Scan(&airport).Error; err != nil {
-		return fareResult{}, err
-	}
-	if airport.Lat == 0 && airport.Lng == 0 {
-		return fareResult{}, fmt.Errorf("invalid airport ID")
-	}
-
-	var cfg struct {
-		BaseFare    float64 `gorm:"column:base_fare"`
-		PricePerKm  float64 `gorm:"column:price_per_km"`
-		MinimumFare float64 `gorm:"column:minimum_fare"`
-	}
-	config.DB.Raw(`
-		SELECT
-			MAX(CASE WHEN config_key = 'base_fare' THEN CAST(config_value AS DECIMAL(10,2)) END) as base_fare,
-			MAX(CASE WHEN config_key = 'price_per_km' THEN CAST(config_value AS DECIMAL(10,2)) END) as price_per_km,
-			MAX(CASE WHEN config_key = 'minimum_fare' THEN CAST(config_value AS DECIMAL(10,2)) END) as minimum_fare
-		FROM app_config
-		WHERE config_key IN ('base_fare','price_per_km','minimum_fare')
-	`).Scan(&cfg)
-
-	if cfg.PricePerKm == 0 {
-		return fareResult{}, fmt.Errorf("fare config missing")
-	}
-
-	if math.Abs(in.MainLat) > 90 || math.Abs(in.MainLng) > 180 ||
-		math.Abs(in.ReturnLat) > 90 || math.Abs(in.ReturnLng) > 180 {
-		return fareResult{}, fmt.Errorf("invalid coordinates")
-	}
-
-	const maxLegKm = 800.0
-	var distanceKm float64
-	switch in.TripType {
-	case "pickup":
-		km, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
-		if err != nil {
-			return fareResult{}, fmt.Errorf("could not calculate route distance")
-		}
-		if km > maxLegKm {
-			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", km)
-		}
-		distanceKm = km
-	case "dropoff":
-		km, err := services.DrivingDistanceKm(in.MainLat, in.MainLng, airport.Lat, airport.Lng)
-		if err != nil {
-			return fareResult{}, fmt.Errorf("could not calculate route distance")
-		}
-		if km > maxLegKm {
-			return fareResult{}, fmt.Errorf("distance %.1fkm exceeds service area", km)
-		}
-		distanceKm = km
-	case "both":
-		leg1, err := services.DrivingDistanceKm(airport.Lat, airport.Lng, in.MainLat, in.MainLng)
-		if err != nil {
-			return fareResult{}, fmt.Errorf("could not calculate route distance")
-		}
-		rLat, rLng := in.MainLat, in.MainLng
-		if in.ReturnLat != 0 && in.ReturnLng != 0 {
-			rLat, rLng = in.ReturnLat, in.ReturnLng
-		}
-		leg2, err := services.DrivingDistanceKm(rLat, rLng, airport.Lat, airport.Lng)
-		if err != nil {
-			return fareResult{}, fmt.Errorf("could not calculate route distance")
-		}
-		if leg1 > maxLegKm || leg2 > maxLegKm {
-			return fareResult{}, fmt.Errorf("distance exceeds service area")
-		}
-		distanceKm = leg1 + leg2
-	default:
-		return fareResult{}, fmt.Errorf("invalid trip type")
-	}
-
-	distanceKm = math.Round(distanceKm*10) / 10
-
-	const platformFee = 28.0
-	protocolFee := 0.0
-	if in.Protocol {
-		protocolFee = float64(in.Passengers) * 500
-	}
-	extras := platformFee + protocolFee
-
-	base := cfg.BaseFare + (distanceKm * cfg.PricePerKm)
-	if base < cfg.MinimumFare {
-		base = cfg.MinimumFare
-	}
-	base = math.Round(base*100) / 100
-
-	return fareResult{
-		Total:       math.Round(base + extras), // must match estimate rounding
-		BaseFare:    base,
-		ExtrasTotal: extras,
-		PlatformFee: platformFee,
-		ProtocolFee: protocolFee,
-		DistanceKm:  distanceKm,
-	}, nil
-}
 
 func computeRentalFare(carID, collectionMethod string, pickup, ret time.Time) (float64, int, error) {
 	var car models.RentalCar

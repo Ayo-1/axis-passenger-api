@@ -93,6 +93,15 @@ func buildConfigFromDB() models.AppConfigResponse {
 		configMap[key] = value
 	}
 
+	// Pricing now lives in fare_rules; report the default rule here (legacy
+	// fields — the estimate endpoint is the source of truth for prices).
+	var def models.FareRule
+	if config.DB.Where("tier_id = ? AND is_active = 1", models.DefaultFareRuleTier).First(&def).Error == nil {
+		configMap["base_fare"] = fmt.Sprintf("%.2f", def.BaseFare)
+		configMap["price_per_km"] = fmt.Sprintf("%.2f", def.PerKm)
+		configMap["minimum_fare"] = fmt.Sprintf("%.2f", def.MinimumFare)
+	}
+
 	return models.AppConfigResponse{
 		Airports:             airports,
 		VehicleTiers:         tiers,

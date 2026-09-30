@@ -500,12 +500,14 @@ func BookForGuest(c *gin.Context) {
 
 	fare, err := computeFare(fareInput{
 		AirportID:  req.AirportID,
+		TierID:     req.TierID,
 		TripType:   req.TripType,
 		MainLat:    req.MainLocationLat,
 		MainLng:    req.MainLocationLng,
 		ReturnLat:  req.ReturnLocationLat,
 		ReturnLng:  req.ReturnLocationLng,
 		Passengers: req.Passengers,
+		Luggage:    req.Luggage,
 		Protocol:   req.Protocol,
 	})
 	if err != nil {
@@ -744,6 +746,7 @@ type CreatePartnerRentalRequest struct {
 	FareTotal        float64 `json:"fareTotal" binding:"required"`
 	RoomNumber       string  `json:"roomNumber"`
 	PaymentMode      string  `json:"paymentMode"` // "guest_link" (default), "hotel_pay" or "house_account"
+	Kyc              *KYCInput `json:"kyc"` // required; checked by toModel for a clear error
 }
 
 func BookRentalForGuest(c *gin.Context) {
@@ -787,6 +790,12 @@ func BookRentalForGuest(c *gin.Context) {
 	returnTime, err := time.Parse(time.RFC3339, req.ReturnDate)
 	if err != nil || returnTime.Before(pickupTime.Add(24*time.Hour)) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "returnDate must be at least 24 hours after pickupDate"})
+		return
+	}
+
+	kyc, err := req.Kyc.toModel(pickupTime)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -845,7 +854,8 @@ func BookRentalForGuest(c *gin.Context) {
 		booking.PaymentStatus = "unpaid"
 		booking.Status = "confirmed"
 
-		if err := config.DB.Create(&booking).Error; err != nil {
+		if err := createRentalWithKYC(&booking, kyc); err != nil {
+			slog.Error("create partner rental", "ref", reference, "error", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create rental booking"})
 			return
 		}
@@ -865,8 +875,9 @@ func BookRentalForGuest(c *gin.Context) {
 		return
 	}
 
-	// Create booking
-	if err := config.DB.Create(&booking).Error; err != nil {
+	// Create booking + KYC together
+	if err := createRentalWithKYC(&booking, kyc); err != nil {
+		slog.Error("create partner rental", "ref", reference, "error", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create rental booking"})
 		return
 	}
@@ -1372,9 +1383,27 @@ func ListHotelBookings(c *gin.Context) {
 		Order("created_at DESC").
 		Find(&bookings)
 
+	// Same JSON as the model, plus a kyc object on rentals.
+	type hotelBookingView struct {
+		models.BookingSchedule
+		Kyc gin.H `json:"kyc,omitempty"`
+	}
+	var rentalIDs []uint
+	for _, b := range bookings {
+		if b.ServiceType == "rental" {
+			rentalIDs = append(rentalIDs, b.ID)
+		}
+	}
+	kycByBooking := rentalKYCSummaries(rentalIDs)
+
+	views := make([]hotelBookingView, 0, len(bookings))
+	for _, b := range bookings {
+		views = append(views, hotelBookingView{BookingSchedule: b, Kyc: kycByBooking[b.ID]})
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status":   "success",
-		"bookings": bookings,
+		"bookings": views,
 	})
 }
 

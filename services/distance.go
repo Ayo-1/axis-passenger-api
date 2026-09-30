@@ -6,9 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"math"
 	"net/http"
 	"os"
+	"regexp"
+	"strconv"
 	"time"
 
 	"goapi/config"
@@ -18,6 +21,8 @@ type RouteInfo struct {
 	DistanceKm   float64 `json:"distance_km"`
 	DistanceText string  `json:"distance_text"`
 	DurationText string  `json:"duration_text"`
+	DurationSec  int     `json:"duration_sec"`
+	Estimated    bool    `json:"estimated,omitempty"` // straight-line fallback, not a real route
 }
 
 type distanceMatrixResponse struct {
@@ -29,7 +34,8 @@ type distanceMatrixResponse struct {
 				Text  string `json:"text"`
 			} `json:"distance"`
 			Duration struct {
-				Text string `json:"text"`
+				Value int    `json:"value"`
+				Text  string `json:"text"`
 			} `json:"duration"`
 		} `json:"elements"`
 	} `json:"rows"`
@@ -55,6 +61,9 @@ func GetRouteInfo(lat1, lng1, lat2, lng2 float64) (RouteInfo, error) {
 		if cached, err := config.RedisClient.Get(ctx, key).Result(); err == nil {
 			var info RouteInfo
 			if json.Unmarshal([]byte(cached), &info) == nil {
+				if info.DurationSec == 0 { // cached before durations were stored
+					info.DurationSec = parseDurationText(info.DurationText)
+				}
 				return info, nil
 			}
 		}
@@ -63,9 +72,17 @@ func GetRouteInfo(lat1, lng1, lat2, lng2 float64) (RouteInfo, error) {
 	info, err := fetchGoogleRouteInfo(lat1, lng1, lat2, lng2)
 	if err != nil {
 		// Google unavailable — pad straight-line distance for road detour rather
-		// than failing the request outright.
+		// than failing the request outright. Not cached, so the next request
+		// retries Google.
 		km := haversineKm(lat1, lng1, lat2, lng2) * 1.4
-		return RouteInfo{DistanceKm: km, DistanceText: fmt.Sprintf("%.1f km", km)}, nil
+		slog.Warn("route distance: Google unavailable, using straight-line estimate",
+			"error", err, "from", fmt.Sprintf("%.5f,%.5f", lat1, lng1), "to", fmt.Sprintf("%.5f,%.5f", lat2, lng2), "km", km)
+		return RouteInfo{
+			DistanceKm:   km,
+			DistanceText: fmt.Sprintf("%.1f km", km),
+			DurationSec:  int(km / fallbackSpeedKmh * 3600),
+			Estimated:    true,
+		}, nil
 	}
 
 	if config.RedisClient != nil {
@@ -123,7 +140,30 @@ func fetchGoogleRouteInfo(lat1, lng1, lat2, lng2 float64) (RouteInfo, error) {
 		DistanceKm:   float64(el.Distance.Value) / 1000.0,
 		DistanceText: el.Distance.Text,
 		DurationText: el.Duration.Text,
+		DurationSec:  el.Duration.Value,
 	}, nil
+}
+
+// Average city speed assumed when Google is unavailable.
+const fallbackSpeedKmh = 30.0
+
+var durationPart = regexp.MustCompile(`(\d+)\s*(day|hour|hr|min)`)
+
+// parseDurationText turns Google's "1 hour 5 mins" into seconds.
+func parseDurationText(text string) int {
+	secs := 0
+	for _, m := range durationPart.FindAllStringSubmatch(text, -1) {
+		n, _ := strconv.Atoi(m[1])
+		switch m[2] {
+		case "day":
+			secs += n * 86400
+		case "hour", "hr":
+			secs += n * 3600
+		case "min":
+			secs += n * 60
+		}
+	}
+	return secs
 }
 
 func haversineKm(lat1, lng1, lat2, lng2 float64) float64 {
