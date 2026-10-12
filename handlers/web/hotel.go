@@ -78,6 +78,11 @@ func ApplyHotel(c *gin.Context) {
 		Status:                "pending",
 	}
 
+	if req.AcceptTerms {
+		v, by, ip, now := currentTermsVersion(), "application", c.ClientIP(), time.Now()
+		hotel.TermsVersion, hotel.TermsAcceptedBy, hotel.TermsAcceptedIP, hotel.TermsAcceptedAt = &v, &by, &ip, &now
+	}
+
 	if err := config.DB.Create(&hotel).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to submit application"})
 		return
@@ -1258,7 +1263,7 @@ func calculateCommission(bookingID uint) {
 	var booking models.BookingSchedule
 	config.DB.Where("id = ?", bookingID).First(&booking)
 
-	if booking.Channel != "partner" || booking.HotelID == nil {
+	if (booking.Channel != "partner" && booking.Channel != "affiliate") || booking.HotelID == nil {
 		return
 	}
 
@@ -1398,7 +1403,13 @@ func ListHotelBookings(c *gin.Context) {
 
 	views := make([]hotelBookingView, 0, len(bookings))
 	for _, b := range bookings {
-		views = append(views, hotelBookingView{BookingSchedule: b, Kyc: kycByBooking[b.ID]})
+		kyc := kycByBooking[b.ID]
+		if b.Channel == "affiliate" {
+			// Customers booked these themselves; the hotel sees the trip, not their contact details.
+			b.GuestPhone, b.GuestEmail = "", ""
+			kyc = nil
+		}
+		views = append(views, hotelBookingView{BookingSchedule: b, Kyc: kyc})
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -1549,7 +1560,9 @@ func HotelMe(c *gin.Context) {
 			"payoutBankName":    hotel.PayoutBankName,
 			"payoutNetwork":     hotel.PayoutNetwork,
 			"hasPassword":       member.PasswordHash != "",
+			"referralCode":      hotel.ReferralCode,
 		},
+		"terms": termsStatus(hotel),
 	})
 }
 
@@ -1570,7 +1583,9 @@ func UpdatePartnerBookingStatus(c *gin.Context) {
 	}
 
 	var booking models.BookingSchedule
-	if err := config.DB.Where("id = ? AND hotel_id = ?", req.BookingID, hotelID).First(&booking).Error; err != nil {
+	// Only bookings the hotel made itself; affiliate bookings belong to the
+	// customer and their commission is released when the driver completes them.
+	if err := config.DB.Where("id = ? AND hotel_id = ? AND channel = 'partner'", req.BookingID, hotelID).First(&booking).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "booking not found"})
 		return
 	}

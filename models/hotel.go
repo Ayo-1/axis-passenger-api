@@ -10,6 +10,7 @@ type HotelApplication struct {
 	WorkEmail          string `json:"workEmail" binding:"required,email"`
 	RoomsTransfers     string `json:"roomsTransfers"`
 	PreferredModel     string `json:"preferredModel" binding:"required,oneof=guest house"`
+	AcceptTerms        bool   `json:"acceptTerms"` // optional; can also be accepted later from the dashboard
 }
 
 
@@ -31,6 +32,11 @@ type Hotel struct {
 	PayoutBankName    string `gorm:"size:120" json:"payoutBankName"`
 	PayoutNetwork     string `gorm:"size:32"  json:"payoutNetwork"`
 	Status                string  `json:"status"`
+	ReferralCode          *string    `gorm:"size:16" json:"referral_code"`
+	TermsVersion          *string    `gorm:"size:20" json:"terms_version"`
+	TermsAcceptedAt       *time.Time `json:"terms_accepted_at"`
+	TermsAcceptedBy       *string    `gorm:"size:36" json:"terms_accepted_by"` // hotel_members.id, or "application"
+	TermsAcceptedIP       *string    `gorm:"size:45" json:"-"`
 	CreatedAt             time.Time `json:"created_at"`
 	UpdatedAt             time.Time `json:"updated_at"`
 }

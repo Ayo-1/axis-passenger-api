@@ -265,6 +265,7 @@ type CreateBookingRequest struct {
 	FareTotal           float64 `json:"fareTotal" binding:"required"`
 	Notes               string  `json:"notes"`
 	HotelID             string  `json:"hotelId"`
+	ReferralCode        string  `json:"referralCode"` // hotel affiliate link (?ref=CODE)
 	PaymentMode         string  `json:"paymentMode"`
 	CollectionMethod    string  `json:"collectionMethod"`
 	DeliveryAddress     string  `json:"deliveryAddress"`
@@ -286,6 +287,12 @@ func CreateBooking(c *gin.Context) {
 
 	req.Channel = "direct"
 	req.HotelID = ""
+
+	// Booked through a hotel's affiliate link: the customer pays, the hotel earns commission.
+	affiliateHotelID := resolveReferral(req.ReferralCode)
+	if affiliateHotelID != nil {
+		req.Channel = "affiliate"
+	}
 
 	// Cap pending bookings per email to limit abuse
 	var recentPending int64
@@ -476,6 +483,7 @@ func CreateBooking(c *gin.Context) {
 			DriverID:       req.DriverID,
 			ServiceType:    req.ServiceType,
 			Channel:        req.Channel,
+			HotelID:        affiliateHotelID,
 			GuestName:      req.GuestName,
 			GuestPhone:     req.GuestPhone,
 			GuestEmail:     req.GuestEmail,
@@ -515,6 +523,7 @@ func CreateBooking(c *gin.Context) {
 			DriverID:       req.DriverID,
 			ServiceType:    req.ServiceType,
 			Channel:        req.Channel,
+			HotelID:        affiliateHotelID,
 			GuestName:      req.GuestName,
 			GuestPhone:     req.GuestPhone,
 			GuestEmail:     req.GuestEmail,
@@ -597,6 +606,7 @@ func CreateBooking(c *gin.Context) {
 			DriverID:       req.DriverID,
 			ServiceType:    req.ServiceType,
 			Channel:        req.Channel,
+			HotelID:        affiliateHotelID,
 			GuestName:      req.GuestName,
 			GuestPhone:     req.GuestPhone,
 			GuestEmail:     req.GuestEmail,
@@ -1162,6 +1172,7 @@ type CreateRentalRequest struct {
 	PaymentMethod    string  `json:"paymentMethod" binding:"required,oneof=paystack stripe"` // paystack, stripe
 	FareTotal        float64 `json:"fareTotal" binding:"required"`                           // From frontend
 	Kyc              *KYCInput `json:"kyc"` // required; checked by toModel for a clear error
+	ReferralCode     string    `json:"referralCode"` // hotel affiliate link (?ref=CODE)
 }
 
 func CreateRental(c *gin.Context) {
@@ -1224,10 +1235,17 @@ func CreateRental(c *gin.Context) {
 		pickupAddress = req.DeliveryAddress
 	}
 
+	channel := "direct"
+	affiliateHotelID := resolveReferral(req.ReferralCode)
+	if affiliateHotelID != nil {
+		channel = "affiliate"
+	}
+
 	booking := models.BookingSchedule{
 		SessionID:         reference,
+		HotelID:           affiliateHotelID,
 		ServiceType:       "rental",
-		Channel:           "direct",
+		Channel:           channel,
 		GuestName:         req.GuestName,
 		GuestPhone:        req.GuestPhone,
 		GuestEmail:        req.GuestEmail,
@@ -1772,6 +1790,10 @@ func confirmPayment(intent models.PaymentIntent, provider string) error {
 			return err
 		}
 
+		if outB.Channel == "affiliate" {
+			go calculateCommission(outB.ID)
+			go calculateCommission(rtnB.ID)
+		}
 		go handlers.NotifyDriver(outB)
 		go handlers.NotifyDriver(rtnB)
 		go SendRoundTripBookingConfirmation(&outB, &rtnB, emailService)
@@ -1836,7 +1858,7 @@ func confirmPayment(intent models.PaymentIntent, provider string) error {
 		return err
 	}
 
-	if b.Channel == "partner" {
+	if b.Channel == "partner" || b.Channel == "affiliate" {
 		go calculateCommission(b.ID)
 	}
 	go handlers.NotifyDriver(b)

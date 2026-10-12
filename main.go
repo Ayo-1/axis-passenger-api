@@ -139,6 +139,7 @@ func main() {
 		webRoutes.POST("/bookings/receipt/link", web.CreateReceiptLink)
 		webRoutes.POST("/bookings/receipt/token", web.GetReceiptByToken)
 		webRoutes.GET("/pay/details", web.GetGuestPaymentDetails)
+		webRoutes.GET("/ref/:code", web.GetReferral)
 		webRoutes.POST("/pay/create-link", web.CreateGuestPaymentLink)
 
 		webRoutes.POST("/rentals", web.CreateRental)
@@ -185,6 +186,8 @@ func main() {
 		protectedHotel.POST("/withdraw", web.RequestPayout)
 		protectedHotel.POST("/bookings/status", web.UpdatePartnerBookingStatus)
 		protectedHotel.POST("/bookings/pay", web.PayForGuestBooking)
+		protectedHotel.GET("/affiliate", web.HotelAffiliate)
+		protectedHotel.POST("/terms/accept", web.AcceptHotelTerms)
 		protectedHotel.POST("/rentals", web.BookRentalForGuest)
 
 	}

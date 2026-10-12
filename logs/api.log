@@ -3289,3 +3289,13 @@
 2026/09/30 12:12:40 reconcile.go:13: INFO payment reconciler started
 2026/09/30 12:12:40 main.go:45: INFO booking cleanup worker started
 2026/09/30 12:12:40 main.go:197: Go API running on :8081
+2026/10/12 15:27:50 logger.go:21: === API Started ===
+2026/10/12 15:27:50 db.go:32: Database connected
+2026/10/12 15:27:50 db.go:42: Migration done
+2026/10/12 15:27:50 redis.go:23: Connected to Redis
+2026/10/12 15:27:50 notification.go:42: ✅ FCM initialized
+2026/10/12 15:27:50 admin_notifier.go:37: ✅ Admin SMS service initialized
+2026/10/12 15:27:50 reconcile.go:13: INFO payment reconciler started
+2026/10/12 15:27:50 main.go:45: INFO booking cleanup worker started
+2026/10/12 15:27:50 google.go:46: Firebase initialized successfully
+2026/10/12 15:27:50 main.go:200: Go API running on :8081
