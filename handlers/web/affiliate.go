@@ -19,7 +19,7 @@ import (
 //
 // Each hotel gets a referral code. Customers who book from the public site
 // through the hotel's link (…/?ref=CODE, passed to the API as referralCode)
-// pay for themselves; the booking is stored with the hotel's hotel_id and
+// pay for themselves:; the booking is stored with the hotel's hotel_id and
 // channel "affiliate" , and earns the hotel its usual commission once paid.
 
 const referralAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // no 0/O, 1/I
