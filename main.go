@@ -86,7 +86,7 @@ func main() {
 	// CORS middleware (for your frontend)
 	r.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		c.Header("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS")
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
@@ -134,6 +134,7 @@ func main() {
 		webRoutes.POST("/bookings", web.CreateBooking)
 		webRoutes.POST("/bookings/lookup", web.LookupBooking)
 		webRoutes.PATCH("/bookings/update", web.UpdateBooking)
+		webRoutes.POST("/bookings/update", web.UpdateBooking) // the website sends POST
 		webRoutes.POST("/bookings/cancel", web.CancelBooking)
 		webRoutes.POST("/bookings/receipt", web.GetBookingReceipt)
 		webRoutes.POST("/bookings/receipt/link", web.CreateReceiptLink)
